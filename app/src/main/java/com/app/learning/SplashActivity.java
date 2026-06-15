@@ -17,6 +17,7 @@ import androidx.core.splashscreen.SplashScreen;
 import com.app.learning.ui.auth.LoginActivity;
 import com.app.learning.ui.home.HomeActivity;
 import com.app.learning.utils.AppConstants;
+import com.example.vietsyncmobile.R;
 
 /**
  * SplashActivity represents the starting landing screen of the application.
