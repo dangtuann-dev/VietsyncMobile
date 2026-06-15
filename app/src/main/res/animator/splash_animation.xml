@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+    android:ordering="together">
+    
+    <!-- Scale X from 0.4 to 1.0 -->
+    <objectAnimator
+        android:propertyName="scaleX"
+        android:valueFrom="0.4"
+        android:valueTo="1.0"
+        android:duration="1200"
+        android:valueType="floatType"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <!-- Scale Y from 0.4 to 1.0 -->
+    <objectAnimator
+        android:propertyName="scaleY"
+        android:valueFrom="0.4"
+        android:valueTo="1.0"
+        android:duration="1200"
+        android:valueType="floatType"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+
+    <!-- Fade In Alpha from 0.0 to 1.0 -->
+    <objectAnimator
+        android:propertyName="alpha"
+        android:valueFrom="0.0"
+        android:valueTo="1.0"
+        android:duration="1200"
+        android:valueType="floatType"
+        android:interpolator="@android:anim/decelerate_interpolator" />
+        
+</set>

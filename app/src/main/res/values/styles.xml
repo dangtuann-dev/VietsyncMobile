@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- =====================================================================
+         Text Appearances (Material Design 3 compatible)
+         ===================================================================== -->
+
+    <!-- Heading Style -->
+    <style name="TextAppearance.Learning.Heading" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textSize">@dimen/text_size_headline</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondary</item>
+    </style>
+
+    <!-- Subheading Style -->
+    <style name="TextAppearance.Learning.SubHeading" parent="TextAppearance.Material3.TitleMedium">
+        <item name="android:textSize">@dimen/text_size_heading</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondary</item>
+    </style>
+
+    <!-- Body Style -->
+    <style name="TextAppearance.Learning.Body" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textSize">@dimen/text_size_body</item>
+        <item name="android:textColor">@color/on_background</item>
+    </style>
+
+    <!-- Caption Style -->
+    <style name="TextAppearance.Learning.Caption" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">@dimen/text_size_caption</item>
+        <item name="android:textColor">@color/outline</item>
+    </style>
+
+    <!-- =====================================================================
+         Widget Customizations (CardView)
+         ===================================================================== -->
+
+    <!-- Elevated CardView Style -->
+    <style name="Widget.Learning.CardView" parent="Widget.Material3.CardView.Elevated">
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardBackgroundColor">@color/background</item>
+        <item name="contentPadding">@dimen/margin_medium</item>
+    </style>
+
+    <!-- Outlined CardView Style -->
+    <style name="Widget.Learning.CardView.Outlined" parent="Widget.Material3.CardView.Outlined">
+        <item name="cardCornerRadius">@dimen/card_radius</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeColor">@color/surface_variant</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="cardBackgroundColor">@color/background</item>
+        <item name="contentPadding">@dimen/margin_medium</item>
+    </style>
+
+</resources>

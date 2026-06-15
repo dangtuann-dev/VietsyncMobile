@@ -1,0 +1,80 @@
+<resources>
+    <!-- General App Configuration -->
+    <string name="app_name">Vietsync Learning</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Hủy</string>
+    <string name="action_retry">Thử lại</string>
+    <string name="state_loading">Đang tải...</string>
+    <string name="state_saving">Đang lưu...</string>
+
+    <!-- Authentication Screens -->
+    <string name="auth_title_login">Đăng Nhập</string>
+    <string name="auth_title_register">Đăng Ký</string>
+    <string name="auth_hint_email">Địa chỉ Email</string>
+    <string name="auth_hint_password">Mật khẩu</string>
+    <string name="auth_hint_confirm_password">Xác nhận mật khẩu</string>
+    <string name="auth_hint_name">Họ và tên</string>
+    <string name="auth_btn_login">Đăng nhập</string>
+    <string name="auth_btn_register">Đăng ký tài khoản</string>
+    <string name="auth_btn_forgot_password">Quên mật khẩu?</string>
+    <string name="auth_text_no_account">Chưa có tài khoản? Đăng ký ngay</string>
+    <string name="auth_text_has_account">Đã có tài khoản? Đăng nhập</string>
+    <string name="auth_err_invalid_email">Email không hợp lệ</string>
+    <string name="auth_err_short_password">Mật khẩu phải từ 6 ký tự trở lên</string>
+    <string name="auth_err_password_mismatch">Mật khẩu xác nhận không khớp</string>
+    <string name="auth_err_empty_name">Vui lòng nhập họ tên</string>
+    <string name="auth_success_register">Đăng ký tài khoản thành công!</string>
+
+    <!-- Home/Dashboard Screens -->
+    <string name="home_greeting">Chào bạn,</string>
+    <string name="home_search_hint">Tìm khóa học, bài học...</string>
+    <string name="home_section_categories">Danh Mục Nổi Bật</string>
+    <string name="home_section_popular">Khóa Học Phổ Biến</string>
+    <string name="home_section_enrolled">Khóa Học Của Tôi</string>
+    <string name="home_tab_home">Trang chủ</string>
+    <string name="home_tab_my_courses">Khóa học</string>
+    <string name="home_tab_profile">Hồ sơ</string>
+
+    <!-- Course & Lesson Details -->
+    <string name="course_instructor">Giảng viên: %1$s</string>
+    <string name="course_duration">%1$d giờ</string>
+    <string name="course_lessons">%1$d bài học</string>
+    <string name="course_rating">%1$.1f / 5.0</string>
+    <string name="course_price_free">Miễn phí</string>
+    <string name="course_level_beginner">Cơ bản</string>
+    <string name="course_level_intermediate">Trung cấp</string>
+    <string name="course_level_advanced">Nâng cao</string>
+    <string name="course_btn_enroll">Đăng ký học</string>
+    <string name="course_btn_start">Bắt đầu học</string>
+    <string name="course_tab_about">Giới thiệu</string>
+    <string name="course_tab_syllabus">Bài học</string>
+    <string name="course_enrolled_count">%1$s học viên đã đăng ký</string>
+
+    <!-- Learning Workspace -->
+    <string name="learn_progress">Tiến độ: %1$d%%</string>
+    <string name="learn_btn_next">Bài tiếp theo</string>
+    <string name="learn_btn_prev">Bài trước đó</string>
+    <string name="learn_btn_mark_complete">Hoàn thành bài học</string>
+    <string name="learn_quiz_title">Bài tập trắc nghiệm</string>
+    <string name="learn_quiz_btn_submit">Nộp bài</string>
+    <string name="learn_quiz_correct">Chính xác!</string>
+    <string name="learn_quiz_incorrect">Chưa đúng. Thử lại nhé!</string>
+    <string name="learn_quiz_explanation">Giải thích:</string>
+    
+    <!-- Certificates & Profile -->
+    <string name="profile_edit">Chỉnh sửa thông tin</string>
+    <string name="profile_logout">Đăng xuất</string>
+    <string name="profile_certificate_title">Chứng Chỉ Của Tôi</string>
+    <string name="profile_certificate_btn_view">Xem chứng chỉ</string>
+    <string name="profile_certificate_congrats">Chúc mừng bạn đã hoàn thành khóa học!</string>
+    <string name="profile_role_student">Học viên</string>
+    <string name="profile_role_instructor">Giảng viên</string>
+    <string name="profile_role_admin">Quản trị viên</string>
+
+    <!-- Error Codes & Network Alerts -->
+    <string name="error_network">Không có kết nối Internet. Vui lòng kiểm tra lại.</string>
+    <string name="error_timeout">Kết nối mạng quá hạn. Vui lòng thử lại.</string>
+    <string name="error_server">Lỗi kết nối máy chủ. Chúng tôi đang xử lý.</string>
+    <string name="error_unauthorized">Hết phiên làm việc. Vui lòng đăng nhập lại.</string>
+    <string name="error_unknown">Đã xảy ra lỗi hệ thống không xác định.</string>
+</resources>

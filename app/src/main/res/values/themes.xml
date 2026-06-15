@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- =====================================================================
+         Theme.Learning (Material Design 3 Light Theme)
+         ===================================================================== -->
+    <style name="Theme.Learning" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your theme here -->
+        
+        <!-- Primary Brand Palette -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryDark">@color/primary_dark</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        <item name="colorPrimaryContainer">@color/primary_light</item>
+
+        <!-- Secondary Brand Palette -->
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        <item name="colorSecondaryContainer">@color/secondary_light</item>
+
+        <!-- Canvas Backgrounds -->
+        <item name="android:windowBackground">@color/background</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/on_surface</item>
+        <item name="colorSurfaceVariant">@color/surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/on_surface_variant</item>
+
+        <!-- Accent/Status Colors -->
+        <item name="colorError">@color/error</item>
+        <item name="colorOnError">@color/on_error</item>
+        <item name="colorOutline">@color/outline</item>
+
+        <!-- Widget Style Overrides -->
+        <item name="materialButtonStyle">@style/Widget.Learning.Button</item>
+        <item name="toolbarStyle">@style/Widget.Learning.Toolbar</item>
+    </style>
+
+    <!-- Legacy compatibility / entry point theme mapping -->
+    <style name="Theme.VietsyncMobile" parent="Theme.Learning" />
+
+    <!-- Theme for Splash Screen API (Android 12+) -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/primary</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo_placeholder</item>
+        <item name="postSplashScreenTheme">@style/Theme.Learning</item>
+    </style>
+
+    <!-- =====================================================================
+         Custom Component Style Definitions
+         ===================================================================== -->
+
+    <!-- Custom AppBarLayout style -->
+    <style name="Widget.Learning.AppBarLayout" parent="Widget.Material3.AppBarLayout">
+        <item name="android:background">@color/background</item>
+        <item name="elevation">0dp</item>
+    </style>
+
+    <!-- Custom Toolbar style -->
+    <style name="Widget.Learning.Toolbar" parent="Widget.Material3.Toolbar">
+        <item name="titleTextColor">@color/secondary</item>
+        <item name="subtitleTextColor">@color/outline</item>
+        <item name="navigationIconTint">@color/secondary</item>
+    </style>
+
+    <!-- Custom Button style with rounded corners -->
+    <style name="Widget.Learning.Button" parent="Widget.Material3.Button">
+        <item name="android:minHeight">@dimen/button_height</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Learning.Button</item>
+        <item name="backgroundTint">@color/primary</item>
+        <item name="android:textColor">@color/on_primary</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+    </style>
+
+    <!-- Button Shape Appearance -->
+    <style name="ShapeAppearance.Learning.Button" parent="ShapeAppearance.Material3.MediumComponent">
+        <item name="cornerSize">@dimen/button_radius</item>
+    </style>
+
+</resources>
