@@ -45,7 +45,9 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-    @Override
+
+
+        @Override
     protected void initViews() {
         // Initialize view references
         tilEmail = findViewById(R.id.til_email);
@@ -63,7 +65,7 @@ public class LoginActivity extends BaseActivity {
         // Connect click listeners
         btnLogin.setOnClickListener(v -> attemptLogin());
         tvForgotPassword.setOnClickListener(v -> showToast("Chức năng khôi phục mật khẩu đang được phát triển"));
-        tvRegister.setOnClickListener(v -> showToast("Chuyển đến trang Đăng ký tài khoản"));
+        tvRegister.setOnClickListener(v -> navigateToRegister());
 
         // Setup real-time error clearing and custom micro-animations
         setupTextWatchers();
@@ -196,6 +198,14 @@ public class LoginActivity extends BaseActivity {
         startActivity(intent);
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    // Navigate to Register screen with slide animation
+    private void navigateToRegister() {
+        Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
     }
 }
 
