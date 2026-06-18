@@ -3,6 +3,7 @@ package com.app.learning.data.api;
 import android.content.Context;
 
 import com.app.learning.utils.AppConstants;
+import com.example.vietsyncmobile.BuildConfig;
 
 import java.util.concurrent.TimeUnit;
 
@@ -35,9 +36,17 @@ public class ApiClient {
                 .addInterceptor(loggingInterceptor)
                 .build();
 
+        // Format Supabase URL base to ensure trailing slash
+        String baseUrl = BuildConfig.SUPABASE_URL;
+        if (baseUrl == null || baseUrl.trim().isEmpty()) {
+            baseUrl = AppConstants.API_BASE_URL; // Fallback
+        } else if (!baseUrl.endsWith("/")) {
+            baseUrl = baseUrl + "/";
+        }
+
         // Build Retrofit
         retrofit = new Retrofit.Builder()
-                .baseUrl(AppConstants.API_BASE_URL)
+                .baseUrl(baseUrl)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();

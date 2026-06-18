@@ -3,6 +3,21 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+import java.util.Properties
+import java.io.FileInputStream
+
+// Load Supabase credentials from local.properties
+val localProperties = Properties()
+val localPropertiesFile = rootProject.file("local.properties")
+if (localPropertiesFile.exists()) {
+    val inputStream = FileInputStream(localPropertiesFile)
+    localProperties.load(inputStream)
+    inputStream.close()
+}
+val supabaseUrlProp = localProperties.getProperty("supabase.url") ?: "https://your-project.supabase.co"
+val supabaseAnonKeyProp = localProperties.getProperty("supabase.anon.key") ?: "your-anon-public-key"
+
+
 android {
     namespace = "com.example.vietsyncmobile"
     compileSdk = 37
@@ -15,6 +30,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        // Generate BuildConfig fields for Supabase credentials
+        buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrlProp\"")
+        buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKeyProp\"")
     }
 
     buildTypes {
@@ -30,6 +49,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -57,6 +77,10 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.gson)
+
+    // Supabase Android SDK (Kotlin Multiplatform/Android)
+    implementation(libs.supabase.postgrest)
+    implementation(libs.supabase.gotrue)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
