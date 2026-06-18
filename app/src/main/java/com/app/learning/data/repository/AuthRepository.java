@@ -225,4 +225,77 @@ public class AuthRepository extends BaseRepository {
 
         return resultLiveData;
     }
+
+    /**
+     * Triggers Supabase password recovery email.
+     */
+    public LiveData<Resource<Void>> resetPassword(String email) {
+        MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
+        resultLiveData.setValue(Resource.loading());
+
+        Call<Void> call = authApi.recoverPassword(new AuthApi.RecoverRequest(email));
+        executors.networkIO().execute(() -> {
+            try {
+                retrofit2.Response<Void> response = call.execute();
+                if (response.isSuccessful()) {
+                    resultLiveData.postValue(Resource.success(null));
+                } else {
+                    resultLiveData.postValue(Resource.error(parseError(response)));
+                }
+            } catch (IOException e) {
+                resultLiveData.postValue(Resource.error(new ApiError(
+                        "503",
+                        "Không có kết nối mạng. Vui lòng thử lại.",
+                        e.getLocalizedMessage(),
+                        "Network IO Failure"
+                )));
+            } catch (Exception e) {
+                resultLiveData.postValue(Resource.error(new ApiError(
+                        "500",
+                        "Đã xảy ra lỗi hệ thống: " + e.getLocalizedMessage(),
+                        null,
+                        "Internal System Exception"
+                )));
+            }
+        });
+
+        return resultLiveData;
+    }
+
+    /**
+     * Updates the user's password using the access token extracted from the recovery link.
+     */
+    public LiveData<Resource<UserModel>> updatePassword(String token, String newPassword) {
+        MutableLiveData<Resource<UserModel>> resultLiveData = new MutableLiveData<>();
+        resultLiveData.setValue(Resource.loading());
+
+        Call<UserModel> call = authApi.updateUser("Bearer " + token, new AuthApi.UpdateUserRequest(newPassword));
+        executors.networkIO().execute(() -> {
+            try {
+                retrofit2.Response<UserModel> response = call.execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    UserModel user = response.body();
+                    resultLiveData.postValue(Resource.success(user));
+                } else {
+                    resultLiveData.postValue(Resource.error(parseError(response)));
+                }
+            } catch (IOException e) {
+                resultLiveData.postValue(Resource.error(new ApiError(
+                        "503",
+                        "Không có kết nối mạng. Vui lòng thử lại.",
+                        e.getLocalizedMessage(),
+                        "Network IO Failure"
+                )));
+            } catch (Exception e) {
+                resultLiveData.postValue(Resource.error(new ApiError(
+                        "500",
+                        "Đã xảy ra lỗi hệ thống: " + e.getLocalizedMessage(),
+                        null,
+                        "Internal System Exception"
+                )));
+            }
+        });
+
+        return resultLiveData;
+    }
 }

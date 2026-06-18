@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name="com.app.learning.LearningApplication"
         android:allowBackup="true"
@@ -34,6 +36,21 @@
             android:name="com.app.learning.ui.auth.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.auth.ForgotPasswordActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop">
+            <intent-filter android:label="Reset Password Link">
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:scheme="vietsync"
+                    android:host="reset-password" />
+            </intent-filter>
+        </activity>
 
         <!-- Home Portal -->
         <activity

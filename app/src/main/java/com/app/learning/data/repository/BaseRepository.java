@@ -78,7 +78,7 @@ public abstract class BaseRepository {
      * @return Deserialized ApiError model
      */
     @NonNull
-    private ApiError parseError(Response<?> response) {
+    protected ApiError parseError(Response<?> response) {
         if (response.errorBody() == null) {
             return new ApiError("Unknown error occurred");
         }

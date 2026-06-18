@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="24dp"
+    android:background="@drawable/bg_dialog_rounded"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <!-- Circle background with Email Icon -->
+    <FrameLayout
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_circle_primary_light"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_email_success"
+            app:tint="@color/primary"
+            android:contentDescription="Email Icon" />
+    </FrameLayout>
+
+    <!-- Dialog Title -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Kiểm tra hòm thư!"
+        android:textColor="@color/secondary"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Dialog Description -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:text="Một liên kết khôi phục mật khẩu đã được gửi đến email của bạn. Vui lòng kiểm tra hộp thư đến (hoặc thư rác) để tiếp tục."
+        android:textColor="@color/secondary_light"
+        android:textSize="14sp"
+        android:lineSpacingMultiplier="1.2" />
+
+    <!-- OK Button -->
+    <Button
+        android:id="@+id/btn_dialog_ok"
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="Tôi đã hiểu"
+        android:backgroundTint="@color/primary"
+        android:textColor="@color/on_primary"
+        android:textStyle="bold" />
+
+</LinearLayout>

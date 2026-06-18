@@ -64,7 +64,7 @@ public class LoginActivity extends BaseActivity {
 
         // Connect click listeners
         btnLogin.setOnClickListener(v -> attemptLogin());
-        tvForgotPassword.setOnClickListener(v -> showToast("Chức năng khôi phục mật khẩu đang được phát triển"));
+        tvForgotPassword.setOnClickListener(v -> navigateToForgotPassword());
         tvRegister.setOnClickListener(v -> navigateToRegister());
 
         // Setup real-time error clearing and custom micro-animations
@@ -203,6 +203,13 @@ public class LoginActivity extends BaseActivity {
     // Navigate to Register screen with slide animation
     private void navigateToRegister() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+
+    private void navigateToForgotPassword() {
+        Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);

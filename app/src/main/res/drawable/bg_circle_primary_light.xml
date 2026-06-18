@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+    <!-- 15% opacity of primary color #C32D21 is roughly #26C32D21 -->
+    <solid android:color="#20C32D21" />
+</shape>

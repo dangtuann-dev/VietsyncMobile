@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 
 /**
  * AuthApi defines the Retrofit HTTP requests mapping directly to the
@@ -54,6 +55,24 @@ public interface AuthApi {
         }
     }
 
+    class RecoverRequest {
+        @SerializedName("email")
+        private final String email;
+
+        public RecoverRequest(String email) {
+            this.email = email;
+        }
+    }
+
+    class UpdateUserRequest {
+        @SerializedName("password")
+        private final String password;
+
+        public UpdateUserRequest(String password) {
+            this.password = password;
+        }
+    }
+
     /**
      * Registers a new user with Supabase Auth.
      */
@@ -85,4 +104,16 @@ public interface AuthApi {
      */
     @GET("auth/v1/user")
     Call<UserModel> getUser(@Header("Authorization") String bearerToken);
+
+    /**
+     * Sends password recovery email.
+     */
+    @POST("auth/v1/recover")
+    Call<Void> recoverPassword(@Body RecoverRequest request);
+
+    /**
+     * Updates user details (such as resetting password).
+     */
+    @PUT("auth/v1/user")
+    Call<UserModel> updateUser(@Header("Authorization") String bearerToken, @Body UpdateUserRequest request);
 }
