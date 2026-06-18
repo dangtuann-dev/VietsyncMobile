@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.app.learning.data.api.ApiClient;
 import com.app.learning.data.api.AuthApi;
 import com.app.learning.data.api.Resource;
+import com.app.learning.data.model.AuthResponse;
 import com.app.learning.data.model.User;
 import com.app.learning.utils.UserPreference;
 
@@ -38,14 +39,14 @@ public class UserRepository extends BaseRepository {
      * @return LiveData containing the logged in User details wrapped inside Resource status
      */
     public LiveData<Resource<User>> login(String email, String password) {
-        MutableLiveData<Resource<AuthApi.AuthResponse>> rawResponseLiveData = new MutableLiveData<>();
+        MutableLiveData<Resource<AuthResponse>> rawResponseLiveData = new MutableLiveData<>();
         MediatorLiveData<Resource<User>> resultLiveData = new MediatorLiveData<>();
 
         // 1. Dispatch loading state
         resultLiveData.setValue(Resource.loading());
 
         // 2. Prepare and execute Retrofit Call
-        Call<AuthApi.AuthResponse> call = authApi.signIn(new AuthApi.SignInRequest(email, password));
+        Call<AuthResponse> call = authApi.signIn(new AuthApi.SignInRequest(email, password));
         executeCall(call, rawResponseLiveData);
 
         // 3. Coordinate raw network response to map object types and persist session
@@ -53,7 +54,7 @@ public class UserRepository extends BaseRepository {
             if (resource.isLoading()) {
                 resultLiveData.setValue(Resource.loading());
             } else if (resource.isSuccess() && resource.data != null) {
-                AuthApi.AuthResponse authResponse = resource.data;
+                AuthResponse authResponse = resource.data;
 
                 // Map auth response to domain User model
                 User user = new User();
@@ -83,19 +84,22 @@ public class UserRepository extends BaseRepository {
      * @return LiveData containing the registered User details wrapped inside Resource status
      */
     public LiveData<Resource<User>> register(String email, String password, String fullName) {
-        MutableLiveData<Resource<AuthApi.AuthResponse>> rawResponseLiveData = new MutableLiveData<>();
+        MutableLiveData<Resource<AuthResponse>> rawResponseLiveData = new MutableLiveData<>();
         MediatorLiveData<Resource<User>> resultLiveData = new MediatorLiveData<>();
 
         resultLiveData.setValue(Resource.loading());
 
-        Call<AuthApi.AuthResponse> call = authApi.signUp(new AuthApi.SignUpRequest(email, password, fullName));
+        java.util.Map<String, Object> metadata = new java.util.HashMap<>();
+        metadata.put("full_name", fullName);
+
+        Call<AuthResponse> call = authApi.signUp(new AuthApi.SignUpRequest(email, password, metadata));
         executeCall(call, rawResponseLiveData);
 
         resultLiveData.addSource(rawResponseLiveData, resource -> {
             if (resource.isLoading()) {
                 resultLiveData.setValue(Resource.loading());
             } else if (resource.isSuccess() && resource.data != null) {
-                AuthApi.AuthResponse authResponse = resource.data;
+                AuthResponse authResponse = resource.data;
 
                 User user = new User();
                 user.setId(authResponse.getUser().getId());

@@ -47,6 +47,12 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
         </activity>
+
+        <!-- Background Token Refresh Service -->
+        <service
+            android:name="com.app.learning.data.api.TokenRefreshService"
+            android:enabled="true"
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -70,6 +70,7 @@ dependencies {
     implementation(libs.androidx.lifecycle.livedata)
     implementation(libs.androidx.fragment)
     implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.security.crypto)
 
     // Retrofit & OkHttp Networking
     implementation(libs.retrofit)

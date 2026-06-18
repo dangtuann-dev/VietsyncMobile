@@ -1,13 +1,20 @@
 package com.app.learning.data.api;
 
+import com.app.learning.data.model.AuthResponse;
+import com.app.learning.data.model.UserModel;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.Map;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 /**
  * AuthApi defines the Retrofit HTTP requests mapping directly to the
- * Supabase GoTrue Auth API routes (/auth/v1/signup and /auth/v1/token).
+ * Supabase GoTrue Auth API routes.
  */
 public interface AuthApi {
 
@@ -29,62 +36,21 @@ public interface AuthApi {
         @SerializedName("password")
         private final String password;
         @SerializedName("data")
-        private final UserMetadata data;
+        private final Map<String, Object> data;
 
-        public SignUpRequest(String email, String password, String fullName) {
+        public SignUpRequest(String email, String password, Map<String, Object> data) {
             this.email = email;
             this.password = password;
-            this.data = new UserMetadata(fullName);
-        }
-
-        private static class UserMetadata {
-            @SerializedName("full_name")
-            private final String fullName;
-
-            public UserMetadata(String fullName) {
-                this.fullName = fullName;
-            }
+            this.data = data;
         }
     }
 
-    class AuthResponse {
-        @SerializedName("access_token")
-        private String accessToken;
-        @SerializedName("user")
-        private AuthUser user;
+    class RefreshTokenRequest {
+        @SerializedName("refresh_token")
+        private final String refreshToken;
 
-        public String getAccessToken() {
-            return accessToken;
-        }
-
-        public AuthUser getUser() {
-            return user;
-        }
-
-        public static class AuthUser {
-            @SerializedName("id")
-            private String id;
-            @SerializedName("email")
-            private String email;
-            @SerializedName("user_metadata")
-            private UserMetadata userMetadata;
-
-            public String getId() {
-                return id;
-            }
-
-            public String getEmail() {
-                return email;
-            }
-
-            public String getFullName() {
-                return userMetadata != null ? userMetadata.fullName : "";
-            }
-
-            private static class UserMetadata {
-                @SerializedName("full_name")
-                private String fullName;
-            }
+        public RefreshTokenRequest(String refreshToken) {
+            this.refreshToken = refreshToken;
         }
     }
 
@@ -99,4 +65,24 @@ public interface AuthApi {
      */
     @POST("auth/v1/token?grant_type=password")
     Call<AuthResponse> signIn(@Body SignInRequest request);
+
+    /**
+     * Signs out the user on the server (invalidates current session).
+     * Requires Authorization Bearer header.
+     */
+    @POST("auth/v1/logout")
+    Call<Void> logout(@Header("Authorization") String bearerToken);
+
+    /**
+     * Refreshes access token using refresh token.
+     */
+    @POST("auth/v1/token?grant_type=refresh_token")
+    Call<AuthResponse> refreshToken(@Body RefreshTokenRequest request);
+
+    /**
+     * Retrieves current logged in user details.
+     * Requires Authorization Bearer header.
+     */
+    @GET("auth/v1/user")
+    Call<UserModel> getUser(@Header("Authorization") String bearerToken);
 }
