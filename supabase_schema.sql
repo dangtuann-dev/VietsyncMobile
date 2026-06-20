@@ -8,9 +8,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 -- Clean up existing objects if rewriting (for testing/resetting)
 DROP TRIGGER IF EXISTS on_auth_user_created ON auth.users;
 DROP FUNCTION IF EXISTS public.handle_new_user();
-DROP TRIGGER IF EXISTS on_enrollment_completed ON public.enrollments;
 DROP FUNCTION IF EXISTS public.generate_certificate_on_completion();
-DROP TRIGGER IF EXISTS on_enrollment_changed ON public.enrollments;
 DROP FUNCTION IF EXISTS public.update_course_enrollment_count();
 
 DROP TABLE IF EXISTS public.certificates CASCADE;
@@ -406,7 +404,7 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO public.lessons (id, course_id, title, video_url, content, order_index, duration)
 VALUES 
   (
-    'l0eebc99-9c0b-4ef8-bb6d-6bb9bd380011', 
+    'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380011', 
     'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380001', 
     'Bài 1: Giới thiệu khóa học & Thiết lập môi trường', 
     'https://www.w3schools.com/html/mov_bbb.mp4', 
@@ -415,7 +413,7 @@ VALUES
     15
   ),
   (
-    'l0eebc99-9c0b-4ef8-bb6d-6bb9bd380012', 
+    'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380012', 
     'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380001', 
     'Bài 2: Cấu trúc mô hình MVVM trong Android', 
     'https://www.w3schools.com/html/movie.mp4', 
@@ -424,7 +422,7 @@ VALUES
     25
   ),
   (
-    'l0eebc99-9c0b-4ef8-bb6d-6bb9bd380013', 
+    'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380013', 
     'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380002', 
     'Bài 1: Khái niệm UI và UX cơ bản', 
     'https://www.w3schools.com/html/mov_bbb.mp4', 
@@ -446,8 +444,8 @@ ON CONFLICT (user_id, course_id) DO NOTHING;
 INSERT INTO public.quizzes (id, lesson_id, question, options, correct_answer, explanation)
 VALUES 
   (
-    'q0eebc99-9c0b-4ef8-bb6d-6bb9bd380021', 
-    'l0eebc99-9c0b-4ef8-bb6d-6bb9bd380012', 
+    'e0eebc99-9c0b-4ef8-bb6d-6bb9bd380021', 
+    'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380012', 
     'Trong mô hình MVVM, thành phần nào giữ logic xử lý dữ liệu và kết nối API?', 
     '["View (Activity/Fragment)", "ViewModel", "Model (Repository/Remote API)", "Intent"]'::jsonb, 
     'Model (Repository/Remote API)', 
@@ -458,5 +456,5 @@ ON CONFLICT (id) DO NOTHING;
 -- 5.7 Quiz Attempts Data
 INSERT INTO public.quiz_attempts (user_id, quiz_id, selected_answer, is_correct)
 VALUES 
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'q0eebc99-9c0b-4ef8-bb6d-6bb9bd380021', 'Model (Repository/Remote API)', true)
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'e0eebc99-9c0b-4ef8-bb6d-6bb9bd380021', 'Model (Repository/Remote API)', true)
 ON CONFLICT (id) DO NOTHING;
