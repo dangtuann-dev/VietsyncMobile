@@ -19,7 +19,7 @@
             android:layout_height="120dp"
             android:background="@drawable/bg_splash_gradient"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- Avatar Container -->
@@ -29,7 +29,7 @@
             android:layout_height="110dp"
             android:layout_marginTop="60dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -68,7 +68,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/avatarContainer" />
 
         <TextView
@@ -82,7 +82,7 @@
             android:textColor="@color/outline"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtUserName" />
 
         <TextView
@@ -99,7 +99,7 @@
             android:maxLines="3"
             android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtUserEmail" />
 
         <!-- Stats Card -->
@@ -115,7 +115,7 @@
             app:strokeWidth="1dp"
             app:cardBackgroundColor="@color/background"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtUserBio">
 
             <LinearLayout
@@ -217,7 +217,7 @@
             android:layout_marginTop="24dp"
             android:background="@color/divider"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardStats" />
 
         <!-- Menu Container -->
@@ -227,7 +227,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider1">
 
             <!-- Edit Profile Row -->
@@ -247,7 +247,7 @@
                     android:src="@drawable/ic_edit"
                     app:tint="@color/secondary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartStart="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -295,7 +295,7 @@
                     android:src="@drawable/ic_certificate"
                     app:tint="@color/secondary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartStart="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -343,7 +343,7 @@
                     android:src="@drawable/ic_download"
                     app:tint="@color/secondary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartStart="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -391,7 +391,7 @@
                     android:src="@drawable/ic_settings"
                     app:tint="@color/secondary"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartStart="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -439,7 +439,7 @@
                     android:src="@drawable/ic_logout"
                     app:tint="@color/error"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartStart="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
@@ -486,7 +486,7 @@
             app:icon="@drawable/ic_password"
             app:iconTint="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartStart="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/layoutMenu" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

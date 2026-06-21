@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.app.learning.R;
+import com.example.vietsyncmobile.R;
 import com.app.learning.data.api.Resource;
 import com.app.learning.data.model.User;
 import com.app.learning.data.model.UserStats;
