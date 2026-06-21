@@ -33,6 +33,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        // Enforce role-based access control if annotation is present
+        if (getClass().isAnnotationPresent(com.app.learning.utils.RequireRole.class)) {
+            com.app.learning.utils.RequireRole annotation = getClass().getAnnotation(com.app.learning.utils.RequireRole.class);
+            if (annotation != null) {
+                com.app.learning.utils.RoleManager.Role requiredRole = annotation.value();
+                com.app.learning.utils.RoleManager.Role currentRole = com.app.learning.utils.RoleManager.getInstance(this).getCurrentRole();
+                if (currentRole != requiredRole && currentRole != com.app.learning.utils.RoleManager.Role.ADMIN) {
+                    android.widget.Toast.makeText(this, "Bạn không có quyền truy cập màn hình này!", android.widget.Toast.LENGTH_SHORT).show();
+                    finish();
+                    super.onCreate(savedInstanceState);
+                    return;
+                }
+            }
+        }
+
         super.onCreate(savedInstanceState);
         
         int layoutId = getLayoutId();

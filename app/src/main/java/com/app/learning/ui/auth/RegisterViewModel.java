@@ -36,7 +36,7 @@ public class RegisterViewModel extends BaseViewModel {
     public void register(String fullName, String email, String password, String role) {
         showLoading();
         clearError();
-        LiveData<Resource<User>> source = userRepository.register(email, password, fullName);
+        LiveData<Resource<User>> source = userRepository.register(email, password, fullName, role);
         // The repository currently registers with role default "student"; we set role locally if needed.
         // Role handling could be extended in the backend; for UI we simply pass the role onward.
         registerResult.addSource(source, resource -> {

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/fragment_teacher_dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Bảng điều khiển" />
+    <item
+        android:id="@+id/fragment_my_courses"
+        android:icon="@drawable/ic_courses"
+        android:title="Khóa học" />
+    <item
+        android:id="@+id/fragment_create_course"
+        android:icon="@drawable/ic_create"
+        android:title="Tạo mới" />
+    <item
+        android:id="@+id/fragment_profile"
+        android:icon="@drawable/ic_profile"
+        android:title="Hồ sơ" />
+</menu>

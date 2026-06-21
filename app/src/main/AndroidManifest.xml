@@ -52,9 +52,9 @@
             </intent-filter>
         </activity>
 
-        <!-- Home Portal -->
+        <!-- Main Portal (MainActivity) -->
         <activity
-            android:name="com.app.learning.ui.home.HomeActivity"
+            android:name="com.app.learning.MainActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

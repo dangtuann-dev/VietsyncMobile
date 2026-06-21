@@ -28,6 +28,21 @@ public abstract class BaseFragment extends Fragment {
         if (context instanceof BaseActivity) {
             baseActivity = (BaseActivity) context;
         }
+
+        // Enforce role-based access control if annotation is present
+        if (getClass().isAnnotationPresent(com.app.learning.utils.RequireRole.class)) {
+            com.app.learning.utils.RequireRole annotation = getClass().getAnnotation(com.app.learning.utils.RequireRole.class);
+            if (annotation != null) {
+                com.app.learning.utils.RoleManager.Role requiredRole = annotation.value();
+                com.app.learning.utils.RoleManager.Role currentRole = com.app.learning.utils.RoleManager.getInstance(context).getCurrentRole();
+                if (currentRole != requiredRole && currentRole != com.app.learning.utils.RoleManager.Role.ADMIN) {
+                    showToast("Bạn không có quyền truy cập chức năng này!");
+                    if (getParentFragmentManager() != null) {
+                        getParentFragmentManager().beginTransaction().remove(this).commitAllowingStateLoss();
+                    }
+                }
+            }
+        }
     }
 
     @Nullable

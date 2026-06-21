@@ -36,6 +36,7 @@ public final class AppConstants {
     public static final String PREF_KEY_USER_ID = "key_user_id";
     public static final String PREF_KEY_USER_EMAIL = "key_user_email";
     public static final String PREF_KEY_USER_NAME = "key_user_name";
+    public static final String PREF_KEY_USER_ROLE = "key_user_role";
     public static final String PREF_KEY_THEME_MODE = "key_theme_mode";
 
     /**

@@ -48,6 +48,7 @@ public class UserPreference {
                 .putString(AppConstants.PREF_KEY_USER_ID, user.getId())
                 .putString(AppConstants.PREF_KEY_USER_EMAIL, user.getEmail())
                 .putString(AppConstants.PREF_KEY_USER_NAME, user.getFullName())
+                .putString(AppConstants.PREF_KEY_USER_ROLE, user.getRole())
                 .putString("key_user_avatar", user.getAvatarUrl())
                 .putString("key_user_bio", user.getBio())
                 .apply();
@@ -88,7 +89,7 @@ public class UserPreference {
         user.setFullName(preferences.getString(AppConstants.PREF_KEY_USER_NAME, ""));
         user.setAvatarUrl(preferences.getString("key_user_avatar", ""));
         user.setBio(preferences.getString("key_user_bio", ""));
-        user.setRole("student"); // Default fallback
+        user.setRole(preferences.getString(AppConstants.PREF_KEY_USER_ROLE, "student"));
         return user;
     }
 
@@ -98,6 +99,7 @@ public class UserPreference {
     public void updateUserProfile(@NonNull User user) {
         preferences.edit()
                 .putString(AppConstants.PREF_KEY_USER_NAME, user.getFullName())
+                .putString(AppConstants.PREF_KEY_USER_ROLE, user.getRole())
                 .putString("key_user_avatar", user.getAvatarUrl())
                 .putString("key_user_bio", user.getBio())
                 .apply();
@@ -113,6 +115,7 @@ public class UserPreference {
                 .remove(AppConstants.PREF_KEY_USER_ID)
                 .remove(AppConstants.PREF_KEY_USER_EMAIL)
                 .remove(AppConstants.PREF_KEY_USER_NAME)
+                .remove(AppConstants.PREF_KEY_USER_ROLE)
                 .remove("key_user_avatar")
                 .remove("key_user_bio")
                 .apply();

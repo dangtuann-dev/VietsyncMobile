@@ -74,7 +74,12 @@ public class UserRepository extends BaseRepository {
                 user.setId(authResponse.getUser().getId());
                 user.setEmail(authResponse.getUser().getEmail());
                 user.setFullName(authResponse.getUser().getFullName());
-                user.setRole("student"); // Default fallback role
+                
+                String role = authResponse.getUser().getRole();
+                if (role == null || role.isEmpty()) {
+                    role = "student";
+                }
+                user.setRole(role);
 
                 // Save JWT and credentials to SharedPreferences
                 userPreference.saveSession(authResponse.getAccessToken(), user);
@@ -96,7 +101,7 @@ public class UserRepository extends BaseRepository {
      * @param fullName New user display name
      * @return LiveData containing the registered User details wrapped inside Resource status
      */
-    public LiveData<Resource<User>> register(String email, String password, String fullName) {
+    public LiveData<Resource<User>> register(String email, String password, String fullName, String role) {
         MutableLiveData<Resource<AuthResponse>> rawResponseLiveData = new MutableLiveData<>();
         MediatorLiveData<Resource<User>> resultLiveData = new MediatorLiveData<>();
 
@@ -104,6 +109,7 @@ public class UserRepository extends BaseRepository {
 
         java.util.Map<String, Object> metadata = new java.util.HashMap<>();
         metadata.put("full_name", fullName);
+        metadata.put("role", role);
 
         Call<AuthResponse> call = authApi.signUp(new AuthApi.SignUpRequest(email, password, metadata));
         executeCall(call, rawResponseLiveData);
@@ -118,7 +124,12 @@ public class UserRepository extends BaseRepository {
                 user.setId(authResponse.getUser().getId());
                 user.setEmail(authResponse.getUser().getEmail());
                 user.setFullName(authResponse.getUser().getFullName());
-                user.setRole("student");
+                
+                String userRole = authResponse.getUser().getRole();
+                if (userRole == null || userRole.isEmpty()) {
+                    userRole = role; // Fallback to registration role choice
+                }
+                user.setRole(userRole);
 
                 // Save credentials to local storage
                 userPreference.saveSession(authResponse.getAccessToken(), user);

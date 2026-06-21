@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_home">
+
+    <!-- Student Destinations -->
+    <fragment
+        android:id="@+id/fragment_home"
+        android:name="com.app.learning.ui.home.HomeFragment"
+        android:label="Trang chủ"
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/fragment_courses"
+        android:name="com.app.learning.ui.course.CoursesFragment"
+        android:label="Khóa học"
+        tools:layout="@layout/fragment_courses" />
+
+    <fragment
+        android:id="@+id/fragment_my_learning"
+        android:name="com.app.learning.ui.learning.MyLearningFragment"
+        android:label="Học tập"
+        tools:layout="@layout/fragment_my_learning" />
+
+    <!-- Shared/Common Destinations -->
+    <fragment
+        android:id="@+id/fragment_profile"
+        android:name="com.app.learning.ui.profile.ProfileFragment"
+        android:label="Hồ sơ"
+        tools:layout="@layout/fragment_profile" />
+
+    <!-- Teacher Destinations -->
+    <fragment
+        android:id="@+id/fragment_teacher_dashboard"
+        android:name="com.app.learning.ui.dashboard.TeacherDashboardFragment"
+        android:label="Bảng điều khiển"
+        tools:layout="@layout/fragment_teacher_dashboard" />
+
+    <fragment
+        android:id="@+id/fragment_my_courses"
+        android:name="com.app.learning.ui.course.MyCoursesFragment"
+        android:label="Khóa học của tôi"
+        tools:layout="@layout/fragment_my_courses" />
+
+    <fragment
+        android:id="@+id/fragment_create_course"
+        android:name="com.app.learning.ui.course.CreateCourseFragment"
+        android:label="Tạo khóa học"
+        tools:layout="@layout/fragment_create_course" />
+
+</navigation>

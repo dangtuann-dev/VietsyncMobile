@@ -16,7 +16,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.app.learning.data.api.Resource;
 import com.app.learning.data.model.User;
 import com.app.learning.ui.base.BaseActivity;
-import com.app.learning.ui.home.HomeActivity;
+import com.app.learning.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.example.vietsyncmobile.R;
@@ -152,7 +152,7 @@ public class RegisterActivity extends BaseActivity {
     }
 
     private void navigateToHome() {
-        Intent intent = new Intent(RegisterActivity.this, HomeActivity.class);
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
         startActivity(intent);
         finish();
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

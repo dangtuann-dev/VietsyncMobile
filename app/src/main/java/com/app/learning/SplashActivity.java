@@ -15,7 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.splashscreen.SplashScreen;
 
 import com.app.learning.ui.auth.LoginActivity;
-import com.app.learning.ui.home.HomeActivity;
+import com.app.learning.MainActivity;
 import com.app.learning.utils.AppConstants;
 import com.example.vietsyncmobile.R;
 
@@ -57,7 +57,7 @@ public class SplashActivity extends AppCompatActivity {
 
         Intent intent;
         if (isLoggedIn) {
-            intent = new Intent(SplashActivity.this, HomeActivity.class);
+            intent = new Intent(SplashActivity.this, MainActivity.class);
         } else {
             intent = new Intent(SplashActivity.this, LoginActivity.class);
         }
