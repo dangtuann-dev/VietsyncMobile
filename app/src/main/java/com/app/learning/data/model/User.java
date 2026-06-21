@@ -24,6 +24,9 @@ public class User implements Serializable {
     @SerializedName("role")
     private String role; // student, instructor, admin
 
+    @SerializedName("bio")
+    private String bio;
+
     @SerializedName("created_at")
     private String createdAt;
 
@@ -83,5 +86,13 @@ public class User implements Serializable {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

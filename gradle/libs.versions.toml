@@ -18,6 +18,8 @@ okhttp = "4.12.0"
 gson = "2.11.0"
 supabase = "2.6.1"
 securityCrypto = "1.0.0"
+glide = "4.16.0"
+circleimageview = "3.1.0"
 
 [libraries]
 androidx-security-crypto = { group = "androidx.security", name = "security-crypto", version.ref = "securityCrypto" }
@@ -48,6 +50,8 @@ okhttp-logging-interceptor = { group = "com.squareup.okhttp3", name = "logging-i
 gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 supabase-postgrest = { group = "io.github.jan-tennert.supabase", name = "postgrest-kt", version.ref = "supabase" }
 supabase-gotrue = { group = "io.github.jan-tennert.supabase", name = "gotrue-kt", version.ref = "supabase" }
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
+circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
