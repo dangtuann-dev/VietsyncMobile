@@ -1,0 +1,11 @@
+# local.properties template for VietsyncMobile
+# Copy this file to 'local.properties' and fill in your local configurations.
+
+# Location of the SDK. Change this to your local Android SDK path.
+# sdk.dir=C\:\\Users\\YourUsername\\AppData\\Local\\Android\\Sdk
+
+# Supabase URL Configuration (DO NOT change this URL unless the project changes)
+supabase.url=https://qpvblttrxfkahfybpdvu.supabase.co
+
+# Supabase Anon Key (Replace this with the active anon key if needed)
+supabase.anon.key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFwdmJsdHRyeGZrYWhmeWJwZHZ1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE5NTgwNjEsImV4cCI6MjA5NzUzNDA2MX0.KRcJ9U_mgaZbH4t2TWhGHU-mho1vin7_1TnG9XoCZIk

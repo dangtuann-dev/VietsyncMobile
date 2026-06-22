@@ -15,5 +15,11 @@ public class LearningApplication extends Application {
         
         // Initialize the ApiClient singleton with the application context and the Supabase key from BuildConfig
         ApiClient.initialize(this, BuildConfig.SUPABASE_ANON_KEY);
+
+        // Apply dark mode theme if configured
+        boolean isDarkMode = com.app.learning.utils.UserPreference.getInstance(this).isDarkModeEnabled();
+        androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(
+                isDarkMode ? androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES : androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
+        );
     }
 }

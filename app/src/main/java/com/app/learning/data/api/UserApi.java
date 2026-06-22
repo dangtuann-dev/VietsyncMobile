@@ -86,6 +86,15 @@ public interface UserApi {
     );
 
     /**
+     * Retrieves user certificates with complete course details.
+     */
+    @GET("rest/v1/certificates")
+    Call<List<com.app.learning.data.model.Certificate>> getFullUserCertificates(
+            @Query("user_id") String userIdFilter,
+            @Query("select") String select
+    );
+
+    /**
      * Uploads raw avatar image bytes to the "avatars" bucket on Supabase Storage.
      * We pass x-upsert header to overwrite old avatars.
      */

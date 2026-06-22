@@ -108,9 +108,9 @@ public class ProfileFragment extends Fragment {
         rowEditProfile.setOnClickListener(v -> openEditProfileBottomSheet());
         btnChangePassword.setOnClickListener(v -> openChangePasswordDialog());
 
-        rowCertificates.setOnClickListener(v -> showToast("Tính năng Chứng chỉ của tôi đang được phát triển"));
-        rowDownloads.setOnClickListener(v -> showToast("Tính năng Lịch sử tải xuống đang được phát triển"));
-        rowSettings.setOnClickListener(v -> showToast("Tính năng Cài đặt đang được phát triển"));
+        rowCertificates.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyCertificatesActivity.class)));
+        rowDownloads.setOnClickListener(v -> startActivity(new Intent(requireContext(), DownloadHistoryActivity.class)));
+        rowSettings.setOnClickListener(v -> startActivity(new Intent(requireContext(), SettingsActivity.class)));
         
         rowLogout.setOnClickListener(v -> showLogoutConfirmation());
 

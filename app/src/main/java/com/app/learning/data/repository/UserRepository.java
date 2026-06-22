@@ -338,4 +338,20 @@ public class UserRepository extends BaseRepository {
 
         return resultLiveData;
     }
+
+    /**
+     * Fetches detailed certificates of the user from Supabase.
+     */
+    public LiveData<Resource<List<com.app.learning.data.model.Certificate>>> getCertificates(String userId) {
+        MutableLiveData<Resource<List<com.app.learning.data.model.Certificate>>> resultLiveData = new MutableLiveData<>();
+        resultLiveData.setValue(Resource.loading());
+
+        Call<List<com.app.learning.data.model.Certificate>> call = userApi.getFullUserCertificates(
+                "eq." + userId,
+                "id,course_id,issued_at,certificate_url,courses(title,thumbnail)"
+        );
+        executeCall(call, resultLiveData);
+
+        return resultLiveData;
+    }
 }

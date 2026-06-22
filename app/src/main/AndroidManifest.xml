@@ -58,6 +58,22 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <!-- Profile Sub-Activities -->
+        <activity
+            android:name="com.app.learning.ui.profile.SettingsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.profile.DownloadHistoryActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.profile.MyCertificatesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
 
 
         <!-- Background Token Refresh Service -->

@@ -120,4 +120,31 @@ public class UserPreference {
                 .remove("key_user_bio")
                 .apply();
     }
+
+    /**
+     * Settings configurations.
+     */
+    public boolean isNotificationsEnabled() {
+        return preferences.getBoolean("key_notifications_enabled", true);
+    }
+
+    public void setNotificationsEnabled(boolean enabled) {
+        preferences.edit().putBoolean("key_notifications_enabled", enabled).apply();
+    }
+
+    public boolean isDarkModeEnabled() {
+        return preferences.getBoolean("key_dark_mode_enabled", false);
+    }
+
+    public void setDarkModeEnabled(boolean enabled) {
+        preferences.edit().putBoolean("key_dark_mode_enabled", enabled).apply();
+    }
+
+    public String getAppLanguage() {
+        return preferences.getString("key_app_language", "vi");
+    }
+
+    public void setAppLanguage(String language) {
+        preferences.edit().putString("key_app_language", language).apply();
+    }
 }
