@@ -60,7 +60,8 @@ public class SettingsActivity extends BaseActivity {
 
         switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
             userPreference.setNotificationsEnabled(isChecked);
-            showToast("Đã " + (isChecked ? "bật" : "tắt") + " nhận thông báo push");
+            showToast(isChecked ? getString(R.string.settings_toast_notifications_on) 
+                                : getString(R.string.settings_toast_notifications_off));
         });
 
         rowLanguage.setOnClickListener(v -> showLanguageDialog());
@@ -78,20 +79,25 @@ public class SettingsActivity extends BaseActivity {
         int checkedItem = "en".equals(userPreference.getAppLanguage()) ? 1 : 0;
 
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Chọn ngôn ngữ")
+                .setTitle(getString(R.string.settings_dialog_language_title))
                 .setSingleChoiceItems(languages, checkedItem, (dialog, which) -> {
                     String selectedLang = (which == 1) ? "en" : "vi";
                     userPreference.setAppLanguage(selectedLang);
                     tvCurrentLanguage.setText(languages[which]);
-                    showToast("Đã thay đổi ngôn ngữ sang " + languages[which]);
+                    
+                    // Apply locale change
+                    androidx.core.os.LocaleListCompat appLocale = androidx.core.os.LocaleListCompat.forLanguageTags(selectedLang);
+                    AppCompatDelegate.setApplicationLocales(appLocale);
+                    
+                    showToast(getString(R.string.settings_toast_language_changed, languages[which]));
                     dialog.dismiss();
                 })
-                .setNegativeButton("Hủy", null)
+                .setNegativeButton(getString(R.string.settings_dialog_cancel), null)
                 .show();
     }
 
     private void clearAppCache() {
         tvCacheSize.setText("0.0 KB");
-        showToast("Đã xóa bộ nhớ đệm thành công!");
+        showToast(getString(R.string.settings_toast_cache_cleared));
     }
 }

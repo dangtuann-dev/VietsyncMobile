@@ -135,13 +135,13 @@ public class ProfileFragment extends Fragment {
     }
 
     private void bindUserProfile(User user) {
-        txtUserName.setText(user.getFullName() != null ? user.getFullName() : "Học viên");
+        txtUserName.setText(user.getFullName() != null ? user.getFullName() : getString(R.string.profile_default_name));
         txtUserEmail.setText(user.getEmail());
         
         if (user.getBio() != null && !user.getBio().trim().isEmpty()) {
             txtUserBio.setText(user.getBio());
         } else {
-            txtUserBio.setText("Chưa có giới thiệu bản thân.");
+            txtUserBio.setText(getString(R.string.profile_default_bio));
         }
 
         // Load circular avatar with Glide
@@ -174,9 +174,9 @@ public class ProfileFragment extends Fragment {
                     showLoading(false);
                     if (resource.isSuccess() && resource.data != null) {
                         bindUserProfile(resource.data);
-                        showToast("Cập nhật hồ sơ thành công");
+                        showToast(getString(R.string.profile_toast_update_success));
                     } else if (resource.isError()) {
-                        showToast(resource.error != null ? resource.error.getMessage() : "Lỗi cập nhật hồ sơ");
+                        showToast(resource.error != null ? resource.error.getMessage() : getString(R.string.profile_toast_update_error));
                     }
                 }
             });
@@ -212,21 +212,21 @@ public class ProfileFragment extends Fragment {
                                 showLoading(false);
                                 if (profileRes.isSuccess() && profileRes.data != null) {
                                     bindUserProfile(profileRes.data);
-                                    showToast("Cập nhật ảnh đại diện thành công");
+                                    showToast(getString(R.string.profile_toast_avatar_success));
                                 } else if (profileRes.isError()) {
-                                    showToast("Lỗi đồng bộ ảnh đại diện");
+                                    showToast(getString(R.string.profile_toast_avatar_error));
                                 }
                             }
                         });
                     } else if (uploadRes.isError()) {
                         showLoading(false);
-                        showToast(uploadRes.error != null ? uploadRes.error.getMessage() : "Lỗi tải ảnh đại diện lên máy chủ");
+                        showToast(uploadRes.error != null ? uploadRes.error.getMessage() : getString(R.string.profile_toast_avatar_upload_error));
                     }
                 }
             });
 
         } catch (IOException e) {
-            showToast("Lỗi đọc tệp tin hình ảnh: " + e.getLocalizedMessage());
+            showToast(getString(R.string.profile_toast_image_read_error) + ": " + e.getLocalizedMessage());
         }
     }
 
@@ -252,20 +252,20 @@ public class ProfileFragment extends Fragment {
 
             boolean valid = true;
             if (newPass.isEmpty()) {
-                layoutNewPassword.setError("Mật khẩu không được để trống");
+                layoutNewPassword.setError(getString(R.string.profile_error_empty_password));
                 valid = false;
             } else if (newPass.length() < 6) {
-                layoutNewPassword.setError("Mật khẩu phải chứa ít nhất 6 ký tự");
+                layoutNewPassword.setError(getString(R.string.auth_err_short_password));
                 valid = false;
             } else {
                 layoutNewPassword.setError(null);
             }
 
             if (confirmPass.isEmpty()) {
-                layoutConfirmPassword.setError("Vui lòng xác nhận mật khẩu");
+                layoutConfirmPassword.setError(getString(R.string.profile_error_confirm_password));
                 valid = false;
             } else if (!confirmPass.equals(newPass)) {
-                layoutConfirmPassword.setError("Mật khẩu xác nhận không trùng khớp");
+                layoutConfirmPassword.setError(getString(R.string.auth_err_password_mismatch));
                 valid = false;
             } else {
                 layoutConfirmPassword.setError(null);
@@ -278,10 +278,10 @@ public class ProfileFragment extends Fragment {
                 if (!resource.isLoading()) {
                     showLoading(false);
                     if (resource.isSuccess()) {
-                        showToast("Đổi mật khẩu thành công!");
+                        showToast(getString(R.string.profile_toast_password_success));
                         dialog.dismiss();
                     } else if (resource.isError()) {
-                        showToast(resource.error != null ? resource.error.getMessage() : "Lỗi đổi mật khẩu");
+                        showToast(resource.error != null ? resource.error.getMessage() : getString(R.string.profile_toast_password_error));
                     }
                 }
             });
@@ -295,10 +295,10 @@ public class ProfileFragment extends Fragment {
      */
     private void showLogoutConfirmation() {
         new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("Đăng xuất")
-                .setMessage("Bạn có chắc chắn muốn đăng xuất khỏi tài khoản?")
-                .setNegativeButton("Hủy", null)
-                .setPositiveButton("Đăng xuất", (dialog, which) -> {
+                .setTitle(getString(R.string.profile_logout))
+                .setMessage(getString(R.string.profile_logout_confirm_msg))
+                .setNegativeButton(getString(R.string.action_cancel), null)
+                .setPositiveButton(getString(R.string.profile_logout), (dialog, which) -> {
                     viewModel.logout();
                     navigateToLogin();
                 })

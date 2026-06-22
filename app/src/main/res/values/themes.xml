@@ -4,7 +4,7 @@
     <!-- =====================================================================
          Theme.Learning (Material Design 3 Light Theme)
          ===================================================================== -->
-    <style name="Theme.Learning" parent="Theme.Material3.Light.NoActionBar">
+    <style name="Theme.Learning" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your theme here -->
         
         <!-- Primary Brand Palette -->

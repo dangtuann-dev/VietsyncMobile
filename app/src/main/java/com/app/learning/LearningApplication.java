@@ -21,5 +21,10 @@ public class LearningApplication extends Application {
         androidx.appcompat.app.AppCompatDelegate.setDefaultNightMode(
                 isDarkMode ? androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES : androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO
         );
+
+        // Apply app language if configured
+        String lang = com.app.learning.utils.UserPreference.getInstance(this).getAppLanguage();
+        androidx.core.os.LocaleListCompat appLocale = androidx.core.os.LocaleListCompat.forLanguageTags(lang);
+        androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(appLocale);
     }
 }

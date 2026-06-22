@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- General App Configuration -->
+    <string name="app_name">Vietsync Learning</string>
+    <string name="action_ok">OK</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_retry">Retry</string>
+    <string name="state_loading">Loading...</string>
+    <string name="state_saving">Saving...</string>
+
+    <!-- Authentication Screens -->
+    <string name="auth_title_login">Log In</string>
+    <string name="auth_title_register">Register</string>
+    <string name="auth_hint_email">Email Address</string>
+    <string name="auth_hint_password">Password</string>
+    <string name="auth_hint_confirm_password">Confirm Password</string>
+    <string name="auth_hint_name">Full Name</string>
+    <string name="auth_btn_login">Log In</string>
+    <string name="auth_btn_register">Register Account</string>
+    <string name="auth_btn_forgot_password">Forgot Password?</string>
+    <string name="auth_text_no_account">Don\'t have an account? Register now</string>
+    <string name="auth_text_has_account">Already have an account? Log in</string>
+    <string name="auth_err_invalid_email">Invalid email</string>
+    <string name="auth_err_short_password">Password must be at least 6 characters</string>
+    <string name="auth_err_password_mismatch">Confirm password does not match</string>
+    <string name="auth_err_empty_name">Please enter your full name</string>
+    <string name="auth_success_register">Registration successful!</string>
+
+    <!-- Home/Dashboard Screens -->
+    <string name="home_greeting">Hello,</string>
+    <string name="home_search_hint">Search courses, lessons...</string>
+    <string name="home_section_categories">Featured Categories</string>
+    <string name="home_section_popular">Popular Courses</string>
+    <string name="home_section_enrolled">My Courses</string>
+    <string name="home_tab_home">Home</string>
+    <string name="home_tab_my_courses">Courses</string>
+    <string name="home_tab_profile">Profile</string>
+
+    <!-- Course & Lesson Details -->
+    <string name="course_instructor">Instructor: %1$s</string>
+    <string name="course_duration">%1$d hours</string>
+    <string name="course_lessons">%1$d lessons</string>
+    <string name="course_rating">%1$.1f / 5.0</string>
+    <string name="course_price_free">Free</string>
+    <string name="course_level_beginner">Beginner</string>
+    <string name="course_level_intermediate">Intermediate</string>
+    <string name="course_level_advanced">Advanced</string>
+    <string name="course_btn_enroll">Enroll Now</string>
+    <string name="course_btn_start">Start Learning</string>
+    <string name="course_tab_about">About</string>
+    <string name="course_tab_syllabus">Syllabus</string>
+    <string name="course_enrolled_count">%1$s students enrolled</string>
+
+    <!-- Learning Workspace -->
+    <string name="learn_progress">Progress: %1$d%%</string>
+    <string name="learn_btn_next">Next Lesson</string>
+    <string name="learn_btn_prev">Previous Lesson</string>
+    <string name="learn_btn_mark_complete">Mark Complete</string>
+    <string name="learn_quiz_title">Quiz</string>
+    <string name="learn_quiz_btn_submit">Submit</string>
+    <string name="learn_quiz_correct">Correct!</string>
+    <string name="learn_quiz_incorrect">Incorrect. Try again!</string>
+    <string name="learn_quiz_explanation">Explanation:</string>
+    
+    <!-- Certificates & Profile -->
+    <string name="profile_edit">Edit Profile</string>
+    <string name="profile_logout">Log Out</string>
+    <string name="profile_certificate_title">My Certificates</string>
+    <string name="profile_certificate_btn_view">View Certificate</string>
+    <string name="profile_certificate_congrats">Congratulations on completing the course!</string>
+    <string name="profile_role_student">Student</string>
+    <string name="profile_role_instructor">Instructor</string>
+    <string name="profile_role_admin">Administrator</string>
+
+    <!-- Error Codes & Network Alerts -->
+    <string name="error_network">No internet connection. Please check your network.</string>
+    <string name="error_timeout">Connection timeout. Please try again.</string>
+    <string name="error_server">Server error. We are working on it.</string>
+    <string name="error_unauthorized">Session expired. Please log in again.</string>
+    <string name="error_unknown">An unknown system error occurred.</string>
+
+    <!-- Settings Screen -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_section_customize">Customize</string>
+    <string name="settings_dark_mode">Dark Mode</string>
+    <string name="settings_push_notifications">Receive push notifications</string>
+    <string name="settings_app_language">App Language</string>
+    <string name="settings_section_info">Information</string>
+    <string name="settings_clear_cache">Clear cache</string>
+    <string name="settings_app_version">App version</string>
+    <string name="settings_toast_language_changed">Language changed to %1$s</string>
+    <string name="settings_toast_notifications_on">Push notifications enabled</string>
+    <string name="settings_toast_notifications_off">Push notifications disabled</string>
+    <string name="settings_toast_cache_cleared">Cache cleared successfully!</string>
+    <string name="settings_dialog_language_title">Select language</string>
+    <string name="settings_dialog_cancel">Cancel</string>
+
+    <!-- Profile Screen Additional Strings -->
+    <string name="profile_default_name">Student Name</string>
+    <string name="profile_default_bio">No bio available.</string>
+    <string name="profile_registered">Registered</string>
+    <string name="profile_completed">Completed</string>
+    <string name="profile_certificates">Certificates</string>
+    <string name="profile_download_history">Download History</string>
+    <string name="profile_change_password">Change Password</string>
+    <string name="profile_toast_update_success">Profile updated successfully</string>
+    <string name="profile_toast_update_error">Profile update failed</string>
+    <string name="profile_toast_avatar_success">Avatar updated successfully</string>
+    <string name="profile_toast_avatar_error">Avatar sync failed</string>
+    <string name="profile_toast_avatar_upload_error">Failed to upload avatar to server</string>
+    <string name="profile_toast_image_read_error">Failed to read image file</string>
+    <string name="profile_error_empty_password">Password cannot be empty</string>
+    <string name="profile_error_confirm_password">Please confirm your password</string>
+    <string name="profile_toast_password_success">Password changed successfully!</string>
+    <string name="profile_toast_password_error">Password change failed</string>
+    <string name="profile_logout_confirm_msg">Are you sure you want to log out?</string>
+</resources>
