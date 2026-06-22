@@ -53,9 +53,10 @@ public abstract class BaseRepository {
                 }
             } catch (IOException e) {
                 // Handles socket, timeout or offline connectivity exceptions
+                android.util.Log.e("BaseRepository", "Network IO Failure", e);
                 liveData.postValue(Resource.error(new ApiError(
                         "503",
-                        "Không có kết nối mạng. Vui lòng thử lại.",
+                        "Không có kết nối mạng. Vui lòng thử lại. Chi tiết: " + e.getMessage(),
                         e.getLocalizedMessage(),
                         "Network IO Failure"
                 )));
