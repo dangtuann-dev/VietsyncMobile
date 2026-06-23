@@ -354,4 +354,51 @@ public class UserRepository extends BaseRepository {
 
         return resultLiveData;
     }
+
+    /**
+     * Fetches user's notification preferences from Supabase.
+     */
+    public LiveData<Resource<Map<String, Object>>> getUserSettingsFromSupabase(String userId) {
+        MutableLiveData<Resource<List<Map<String, Object>>>> rawLiveData = new MutableLiveData<>();
+        MediatorLiveData<Resource<Map<String, Object>>> resultLiveData = new MediatorLiveData<>();
+
+        resultLiveData.setValue(Resource.loading());
+
+        Call<List<Map<String, Object>>> call = userApi.getUserSettings("eq." + userId);
+        executeCall(call, rawLiveData);
+
+        resultLiveData.addSource(rawLiveData, resource -> {
+            if (resource.isLoading()) {
+                resultLiveData.setValue(Resource.loading());
+            } else if (resource.isSuccess() && resource.data != null) {
+                List<Map<String, Object>> list = resource.data;
+                if (!list.isEmpty()) {
+                    resultLiveData.setValue(Resource.success(list.get(0)));
+                } else {
+                    // Return empty map to represent default settings
+                    resultLiveData.setValue(Resource.success(new HashMap<>()));
+                }
+            } else if (resource.isError()) {
+                resultLiveData.setValue(Resource.error(resource.error));
+            }
+        });
+
+        return resultLiveData;
+    }
+
+    /**
+     * Saves user's notification preferences to Supabase.
+     */
+    public LiveData<Resource<Void>> saveUserSettingsToSupabase(String userId, Map<String, Object> settings) {
+        MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
+        resultLiveData.setValue(Resource.loading());
+
+        Map<String, Object> body = new HashMap<>(settings);
+        body.put("user_id", userId);
+
+        Call<Void> call = userApi.upsertUserSettings(body, "resolution=merge-duplicates");
+        executeCall(call, resultLiveData);
+
+        return resultLiveData;
+    }
 }

@@ -26,6 +26,12 @@
             </intent-filter>
         </activity>
 
+        <!-- Onboarding Screen -->
+        <activity
+            android:name="com.app.learning.ui.onboarding.OnboardingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <!-- Authentication Portal -->
         <activity
             android:name="com.app.learning.ui.auth.LoginActivity"
@@ -71,6 +77,11 @@
 
         <activity
             android:name="com.app.learning.ui.profile.MyCertificatesActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.profile.NotificationSettingsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 

@@ -135,8 +135,12 @@
 
                     <!-- Push Notifications Row -->
                     <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/rowNotificationSettings"
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
+                        android:background="?android:attr/selectableItemBackground"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:paddingHorizontal="16dp">
 
                         <ImageView
@@ -159,14 +163,16 @@
                             android:textSize="15sp"
                             android:textStyle="bold"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@id/switchNotifications"
+                            app:layout_constraintEnd_toStartOf="@id/icNotificationChevron"
                             app:layout_constraintStart_toEndOf="@id/icNotifications"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.switchmaterial.SwitchMaterial
-                            android:id="@+id/switchNotifications"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                        <ImageView
+                            android:id="@+id/icNotificationChevron"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_chevron_right"
+                            app:tint="@color/outline"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />

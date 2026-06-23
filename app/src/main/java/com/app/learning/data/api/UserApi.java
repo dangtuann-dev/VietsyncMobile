@@ -104,4 +104,21 @@ public interface UserApi {
             @Body RequestBody imageBytes,
             @Header("x-upsert") String xUpsert
     );
+
+    /**
+     * Gets notification preferences from the user_settings table.
+     */
+    @GET("rest/v1/user_settings")
+    Call<List<Map<String, Object>>> getUserSettings(
+            @Query("user_id") String userIdFilter
+    );
+
+    /**
+     * Upserts notification preferences into the user_settings table.
+     */
+    @POST("rest/v1/user_settings")
+    Call<Void> upsertUserSettings(
+            @Body Map<String, Object> body,
+            @Header("Prefer") String preferHeader
+    );
 }

@@ -88,6 +88,9 @@ dependencies {
     // Glide & CircleImageView
     implementation(libs.glide)
     implementation(libs.circleimageview)
+    implementation(libs.lottie)
+    implementation(libs.androidx.datastore.preferences.rxjava3)
+    implementation(libs.rxandroid)
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))

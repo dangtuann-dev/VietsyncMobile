@@ -16,6 +16,7 @@ import androidx.core.splashscreen.SplashScreen;
 
 import com.app.learning.ui.auth.LoginActivity;
 import com.app.learning.MainActivity;
+import com.app.learning.ui.onboarding.OnboardingActivity;
 import com.app.learning.utils.AppConstants;
 import com.example.vietsyncmobile.R;
 
@@ -53,10 +54,13 @@ public class SplashActivity extends AppCompatActivity {
      */
     private void checkAuthenticationAndNavigate() {
         SharedPreferences sharedPreferences = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
+        boolean isFirstTime = sharedPreferences.getBoolean("key_is_first_time", true);
         boolean isLoggedIn = sharedPreferences.getBoolean(AppConstants.PREF_KEY_IS_LOGGED_IN, false);
 
         Intent intent;
-        if (isLoggedIn) {
+        if (isFirstTime) {
+            intent = new Intent(SplashActivity.this, OnboardingActivity.class);
+        } else if (isLoggedIn) {
             intent = new Intent(SplashActivity.this, MainActivity.class);
         } else {
             intent = new Intent(SplashActivity.this, LoginActivity.class);

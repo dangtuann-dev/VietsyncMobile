@@ -15,7 +15,7 @@ import java.util.Locale;
 public class SettingsActivity extends BaseActivity {
 
     private SwitchMaterial switchDarkMode;
-    private SwitchMaterial switchNotifications;
+    private View rowNotificationSettings;
     private View rowLanguage;
     private TextView tvCurrentLanguage;
     private View rowClearCache;
@@ -35,7 +35,7 @@ public class SettingsActivity extends BaseActivity {
 
         btnBack = findViewById(R.id.btnBack);
         switchDarkMode = findViewById(R.id.switchDarkMode);
-        switchNotifications = findViewById(R.id.switchNotifications);
+        rowNotificationSettings = findViewById(R.id.rowNotificationSettings);
         rowLanguage = findViewById(R.id.rowLanguage);
         tvCurrentLanguage = findViewById(R.id.tvCurrentLanguage);
         rowClearCache = findViewById(R.id.rowClearCache);
@@ -43,7 +43,6 @@ public class SettingsActivity extends BaseActivity {
 
         // Bind data
         switchDarkMode.setChecked(userPreference.isDarkModeEnabled());
-        switchNotifications.setChecked(userPreference.isNotificationsEnabled());
         
         String lang = userPreference.getAppLanguage();
         tvCurrentLanguage.setText("en".equals(lang) ? "English" : "Tiếng Việt");
@@ -58,10 +57,8 @@ public class SettingsActivity extends BaseActivity {
             );
         });
 
-        switchNotifications.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            userPreference.setNotificationsEnabled(isChecked);
-            showToast(isChecked ? getString(R.string.settings_toast_notifications_on) 
-                                : getString(R.string.settings_toast_notifications_off));
+        rowNotificationSettings.setOnClickListener(v -> {
+            startActivity(new android.content.Intent(this, NotificationSettingsActivity.class));
         });
 
         rowLanguage.setOnClickListener(v -> showLanguageDialog());
