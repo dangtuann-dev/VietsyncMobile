@@ -109,11 +109,24 @@ CREATE TABLE public.certificates (
     CONSTRAINT unique_user_course_certificate UNIQUE (user_id, course_id)
 );
 
+-- User Settings Table
+CREATE TABLE public.user_settings (
+    user_id UUID PRIMARY KEY REFERENCES public.users(id) ON DELETE CASCADE,
+    new_course_announcements BOOLEAN DEFAULT TRUE,
+    assignment_deadlines BOOLEAN DEFAULT TRUE,
+    discussion_replies BOOLEAN DEFAULT TRUE,
+    weekly_progress_report BOOLEAN DEFAULT TRUE,
+    promotional_offers BOOLEAN DEFAULT TRUE,
+    quiet_hours_enabled BOOLEAN DEFAULT FALSE,
+    quiet_hours_start TEXT DEFAULT '22:00',
+    quiet_hours_end TEXT DEFAULT '07:00'
+);
+
 -- =====================================================================
 -- 2. DATABASE TRIGGERS & AUTOMATION
 -- =====================================================================
 
--- Trigger: Automatically sync newly created Supabase Auth users to public.users profiles
+-- Trigger: Automatically sync newly created Supabase Auth users to public.users profiles and user_settings
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -125,6 +138,11 @@ BEGIN
     COALESCE(NEW.raw_user_meta_data->>'avatar_url', ''),
     COALESCE(NEW.raw_user_meta_data->>'role', 'student')
   );
+
+  INSERT INTO public.user_settings (user_id)
+  VALUES (NEW.id)
+  ON CONFLICT (user_id) DO NOTHING;
+
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -206,6 +224,7 @@ ALTER TABLE public.enrollments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.quizzes ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.quiz_attempts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.certificates ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.user_settings ENABLE ROW LEVEL SECURITY;
 
 -- 4.1 USERS POLICIES
 CREATE POLICY "Allow public read access to users profiles" 
@@ -334,6 +353,13 @@ CREATE POLICY "Allow admin to manage certificates directly"
   ON public.certificates FOR ALL TO authenticated 
   USING (EXISTS (SELECT 1 FROM public.users WHERE id = auth.uid() AND role = 'admin'));
 
+-- 4.9 USER SETTINGS POLICIES
+CREATE POLICY "Allow users to view their own settings" 
+  ON public.user_settings FOR SELECT TO authenticated USING (auth.uid() = user_id);
+
+CREATE POLICY "Allow users to update/insert their own settings" 
+  ON public.user_settings FOR ALL TO authenticated USING (auth.uid() = user_id);
+
 -- =====================================================================
 -- 5. SAMPLE DATA INSERTION
 -- =====================================================================
@@ -361,6 +387,16 @@ ON CONFLICT (id) DO UPDATE SET
   full_name = EXCLUDED.full_name,
   avatar_url = EXCLUDED.avatar_url,
   role = EXCLUDED.role;
+
+-- 5.1.b Insert mock user_settings manually as fallback
+INSERT INTO public.user_settings (user_id)
+VALUES
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000001'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000002'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000003'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000005')
+ON CONFLICT (user_id) DO NOTHING;
 
 -- 5.2 Categories Data
 INSERT INTO public.categories (name, icon, color)

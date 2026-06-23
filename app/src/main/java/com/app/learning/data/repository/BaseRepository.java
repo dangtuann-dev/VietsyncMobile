@@ -45,7 +45,7 @@ public abstract class BaseRepository {
                 // Perform synchronous execution on background thread
                 Response<T> response = call.execute();
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()) {
                     liveData.postValue(Resource.success(response.body()));
                 } else {
                     ApiError error = parseError(response);

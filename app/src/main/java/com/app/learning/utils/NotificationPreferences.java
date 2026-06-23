@@ -29,6 +29,7 @@ public class NotificationPreferences {
     public static final Preferences.Key<Boolean> KEY_PROMOTIONAL = PreferencesKeys.booleanKey("promotional_offers");
     public static final Preferences.Key<String> KEY_QUIET_HOURS_START = PreferencesKeys.stringKey("quiet_hours_start");
     public static final Preferences.Key<String> KEY_QUIET_HOURS_END = PreferencesKeys.stringKey("quiet_hours_end");
+    public static final Preferences.Key<Boolean> KEY_QUIET_HOURS_ENABLED = PreferencesKeys.booleanKey("quiet_hours_enabled");
 
     private NotificationPreferences(@NonNull Context context) {
         this.dataStore = new RxPreferenceDataStoreBuilder(
@@ -103,6 +104,13 @@ public class NotificationPreferences {
         });
     }
 
+    public Flowable<Boolean> getQuietHoursEnabled(boolean defaultValue) {
+        return dataStore.data().map(prefs -> {
+            Boolean value = prefs.get(KEY_QUIET_HOURS_ENABLED);
+            return value != null ? value : defaultValue;
+        });
+    }
+
     // --- SETTERS (Return Single representing async write operations) ---
 
     public Single<Preferences> setNewCourseAnnouncements(boolean enabled) {
@@ -157,6 +165,14 @@ public class NotificationPreferences {
         return dataStore.updateDataAsync(prefs -> {
             MutablePreferences mutable = prefs.toMutablePreferences();
             mutable.set(KEY_QUIET_HOURS_END, endTime);
+            return Single.just(mutable);
+        });
+    }
+
+    public Single<Preferences> setQuietHoursEnabled(boolean enabled) {
+        return dataStore.updateDataAsync(prefs -> {
+            MutablePreferences mutable = prefs.toMutablePreferences();
+            mutable.set(KEY_QUIET_HOURS_ENABLED, enabled);
             return Single.just(mutable);
         });
     }

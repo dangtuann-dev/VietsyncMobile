@@ -74,6 +74,10 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
         return notificationPreferences.getQuietHoursEnd("07:00");
     }
 
+    public Flowable<Boolean> getQuietHoursEnabled() {
+        return notificationPreferences.getQuietHoursEnabled(false);
+    }
+
     // --- Update Local DataStore ---
 
     public Single<?> updateNewCourseAnnouncements(boolean enabled) {
@@ -102,6 +106,10 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
 
     public Single<?> updateQuietHoursEnd(String time) {
         return notificationPreferences.setQuietHoursEnd(time);
+    }
+
+    public Single<?> updateQuietHoursEnabled(boolean enabled) {
+        return notificationPreferences.setQuietHoursEnabled(enabled);
     }
 
     // --- Supabase Network Calls ---
@@ -166,6 +174,12 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
             Object val = settings.get("quiet_hours_end");
             if (val instanceof String) {
                 updateQuietHoursEnd((String) val).subscribe();
+            }
+        }
+        if (settings.containsKey("quiet_hours_enabled")) {
+            Object val = settings.get("quiet_hours_enabled");
+            if (val instanceof Boolean) {
+                updateQuietHoursEnabled((Boolean) val).subscribe();
             }
         }
     }

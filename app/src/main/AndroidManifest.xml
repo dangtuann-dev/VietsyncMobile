@@ -92,6 +92,16 @@
             android:name="com.app.learning.data.api.TokenRefreshService"
             android:enabled="true"
             android:exported="false" />
+
+        <!-- Service to support backward-compatible locale persistence in AndroidX -->
+        <service
+            android:name="androidx.appcompat.app.AppLocalesMetadataHolderService"
+            android:enabled="false"
+            android:exported="false">
+            <meta-data
+                android:name="autoStoreLocales"
+                android:value="true" />
+        </service>
     </application>
 
 </manifest>

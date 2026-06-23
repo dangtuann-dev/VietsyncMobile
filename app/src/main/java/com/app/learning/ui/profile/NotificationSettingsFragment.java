@@ -130,71 +130,75 @@ public class NotificationSettingsFragment extends Fragment {
         switchQuietHours.setOnCheckedChangeListener((buttonView, isChecked) -> {
             toggleQuietHoursLayout(isChecked);
             if (buttonView.isPressed()) {
-                syncAllToSupabase();
+                disposables.add(viewModel.updateQuietHoursEnabled(isChecked)
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(prefs -> syncAllToSupabase(), throwable -> {}));
             }
         });
 
         // Time Picker Row listeners
         rowStartTime.setOnClickListener(v -> showTimePickerDialog(true));
         rowEndTime.setOnClickListener(v -> showTimePickerDialog(false));
-    }
+     }
 
-    private void observeLocalPreferences() {
-        // Observe and update toggles reactively
-        disposables.add(viewModel.getNewCourseAnnouncements()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(switchNewCourse::setChecked, throwable -> {}));
+     private void observeLocalPreferences() {
+         // Observe and update toggles reactively
+         disposables.add(viewModel.getNewCourseAnnouncements()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(switchNewCourse::setChecked, throwable -> {}));
 
-        disposables.add(viewModel.getAssignmentDeadlines()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(switchAssignment::setChecked, throwable -> {}));
+         disposables.add(viewModel.getAssignmentDeadlines()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(switchAssignment::setChecked, throwable -> {}));
 
-        disposables.add(viewModel.getDiscussionReplies()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(switchDiscussion::setChecked, throwable -> {}));
+         disposables.add(viewModel.getDiscussionReplies()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(switchDiscussion::setChecked, throwable -> {}));
 
-        disposables.add(viewModel.getWeeklyProgressReport()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(switchWeeklyProgress::setChecked, throwable -> {}));
+         disposables.add(viewModel.getWeeklyProgressReport()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(switchWeeklyProgress::setChecked, throwable -> {}));
 
-        disposables.add(viewModel.getPromotionalOffers()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(switchPromotional::setChecked, throwable -> {}));
+         disposables.add(viewModel.getPromotionalOffers()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(switchPromotional::setChecked, throwable -> {}));
 
-        disposables.add(viewModel.getQuietHoursStart()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tvStartTime::setText, throwable -> {}));
+         disposables.add(viewModel.getQuietHoursStart()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(tvStartTime::setText, throwable -> {}));
 
-        disposables.add(viewModel.getQuietHoursEnd()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(tvEndTime::setText, throwable -> {}));
-    }
+         disposables.add(viewModel.getQuietHoursEnd()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(tvEndTime::setText, throwable -> {}));
 
-    private void fetchAndSyncRemotePreferences() {
-        String userId = viewModel.getUserId();
-        if (userId == null) return;
+         disposables.add(viewModel.getQuietHoursEnabled()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribe(enabled -> {
+                     switchQuietHours.setChecked(enabled);
+                     toggleQuietHoursLayout(enabled);
+                 }, throwable -> {}));
+     }
 
-        viewModel.fetchRemoteSettings(userId).observe(getViewLifecycleOwner(), resource -> {
-            if (resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
-                // Remote settings fetched, write them to local DataStore
-                viewModel.saveToLocalDataStore(resource.data);
-                
-                // Set quiet hours toggle explicitly based on API response
-                Boolean quietHoursEnabled = (Boolean) resource.data.get("quiet_hours_enabled");
-                if (quietHoursEnabled != null) {
-                    switchQuietHours.setChecked(quietHoursEnabled);
-                    toggleQuietHoursLayout(quietHoursEnabled);
-                }
-            }
-        });
-    }
+     private void fetchAndSyncRemotePreferences() {
+         String userId = viewModel.getUserId();
+         if (userId == null) return;
+
+         viewModel.fetchRemoteSettings(userId).observe(getViewLifecycleOwner(), resource -> {
+             if (resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
+                 // Remote settings fetched, write them to local DataStore
+                 viewModel.saveToLocalDataStore(resource.data);
+             }
+         });
+     }
 
     private void toggleQuietHoursLayout(boolean show) {
         ChangeBounds transition = new ChangeBounds();

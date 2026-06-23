@@ -18,6 +18,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.snackbar.Snackbar;
 
+import android.content.Context;
+import android.content.res.Configuration;
+import java.util.Locale;
+
 /**
  * BaseActivity is the base class for all Activities in the application.
  * It provides centralized mechanisms for:
@@ -27,6 +31,19 @@ import com.google.android.material.snackbar.Snackbar;
  * 4. Automatic binding to {@link BaseViewModel} loading and error live states
  */
 public abstract class BaseActivity extends AppCompatActivity {
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        String lang = com.app.learning.utils.UserPreference.getInstance(newBase).getAppLanguage();
+        Locale locale = new Locale(lang);
+        Locale.setDefault(locale);
+
+        Configuration config = new Configuration(newBase.getResources().getConfiguration());
+        config.setLocale(locale);
+
+        Context context = newBase.createConfigurationContext(config);
+        super.attachBaseContext(context);
+    }
 
     private Dialog loadingDialog;
     private TextView loadingTextView;
