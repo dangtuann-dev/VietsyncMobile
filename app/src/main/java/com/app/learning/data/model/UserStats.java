@@ -2,9 +2,9 @@ package com.app.learning.data.model;
 
 import java.io.Serializable;
 
-/**
- * UserStats stores statistics for course enrollments, completions, and certificates.
- */
+
+
+
 public class UserStats implements Serializable {
     private final int enrolledCount;
     private final int completedCount;

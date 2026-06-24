@@ -13,10 +13,10 @@ import com.app.learning.data.model.User;
 import com.app.learning.data.repository.UserRepository;
 import com.app.learning.ui.base.BaseViewModel;
 
-/**
- * LoginViewModel manages state changes for the EdX style login flows,
- * interacting with UserRepository and communicating updates to LoginActivity.
- */
+
+
+
+
 public class LoginViewModel extends BaseViewModel {
 
     private final UserRepository userRepository;
@@ -26,20 +26,20 @@ public class LoginViewModel extends BaseViewModel {
         this.userRepository = userRepository;
     }
 
-    /**
-     * Exposes the login resource wrapper to the Activity.
-     */
+
+
+
     public LiveData<Resource<User>> getLoginResult() {
         return loginResult;
     }
 
-    /**
-     * Executes the login operation. Manages internal view model loading/error states
-     * alongside wrapping results in a LiveData object.
-     *
-     * @param email    The email to login with.
-     * @param password The password to login with.
-     */
+
+
+
+
+
+
+
     public void login(String email, String password) {
         showLoading();
         clearError();
@@ -67,9 +67,9 @@ public class LoginViewModel extends BaseViewModel {
         });
     }
 
-    /**
-     * ViewModelProvider.Factory implementation to handle UserRepository injection.
-     */
+
+
+
     public static class Factory implements ViewModelProvider.Factory {
         private final Context context;
 

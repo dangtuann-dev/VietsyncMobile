@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Toolbar -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -49,7 +49,7 @@
         android:layout_height="1dp"
         android:background="@color/divider" />
 
-    <!-- Settings Content -->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -61,7 +61,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Section 1: Học tập -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +87,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- New Course Announcements -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -135,7 +135,7 @@
                         android:background="@color/divider"
                         android:layout_marginStart="16dp" />
 
-                    <!-- Assignment Deadlines -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
                         android:background="@color/divider"
                         android:layout_marginStart="16dp" />
 
-                    <!-- Discussion Replies -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -228,7 +228,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Section 2: Tổng hợp & Quảng cáo -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -254,7 +254,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Weekly Progress Report -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -302,7 +302,7 @@
                         android:background="@color/divider"
                         android:layout_marginStart="16dp" />
 
-                    <!-- Promotional Offers -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -347,7 +347,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Section 3: Chế độ yên lặng -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -374,7 +374,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Quiet Hours Switch Row -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -416,7 +416,7 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!-- Collapsible Quiet Hours Detail Section -->
+
                     <LinearLayout
                         android:id="@+id/layoutQuietHoursDetails"
                         android:layout_width="match_parent"
@@ -431,7 +431,7 @@
                             android:background="@color/divider"
                             android:layout_marginStart="16dp" />
 
-                        <!-- Start Time -->
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/rowStartTime"
                             android:layout_width="match_parent"
@@ -471,7 +471,7 @@
                             android:background="@color/divider"
                             android:layout_marginStart="16dp" />
 
-                        <!-- End Time -->
+
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:id="@+id/rowEndTime"
                             android:layout_width="match_parent"

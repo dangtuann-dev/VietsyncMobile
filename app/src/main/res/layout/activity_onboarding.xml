@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- Top right Skip Button -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_skip"
         style="@style/Widget.Material3.Button.TextButton"
@@ -21,7 +21,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- ViewPager2 for onboarding items -->
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/view_pager_onboarding"
         android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- Dots indicator container -->
+
     <LinearLayout
         android:id="@+id/layout_dots"
         android:layout_width="wrap_content"
@@ -43,7 +43,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <!-- Next / Get Started Button -->
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_next"
         style="@style/Widget.Learning.Button"

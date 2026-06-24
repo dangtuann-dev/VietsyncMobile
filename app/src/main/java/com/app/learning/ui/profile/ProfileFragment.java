@@ -35,26 +35,26 @@ import java.io.InputStream;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * ProfileFragment renders the profile screen for the student, managing Glide images,
- * stats row updates, edit dialog integrations, storage uploads, and session logs.
- */
+
+
+
+
 public class ProfileFragment extends Fragment {
 
     private ProfileViewModel viewModel;
-    
+
     private CircleImageView imgAvatar;
     private TextView txtUserName;
     private TextView txtUserEmail;
     private TextView txtUserBio;
-    
+
     private TextView txtEnrolledCount;
     private TextView txtCompletedCount;
     private TextView txtCertificatesCount;
 
     private AlertDialog progressDialog;
 
-    // Image Picker Launcher
+
     private final ActivityResultLauncher<String> pickImageLauncher =
             registerForActivityResult(new ActivityResultContracts.GetContent(), this::onImagePicked);
 
@@ -68,13 +68,13 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Bind Views
+
         imgAvatar = view.findViewById(R.id.imgAvatar);
         View imgCameraOverlay = view.findViewById(R.id.imgCameraOverlay);
         txtUserName = view.findViewById(R.id.txtUserName);
         txtUserEmail = view.findViewById(R.id.txtUserEmail);
         txtUserBio = view.findViewById(R.id.txtUserBio);
-        
+
         txtEnrolledCount = view.findViewById(R.id.txtEnrolledCount);
         txtCompletedCount = view.findViewById(R.id.txtCompletedCount);
         txtCertificatesCount = view.findViewById(R.id.txtCertificatesCount);
@@ -86,21 +86,21 @@ public class ProfileFragment extends Fragment {
         View rowLogout = view.findViewById(R.id.rowLogout);
         MaterialButton btnChangePassword = view.findViewById(R.id.btnChangePassword);
 
-        // Init ViewModel
+
         viewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-        // Load local data instantly
+
         User localUser = viewModel.getLocalProfile();
         if (localUser != null) {
             bindUserProfile(localUser);
-            // Trigger remote reload
+
             viewModel.loadUserProfile(localUser.getId());
         } else {
             navigateToLogin();
             return;
         }
 
-        // Set Click Listeners
+
         View.OnClickListener pickImageListener = v -> pickImageLauncher.launch("image/*");
         imgAvatar.setOnClickListener(pickImageListener);
         imgCameraOverlay.setOnClickListener(pickImageListener);
@@ -111,22 +111,22 @@ public class ProfileFragment extends Fragment {
         rowCertificates.setOnClickListener(v -> startActivity(new Intent(requireContext(), MyCertificatesActivity.class)));
         rowDownloads.setOnClickListener(v -> startActivity(new Intent(requireContext(), DownloadHistoryActivity.class)));
         rowSettings.setOnClickListener(v -> startActivity(new Intent(requireContext(), SettingsActivity.class)));
-        
+
         rowLogout.setOnClickListener(v -> showLogoutConfirmation());
 
-        // Observe Data States
+
         observeViewModel();
     }
 
     private void observeViewModel() {
-        // Observe Remote Profile updates
+
         viewModel.getProfileData().observe(getViewLifecycleOwner(), resource -> {
             if (resource.isSuccess() && resource.data != null) {
                 bindUserProfile(resource.data);
             }
         });
 
-        // Observe Stats updates
+
         viewModel.getStatsData().observe(getViewLifecycleOwner(), resource -> {
             if (resource.isSuccess() && resource.data != null) {
                 bindUserStats(resource.data);
@@ -137,14 +137,14 @@ public class ProfileFragment extends Fragment {
     private void bindUserProfile(User user) {
         txtUserName.setText(user.getFullName() != null ? user.getFullName() : getString(R.string.profile_default_name));
         txtUserEmail.setText(user.getEmail());
-        
+
         if (user.getBio() != null && !user.getBio().trim().isEmpty()) {
             txtUserBio.setText(user.getBio());
         } else {
             txtUserBio.setText(getString(R.string.profile_default_bio));
         }
 
-        // Load circular avatar with Glide
+
         Glide.with(this)
                 .load(user.getAvatarUrl() != null && !user.getAvatarUrl().isEmpty() ? user.getAvatarUrl() : R.drawable.ic_profile_placeholder)
                 .placeholder(R.drawable.ic_profile_placeholder)
@@ -159,9 +159,9 @@ public class ProfileFragment extends Fragment {
         txtCertificatesCount.setText(String.valueOf(stats.getCertificatesCount()));
     }
 
-    /**
-     * Launch BottomSheet view to edit profile details.
-     */
+
+
+
     private void openEditProfileBottomSheet() {
         User user = viewModel.getLocalProfile();
         if (user == null) return;
@@ -184,9 +184,9 @@ public class ProfileFragment extends Fragment {
         bottomSheet.show(getChildFragmentManager(), "EditProfileBottomSheet");
     }
 
-    /**
-     * Process chosen image Uri, converts it to bytes and uploads it to Supabase Storage.
-     */
+
+
+
     private void onImagePicked(@Nullable Uri uri) {
         if (uri == null) return;
         User user = viewModel.getLocalProfile();
@@ -195,18 +195,18 @@ public class ProfileFragment extends Fragment {
         try {
             InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
             if (inputStream == null) return;
-            
+
             byte[] imageBytes = readAllBytes(inputStream);
             String mimeType = requireContext().getContentResolver().getType(uri);
             if (mimeType == null) mimeType = "image/jpeg";
 
             showLoading(true);
-            // 1. Upload to Supabase storage
+
             viewModel.uploadAvatar(user.getId(), imageBytes, mimeType).observe(getViewLifecycleOwner(), uploadRes -> {
                 if (!uploadRes.isLoading()) {
                     if (uploadRes.isSuccess() && uploadRes.data != null) {
                         String publicUrl = uploadRes.data;
-                        // 2. Save new avatar URL to user profile row
+
                         viewModel.updateProfile(user.getId(), null, null, publicUrl).observe(getViewLifecycleOwner(), profileRes -> {
                             if (!profileRes.isLoading()) {
                                 showLoading(false);
@@ -230,9 +230,9 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    /**
-     * Popup dialog for change password details.
-     */
+
+
+
     private void openChangePasswordDialog() {
         View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_change_password, null);
         TextInputEditText etNewPassword = dialogView.findViewById(R.id.etNewPassword);
@@ -290,9 +290,9 @@ public class ProfileFragment extends Fragment {
         dialog.show();
     }
 
-    /**
-     * Sign out warning dialogue popup.
-     */
+
+
+
     private void showLogoutConfirmation() {
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle(getString(R.string.profile_logout))

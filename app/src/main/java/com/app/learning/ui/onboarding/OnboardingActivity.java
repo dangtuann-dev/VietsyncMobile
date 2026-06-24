@@ -20,10 +20,10 @@ import com.google.android.material.button.MaterialButton;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * OnboardingActivity guides new users through the app features using a ViewPager2 slider,
- * custom dots page indicator, page-change transitions, and saves first-time settings in preferences.
- */
+
+
+
+
 public class OnboardingActivity extends BaseActivity {
 
     private ViewPager2 viewPager;
@@ -41,13 +41,13 @@ public class OnboardingActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        // Initialize UI components
+
         viewPager = findViewById(R.id.view_pager_onboarding);
         dotsLayout = findViewById(R.id.layout_dots);
         btnSkip = findViewById(R.id.btn_skip);
         btnNext = findViewById(R.id.btn_next);
 
-        // Build onboarding pages list
+
         onboardingPages = new ArrayList<>();
         onboardingPages.add(new OnboardingPage(
                 R.raw.learning_anywhere,
@@ -65,23 +65,23 @@ public class OnboardingActivity extends BaseActivity {
                 "Nhận chứng chỉ hoàn thành khóa học có giá trị quốc tế, mở rộng cơ hội thăng tiến sự nghiệp."
         ));
 
-        // Configure Adapter and ViewPager2
+
         adapter = new OnboardingAdapter(onboardingPages);
         viewPager.setAdapter(adapter);
         viewPager.setPageTransformer(new FadeSlidePageTransformer());
 
-        // Setup dots indicator
+
         setupDotsIndicator(onboardingPages.size());
         setCurrentDot(0);
 
-        // Register Page change callback
+
         viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
                 setCurrentDot(position);
 
-                // Update Next button text and Skip button visibility depending on screen position
+
                 if (position == onboardingPages.size() - 1) {
                     btnNext.setText("Bắt đầu ngay");
                     btnSkip.setVisibility(View.GONE);
@@ -92,7 +92,7 @@ public class OnboardingActivity extends BaseActivity {
             }
         });
 
-        // Set action listeners
+
         btnSkip.setOnClickListener(v -> finishOnboarding());
         btnNext.setOnClickListener(v -> {
             int current = viewPager.getCurrentItem();
@@ -106,19 +106,19 @@ public class OnboardingActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        // No ViewModels to observe for static Onboarding screen
+
     }
 
-    /**
-     * Programmatically setups the layout of indicator dots.
-     */
+
+
+
     private void setupDotsIndicator(int count) {
         ImageView[] dots = new ImageView[count];
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        // Margins between dots
+
         params.setMargins(8, 0, 8, 0);
 
         for (int i = 0; i < count; i++) {
@@ -129,9 +129,9 @@ public class OnboardingActivity extends BaseActivity {
         }
     }
 
-    /**
-     * Highlights the dot corresponding to the active page, expanding it dynamically.
-     */
+
+
+
     private void setCurrentDot(int position) {
         int childCount = dotsLayout.getChildCount();
         for (int i = 0; i < childCount; i++) {
@@ -144,9 +144,9 @@ public class OnboardingActivity extends BaseActivity {
         }
     }
 
-    /**
-     * Sets first time preference flag to false and proceeds to login portal.
-     */
+
+
+
     private void finishOnboarding() {
         SharedPreferences preferences = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         preferences.edit().putBoolean("key_is_first_time", false).apply();

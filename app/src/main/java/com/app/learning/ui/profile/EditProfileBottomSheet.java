@@ -14,10 +14,10 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
-/**
- * EditProfileBottomSheet displays a BottomSheet dialog letting users modify
- * their display full name and bio profile details.
- */
+
+
+
+
 public class EditProfileBottomSheet extends BottomSheetDialogFragment {
 
     private static final String ARG_FULL_NAME = "arg_full_name";
@@ -33,9 +33,9 @@ public class EditProfileBottomSheet extends BottomSheetDialogFragment {
         void onProfileSaved(String fullName, String bio);
     }
 
-    /**
-     * Factory method creating a new dialog instance loaded with current profile values.
-     */
+
+
+
     public static EditProfileBottomSheet newInstance(String fullName, String bio) {
         EditProfileBottomSheet fragment = new EditProfileBottomSheet();
         Bundle args = new Bundle();
@@ -59,14 +59,14 @@ public class EditProfileBottomSheet extends BottomSheetDialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Bind Views
+
         etFullName = view.findViewById(R.id.etFullName);
         etBio = view.findViewById(R.id.etBio);
         layoutFullName = view.findViewById(R.id.layoutFullName);
         MaterialButton btnCancel = view.findViewById(R.id.btnCancel);
         MaterialButton btnSave = view.findViewById(R.id.btnSave);
 
-        // Retrieve and populate default arguments
+
         if (getArguments() != null) {
             String initialName = getArguments().getString(ARG_FULL_NAME, "");
             String initialBio = getArguments().getString(ARG_BIO, "");
@@ -75,10 +75,10 @@ public class EditProfileBottomSheet extends BottomSheetDialogFragment {
             etBio.setText(initialBio);
         }
 
-        // Cancel click handler
+
         btnCancel.setOnClickListener(v -> dismiss());
 
-        // Save click handler
+
         btnSave.setOnClickListener(v -> {
             String fullName = etFullName.getText() != null ? etFullName.getText().toString().trim() : "";
             String bio = etBio.getText() != null ? etBio.getText().toString().trim() : "";
@@ -100,8 +100,8 @@ public class EditProfileBottomSheet extends BottomSheetDialogFragment {
 
     @Override
     public int getTheme() {
-        // Return custom theme style if bottom sheet rounded borders are desired.
-        // Material3 handles bottom sheet roundings natively, but this is a fallback.
+
+
         return super.getTheme();
     }
 }

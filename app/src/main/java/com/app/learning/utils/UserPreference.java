@@ -8,10 +8,10 @@ import androidx.annotation.Nullable;
 
 import com.app.learning.data.model.User;
 
-/**
- * UserPreference is a wrapper around SharedPreferences to manage the local storage
- * of user sessions, access tokens, and user profiles.
- */
+
+
+
+
 public class UserPreference {
 
     private static volatile UserPreference instance;
@@ -35,12 +35,12 @@ public class UserPreference {
         return instance;
     }
 
-    /**
-     * Saves user session data including JWT and user profile.
-     *
-     * @param token Access token (JWT)
-     * @param user  User object containing profile information
-     */
+
+
+
+
+
+
     public void saveSession(@NonNull String token, @NonNull User user) {
         preferences.edit()
                 .putString(AppConstants.PREF_KEY_ACCESS_TOKEN, token)
@@ -54,30 +54,30 @@ public class UserPreference {
                 .apply();
     }
 
-    /**
-     * Retrieves the stored access token.
-     *
-     * @return Stored token, or null if not available
-     */
+
+
+
+
+
     @Nullable
     public String getAccessToken() {
         return preferences.getString(AppConstants.PREF_KEY_ACCESS_TOKEN, null);
     }
 
-    /**
-     * Checks if a user is currently logged in.
-     *
-     * @return True if a session exists, false otherwise
-     */
+
+
+
+
+
     public boolean isLoggedIn() {
         return preferences.getBoolean(AppConstants.PREF_KEY_IS_LOGGED_IN, false);
     }
 
-    /**
-     * Reconstructs the User object from stored SharedPreferences keys.
-     *
-     * @return User object with profile metadata, or null if session is empty
-     */
+
+
+
+
+
     @Nullable
     public User getUserProfile() {
         if (!isLoggedIn()) {
@@ -93,9 +93,9 @@ public class UserPreference {
         return user;
     }
 
-    /**
-     * Updates locally cached user profile fields.
-     */
+
+
+
     public void updateUserProfile(@NonNull User user) {
         preferences.edit()
                 .putString(AppConstants.PREF_KEY_USER_NAME, user.getFullName())
@@ -105,9 +105,9 @@ public class UserPreference {
                 .apply();
     }
 
-    /**
-     * Clears all session keys (used for sign-out).
-     */
+
+
+
     public void clearSession() {
         preferences.edit()
                 .remove(AppConstants.PREF_KEY_ACCESS_TOKEN)
@@ -121,9 +121,9 @@ public class UserPreference {
                 .apply();
     }
 
-    /**
-     * Settings configurations.
-     */
+
+
+
     public boolean isNotificationsEnabled() {
         return preferences.getBoolean("key_notifications_enabled", true);
     }

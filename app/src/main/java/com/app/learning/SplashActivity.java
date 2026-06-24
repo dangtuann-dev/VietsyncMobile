@@ -20,24 +20,24 @@ import com.app.learning.ui.onboarding.OnboardingActivity;
 import com.app.learning.utils.AppConstants;
 import com.example.vietsyncmobile.R;
 
-/**
- * SplashActivity represents the starting landing screen of the application.
- * It is compatible with Android 12+ SplashScreen API and performs an entry scale/fade logo transition
- * before verifying the active login session and routing the user to the proper flow.
- */
+
+
+
+
+
 public class SplashActivity extends AppCompatActivity {
 
-    private static final int SPLASH_DELAY_MS = 2000; // 2 seconds display time
+    private static final int SPLASH_DELAY_MS = 2000;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        // 1. Install Android 12+ SplashScreen API BEFORE calling super.onCreate()
+
         SplashScreen.installSplashScreen(this);
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        // 2. Load and play the premium entrance animation
+
         View logoContainer = findViewById(R.id.logo_container);
         if (logoContainer != null) {
             Animator logoAnimator = AnimatorInflater.loadAnimator(this, R.animator.splash_animation);
@@ -45,13 +45,13 @@ public class SplashActivity extends AppCompatActivity {
             logoAnimator.start();
         }
 
-        // 3. Keep the screen active for 2 seconds and then proceed with security navigation checks
+
         new Handler(Looper.getMainLooper()).postDelayed(this::checkAuthenticationAndNavigate, SPLASH_DELAY_MS);
     }
 
-    /**
-     * Inspects local storage for user credentials and routes them to the dashboard or login portals.
-     */
+
+
+
     private void checkAuthenticationAndNavigate() {
         SharedPreferences sharedPreferences = getSharedPreferences(AppConstants.PREF_NAME, Context.MODE_PRIVATE);
         boolean isFirstTime = sharedPreferences.getBoolean("key_is_first_time", true);
@@ -67,9 +67,9 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         startActivity(intent);
-        finish(); // Remove SplashActivity from back stack
+        finish();
 
-        // Apply a smooth transition between screens
+
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

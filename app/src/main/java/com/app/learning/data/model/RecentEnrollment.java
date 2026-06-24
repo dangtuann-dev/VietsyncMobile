@@ -2,9 +2,9 @@ package com.app.learning.data.model;
 
 import java.io.Serializable;
 
-/**
- * Model representing a recent enrollment in a course by a student.
- */
+
+
+
 public class RecentEnrollment implements Serializable {
     private final String studentName;
     private final String studentEmail;

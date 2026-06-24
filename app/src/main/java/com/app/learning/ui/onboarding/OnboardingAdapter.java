@@ -13,9 +13,9 @@ import com.example.vietsyncmobile.R;
 
 import java.util.List;
 
-/**
- * OnboardingAdapter is a RecyclerView adapter used by ViewPager2 to show onboarding pages.
- */
+
+
+
 public class OnboardingAdapter extends RecyclerView.Adapter<OnboardingAdapter.OnboardingViewHolder> {
 
     private final List<OnboardingPage> pages;

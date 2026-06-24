@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:padding="24dp">
 
-    <!-- Lottie Animation View acting as the visual item -->
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/image_onboarding"
         android:layout_width="match_parent"
@@ -21,7 +21,7 @@
         app:lottie_loop="true"
         tools:srcCompat="@android:drawable/ic_menu_gallery" />
 
-    <!-- Title of Onboarding Page -->
+
     <TextView
         android:id="@+id/text_title"
         android:layout_width="wrap_content"
@@ -37,7 +37,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Học mọi lúc mọi nơi" />
 
-    <!-- Subtitle / Description -->
+
     <TextView
         android:id="@+id/text_subtitle"
         android:layout_width="0dp"

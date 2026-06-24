@@ -6,7 +6,7 @@ plugins {
 import java.util.Properties
 import java.io.FileInputStream
 
-// Load Supabase credentials from local.properties
+
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
@@ -31,7 +31,7 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Generate BuildConfig fields for Supabase credentials
+
         buildConfigField("String", "SUPABASE_URL", "\"$supabaseUrlProp\"")
         buildConfigField("String", "SUPABASE_ANON_KEY", "\"$supabaseAnonKeyProp\"")
     }
@@ -62,8 +62,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
-    
-    // View/MVVM Java Dependencies
+
+
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.lifecycle.viewmodel)
@@ -74,18 +74,18 @@ dependencies {
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.androidx.security.crypto)
 
-    // Retrofit & OkHttp Networking
+
     implementation(libs.retrofit)
     implementation(libs.retrofit.converter.gson)
     implementation(libs.okhttp)
     implementation(libs.okhttp.logging.interceptor)
     implementation(libs.gson)
 
-    // Supabase Android SDK (Kotlin Multiplatform/Android)
+
     implementation(libs.supabase.postgrest)
     implementation(libs.supabase.gotrue)
 
-    // Glide & CircleImageView
+
     implementation(libs.glide)
     implementation(libs.circleimageview)
     implementation(libs.lottie)

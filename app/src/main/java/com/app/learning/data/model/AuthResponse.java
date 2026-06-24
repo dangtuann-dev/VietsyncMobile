@@ -3,9 +3,9 @@ package com.app.learning.data.model;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
-/**
- * AuthResponse maps the Supabase OAuth/JWT response structure.
- */
+
+
+
 public class AuthResponse implements Serializable {
 
     @SerializedName("access_token")
@@ -15,7 +15,7 @@ public class AuthResponse implements Serializable {
     private String refreshToken;
 
     @SerializedName("expires_in")
-    private long expiresIn; // duration in seconds (e.g. 3600)
+    private long expiresIn;
 
     @SerializedName("token_type")
     private String tokenType;

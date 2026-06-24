@@ -12,11 +12,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-/**
- * BaseFragment is the base class for all Fragments in the application.
- * It coordinates with the parent {@link BaseActivity} to manage loading, toast,
- * and snackbar display actions. It also supports automated lifecycle-aware ViewModel observation.
- */
+
+
+
+
+
 public abstract class BaseFragment extends Fragment {
 
     @Nullable
@@ -29,7 +29,7 @@ public abstract class BaseFragment extends Fragment {
             baseActivity = (BaseActivity) context;
         }
 
-        // Enforce role-based access control if annotation is present
+
         if (getClass().isAnnotationPresent(com.app.learning.utils.RequireRole.class)) {
             com.app.learning.utils.RequireRole annotation = getClass().getAnnotation(com.app.learning.utils.RequireRole.class);
             if (annotation != null) {
@@ -62,62 +62,62 @@ public abstract class BaseFragment extends Fragment {
         initObservers();
     }
 
-    /**
-     * Define the layout resource ID for the fragment.
-     * Return 0 if you are inflating binding objects manually in onCreateView.
-     *
-     * @return layout resource ID (e.g., R.layout.fragment_detail)
-     */
+
+
+
+
+
+
     @LayoutRes
     protected abstract int getLayoutId();
 
-    /**
-     * Initialize UI widgets and setup listeners. Called in onViewCreated.
-     *
-     * @param view The root view of the fragment layout
-     */
+
+
+
+
+
     protected abstract void initViews(View view);
 
-    /**
-     * Set up LiveData observations. Called in onViewCreated.
-     */
+
+
+
     protected abstract void initObservers();
 
-    /**
-     * Requests the parent Activity to display the loading dialog.
-     */
+
+
+
     public void showLoading() {
         if (baseActivity != null) {
             baseActivity.showLoading();
         }
     }
 
-    /**
-     * Requests the parent Activity to display the loading dialog with a custom message.
-     *
-     * @param message Custom message to show
-     */
+
+
+
+
+
     public void showLoading(String message) {
         if (baseActivity != null) {
             baseActivity.showLoading(message);
         }
     }
 
-    /**
-     * Requests the parent Activity to hide the loading dialog.
-     */
+
+
+
     public void hideLoading() {
         if (baseActivity != null) {
             baseActivity.hideLoading();
         }
     }
 
-    /**
-     * Shows error messages utilizing the parent Activity's styling (e.g. Snackbar).
-     * Falls back to a standard Toast if the parent Activity is unavailable.
-     *
-     * @param message Error content
-     */
+
+
+
+
+
+
     public void showError(String message) {
         if (baseActivity != null) {
             baseActivity.showError(message);
@@ -126,11 +126,11 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    /**
-     * Shows a message via Toast.
-     *
-     * @param message Message content
-     */
+
+
+
+
+
     public void showToast(String message) {
         if (baseActivity != null) {
             baseActivity.showToast(message);
@@ -139,12 +139,12 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    /**
-     * Observes the provided ViewModel's loading and error state.
-     * Uses the ViewLifecycleOwner to prevent memory leaks in Fragments.
-     *
-     * @param viewModel BaseViewModel instance
-     */
+
+
+
+
+
+
     protected void observeViewModel(BaseViewModel viewModel) {
         if (viewModel != null && getViewLifecycleOwner() != null) {
             viewModel.getIsLoading().observe(getViewLifecycleOwner(), isLoading -> {
@@ -167,7 +167,7 @@ public abstract class BaseFragment extends Fragment {
 
     @Override
     public void onDetach() {
-        baseActivity = null; // Prevent leaks
+        baseActivity = null;
         super.onDetach();
     }
 }

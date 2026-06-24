@@ -13,10 +13,10 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 
-/**
- * AuthApi defines the Retrofit HTTP requests mapping directly to the
- * Supabase GoTrue Auth API routes.
- */
+
+
+
+
 public interface AuthApi {
 
     class SignInRequest {
@@ -73,47 +73,47 @@ public interface AuthApi {
         }
     }
 
-    /**
-     * Registers a new user with Supabase Auth.
-     */
+
+
+
     @POST("auth/v1/signup")
     Call<AuthResponse> signUp(@Body SignUpRequest request);
 
-    /**
-     * Signs in an existing user and returns a JWT access token.
-     */
+
+
+
     @POST("auth/v1/token?grant_type=password")
     Call<AuthResponse> signIn(@Body SignInRequest request);
 
-    /**
-     * Signs out the user on the server (invalidates current session).
-     * Requires Authorization Bearer header.
-     */
+
+
+
+
     @POST("auth/v1/logout")
     Call<Void> logout(@Header("Authorization") String bearerToken);
 
-    /**
-     * Refreshes access token using refresh token.
-     */
+
+
+
     @POST("auth/v1/token?grant_type=refresh_token")
     Call<AuthResponse> refreshToken(@Body RefreshTokenRequest request);
 
-    /**
-     * Retrieves current logged in user details.
-     * Requires Authorization Bearer header.
-     */
+
+
+
+
     @GET("auth/v1/user")
     Call<UserModel> getUser(@Header("Authorization") String bearerToken);
 
-    /**
-     * Sends password recovery email.
-     */
+
+
+
     @POST("auth/v1/recover")
     Call<Void> recoverPassword(@Body RecoverRequest request);
 
-    /**
-     * Updates user details (such as resetting password).
-     */
+
+
+
     @PUT("auth/v1/user")
     Call<UserModel> updateUser(@Header("Authorization") String bearerToken, @Body UpdateUserRequest request);
 }

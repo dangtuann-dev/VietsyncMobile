@@ -21,11 +21,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.example.vietsyncmobile.R;
 
-/**
- * RegisterActivity presents a premium‑styled registration screen.
- * It validates inputs (full name, email, password, confirm password, role, terms) and
- * delegates registration to RegisterViewModel which communicates with UserRepository.
- */
+
+
+
+
+
 public class RegisterActivity extends BaseActivity {
 
     private TextInputLayout tilFullName, tilEmail, tilPassword, tilConfirmPassword;
@@ -82,7 +82,7 @@ public class RegisterActivity extends BaseActivity {
                     showToast("Đăng ký và đăng nhập thành công!");
                     navigateToHome();
                 } else if (resource.isError()) {
-                    // error is handled by BaseActivity's observeViewModel
+
                 }
             }
         });

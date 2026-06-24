@@ -3,9 +3,9 @@ package com.app.learning.data.model;
 import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
-/**
- * UserModel represents the Supabase authenticated user object.
- */
+
+
+
 public class UserModel implements Serializable {
 
     @SerializedName("id")
@@ -23,7 +23,7 @@ public class UserModel implements Serializable {
     @SerializedName("user_metadata")
     private UserMetadata userMetadata;
 
-    // Direct mappings in case of flat custom queries
+
     @SerializedName("full_name")
     private String fullName;
 
@@ -112,9 +112,9 @@ public class UserModel implements Serializable {
         this.userMetadata = userMetadata;
     }
 
-    /**
-     * Nested class representing Supabase's user_metadata field.
-     */
+
+
+
     public static class UserMetadata implements Serializable {
         @SerializedName("full_name")
         private String fullName;

@@ -15,15 +15,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-/**
- * TokenRefreshService runs in the background to periodically evaluate if the stored
- * Supabase JWT token is close to expiration, and triggers a refresh using the
- * refresh token if necessary.
- */
+
+
+
+
+
 public class TokenRefreshService extends Service {
 
     private static final String TAG = "TokenRefreshService";
-    
+
     private ScheduledExecutorService scheduler;
     private AuthRepository authRepository;
     private SessionManager sessionManager;
@@ -48,21 +48,21 @@ public class TokenRefreshService extends Service {
         return START_STICKY;
     }
 
-    /**
-     * Schedules periodic token evaluation every 60 seconds.
-     */
+
+
+
     private void startPeriodicCheck() {
         scheduler.scheduleWithFixedDelay(
                 this::checkAndRefreshToken,
-                10, // Initial delay
-                60, // Period
+                10,
+                60,
                 TimeUnit.SECONDS
         );
     }
 
-    /**
-     * Core worker routine to evaluate session and refresh token synchronously.
-     */
+
+
+
     private void checkAndRefreshToken() {
         try {
             if (!sessionManager.isLoggedIn()) {
@@ -90,7 +90,7 @@ public class TokenRefreshService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return null; // Do not support binding
+        return null;
     }
 
     @Override

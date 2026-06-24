@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.UUID;
 
-/**
- * Course model representing a course record from the courses table.
- */
+
+
+
 public class Course implements Serializable {
 
     @SerializedName("id")
@@ -35,7 +35,7 @@ public class Course implements Serializable {
     private String level;
 
     @SerializedName("duration")
-    private int duration; // in minutes
+    private int duration;
 
     @SerializedName("rating")
     private double rating;

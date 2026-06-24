@@ -13,10 +13,10 @@ import com.app.learning.data.model.AuthResponse;
 import com.app.learning.data.model.UserModel;
 import com.google.gson.Gson;
 
-/**
- * SessionManager securely stores the Supabase user sessions (JWT access token,
- * refresh token, expiry details, and profile data) using EncryptedSharedPreferences.
- */
+
+
+
+
 public class SessionManager {
 
     private static final String TAG = "SessionManager";
@@ -33,10 +33,10 @@ public class SessionManager {
     private SessionManager(@NonNull Context context) {
         this.gson = new Gson();
         try {
-            // Generate or load the master key for encrypting SharedPreferences
+
             String masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC);
 
-            // Create the EncryptedSharedPreferences instance
+
             this.prefs = EncryptedSharedPreferences.create(
                     PREF_NAME,
                     masterKeyAlias,
@@ -47,7 +47,7 @@ public class SessionManager {
             Log.d(TAG, "EncryptedSharedPreferences initialized successfully");
         } catch (Exception e) {
             Log.e(TAG, "Failed to initialize EncryptedSharedPreferences. Falling back to standard SharedPreferences.", e);
-            // Fallback for safety (e.g. on devices lacking keystore support)
+
             this.prefs = context.getApplicationContext().getSharedPreferences(
                     PREF_NAME + "_fallback",
                     Context.MODE_PRIVATE
@@ -55,9 +55,9 @@ public class SessionManager {
         }
     }
 
-    /**
-     * Singleton accessor for SessionManager.
-     */
+
+
+
     public static SessionManager getInstance(@NonNull Context context) {
         if (instance == null) {
             synchronized (SessionManager.class) {
@@ -69,17 +69,17 @@ public class SessionManager {
         return instance;
     }
 
-    /**
-     * Saves session payload securely.
-     *
-     * @param response The auth response containing tokens and user data.
-     */
+
+
+
+
+
     public synchronized void saveSession(@NonNull AuthResponse response) {
         if (response.getAccessToken() == null) {
             return;
         }
 
-        // Calculate absolute expiry epoch millisecond timestamp
+
         long expiresAt = System.currentTimeMillis() + (response.getExpiresIn() * 1000);
 
         SharedPreferences.Editor editor = prefs.edit()
@@ -99,45 +99,45 @@ public class SessionManager {
         Log.d(TAG, "Session saved successfully. Expiry in: " + response.getExpiresIn() + " seconds.");
     }
 
-    /**
-     * Retrieves the encrypted access token (JWT).
-     */
+
+
+
     @Nullable
     public synchronized String getAccessToken() {
         return prefs.getString(KEY_ACCESS_TOKEN, null);
     }
 
-    /**
-     * Retrieves the encrypted refresh token.
-     */
+
+
+
     @Nullable
     public synchronized String getRefreshToken() {
         return prefs.getString(KEY_REFRESH_TOKEN, null);
     }
 
-    /**
-     * Retrieves the epoch timestamp in milliseconds when the access token expires.
-     */
+
+
+
     public synchronized long getExpiresAt() {
         return prefs.getLong(KEY_EXPIRES_AT, 0);
     }
 
-    /**
-     * Checks if the current access token is expired or close to expiry (e.g., within 5 minutes).
-     */
+
+
+
     public synchronized boolean isTokenExpired() {
         long expiresAt = getExpiresAt();
         if (expiresAt == 0) {
             return true;
         }
-        // Refresh 5 minutes before actual expiration to handle latency
+
         long bufferTimeMillis = 5 * 60 * 1000;
         return System.currentTimeMillis() >= (expiresAt - bufferTimeMillis);
     }
 
-    /**
-     * Retrieves the saved User profile object.
-     */
+
+
+
     @Nullable
     public synchronized UserModel getUser() {
         String userJson = prefs.getString(KEY_USER_DATA, null);
@@ -152,24 +152,24 @@ public class SessionManager {
         }
     }
 
-    /**
-     * Updates the local User profile data.
-     */
+
+
+
     public synchronized void updateUser(@NonNull UserModel user) {
         String userJson = gson.toJson(user);
         prefs.edit().putString(KEY_USER_DATA, userJson).apply();
     }
 
-    /**
-     * Checks if a valid user session is stored locally.
-     */
+
+
+
     public synchronized boolean isLoggedIn() {
         return getAccessToken() != null;
     }
 
-    /**
-     * Wipes all keys from the encrypted SharedPreferences (Sign-out).
-     */
+
+
+
     public synchronized void clearSession() {
         prefs.edit()
                 .remove(KEY_ACCESS_TOKEN)

@@ -44,12 +44,12 @@ public class DownloadHistoryActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        // No specific live data observations needed
+
     }
 
     private void setupDownloadList() {
         downloadList = new ArrayList<>();
-        // Seed mock downloaded items for realistic demo data
+
         downloadList.add(new DownloadItem("1", "Bài 1: Giới thiệu khóa học & Thiết lập môi trường", "Lập trình Android với Java (MVVM)", "45.2 MB", "22/06/2026"));
         downloadList.add(new DownloadItem("2", "Bài 2: Cấu trúc mô hình MVVM trong Android", "Lập trình Android với Java (MVVM)", "82.1 MB", "22/06/2026"));
         downloadList.add(new DownloadItem("3", "Bài 1: Khái niệm UI và UX cơ bản", "UI/UX Design chuyên nghiệp", "28.5 MB", "21/06/2026"));

@@ -3,12 +3,12 @@ package com.app.learning.data.api;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-/**
- * Resource is a sealed-like state container holding the loading status,
- * response payloads, and exception info of operations in MVVM architecture.
- *
- * @param <T> Success payload type
- */
+
+
+
+
+
+
 public class Resource<T> {
 
     public enum Status {

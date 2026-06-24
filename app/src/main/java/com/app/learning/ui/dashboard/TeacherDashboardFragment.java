@@ -15,10 +15,10 @@ import com.example.vietsyncmobile.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * TeacherDashboardFragment is the control center for teachers,
- * displaying quick enrollment stats and a list of new course registrations.
- */
+
+
+
+
 @RequireRole(RoleManager.Role.TEACHER)
 public class TeacherDashboardFragment extends BaseFragment {
 
@@ -39,32 +39,32 @@ public class TeacherDashboardFragment extends BaseFragment {
         txtTotalRevenue = view.findViewById(R.id.txtTotalRevenue);
         rvRecentEnrollments = view.findViewById(R.id.rvRecentEnrollments);
 
-        // Configure RecyclerView
+
         rvRecentEnrollments.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Populate Dashboard UI components
+
         loadStats();
         loadRecentEnrollments();
     }
 
     @Override
     protected void initObservers() {
-        // Observers for ViewModel state could be added here
+
     }
 
-    /**
-     * Load teaching analytics stats.
-     */
+
+
+
     private void loadStats() {
-        // High quality mock values for presentation
+
         txtTotalStudentsCount.setText("1,452");
         txtTotalCoursesCount.setText("18");
         txtTotalRevenue.setText("256Mđ");
     }
 
-    /**
-     * Load recent enrollments feed.
-     */
+
+
+
     private void loadRecentEnrollments() {
         List<RecentEnrollment> list = new ArrayList<>();
         list.add(new RecentEnrollment(
@@ -106,7 +106,7 @@ public class TeacherDashboardFragment extends BaseFragment {
         RecentEnrollmentAdapter adapter = new RecentEnrollmentAdapter(list);
         rvRecentEnrollments.setAdapter(adapter);
 
-        // Subtle animation entrance for list
+
         rvRecentEnrollments.setAlpha(0f);
         rvRecentEnrollments.animate().alpha(1f).setDuration(500).start();
     }

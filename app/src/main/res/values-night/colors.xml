@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Core Brand Colors (Dark Mode) -->
+
     <color name="primary">#FF8B80</color>
     <color name="primary_dark">#C32D21</color>
     <color name="primary_light">#FFC0B8</color>
@@ -11,41 +11,41 @@
     <color name="secondary_light">#AFAFAF</color>
     <color name="on_secondary">#1C1D1F</color>
 
-    <!-- UI Background & Surface Colors -->
+
     <color name="background">#121212</color>
     <color name="on_background">#E2E2E2</color>
-    
+
     <color name="surface">#1E1E1E</color>
     <color name="on_surface">#E2E2E2</color>
     <color name="surface_variant">#2D3037</color>
     <color name="on_surface_variant">#C3C6CF</color>
 
-    <!-- Borders and Status Elements -->
+
     <color name="outline">#8E9199</color>
     <color name="divider">#2D3035</color>
     <color name="error">#FFB4AB</color>
     <color name="on_error">#690005</color>
 
-    <!-- State Overlay Colors -->
+
     <color name="ripple_light">#30FF8B80</color>
     <color name="ripple_dark">#20FFFFFF</color>
 
-    <!-- Course Category Palette (Dark Mode Softer Variants) -->
+
     <color name="category_blue">#60A5FA</color>
     <color name="category_blue_light">#1E3A8A</color>
-    
+
     <color name="category_green">#34D399</color>
     <color name="category_green_light">#064E3B</color>
-    
+
     <color name="category_orange">#FBBF24</color>
     <color name="category_orange_light">#78350F</color>
-    
+
     <color name="category_purple">#A78BFA</color>
     <color name="category_purple_light">#5B21B6</color>
-    
+
     <color name="category_teal">#2DD4BF</color>
     <color name="category_teal_light">#115E59</color>
-    
+
     <color name="category_red">#F87171</color>
     <color name="category_red_light">#7F1D1D</color>
 

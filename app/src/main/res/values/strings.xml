@@ -1,5 +1,5 @@
 <resources>
-    <!-- General App Configuration -->
+
     <string name="app_name">Vietsync Learning</string>
     <string name="action_ok">OK</string>
     <string name="action_cancel">Hủy</string>
@@ -7,7 +7,7 @@
     <string name="state_loading">Đang tải...</string>
     <string name="state_saving">Đang lưu...</string>
 
-    <!-- Authentication Screens -->
+
     <string name="auth_title_login">Đăng Nhập</string>
     <string name="auth_title_register">Đăng Ký</string>
     <string name="auth_hint_email">Địa chỉ Email</string>
@@ -25,7 +25,7 @@
     <string name="auth_err_empty_name">Vui lòng nhập họ tên</string>
     <string name="auth_success_register">Đăng ký tài khoản thành công!</string>
 
-    <!-- Home/Dashboard Screens -->
+
     <string name="home_greeting">Chào bạn,</string>
     <string name="home_search_hint">Tìm khóa học, bài học...</string>
     <string name="home_section_categories">Danh Mục Nổi Bật</string>
@@ -35,7 +35,7 @@
     <string name="home_tab_my_courses">Khóa học</string>
     <string name="home_tab_profile">Hồ sơ</string>
 
-    <!-- Course & Lesson Details -->
+
     <string name="course_instructor">Giảng viên: %1$s</string>
     <string name="course_duration">%1$d giờ</string>
     <string name="course_lessons">%1$d bài học</string>
@@ -50,7 +50,7 @@
     <string name="course_tab_syllabus">Bài học</string>
     <string name="course_enrolled_count">%1$s học viên đã đăng ký</string>
 
-    <!-- Learning Workspace -->
+
     <string name="learn_progress">Tiến độ: %1$d%%</string>
     <string name="learn_btn_next">Bài tiếp theo</string>
     <string name="learn_btn_prev">Bài trước đó</string>
@@ -60,8 +60,8 @@
     <string name="learn_quiz_correct">Chính xác!</string>
     <string name="learn_quiz_incorrect">Chưa đúng. Thử lại nhé!</string>
     <string name="learn_quiz_explanation">Giải thích:</string>
-    
-    <!-- Certificates & Profile -->
+
+
     <string name="profile_edit">Chỉnh sửa thông tin</string>
     <string name="profile_logout">Đăng xuất</string>
     <string name="profile_certificate_title">Chứng Chỉ Của Tôi</string>
@@ -71,14 +71,14 @@
     <string name="profile_role_instructor">Giảng viên</string>
     <string name="profile_role_admin">Quản trị viên</string>
 
-    <!-- Error Codes & Network Alerts -->
+
     <string name="error_network">Không có kết nối Internet. Vui lòng kiểm tra lại.</string>
     <string name="error_timeout">Kết nối mạng quá hạn. Vui lòng thử lại.</string>
     <string name="error_server">Lỗi kết nối máy chủ. Chúng tôi đang xử lý.</string>
     <string name="error_unauthorized">Hết phiên làm việc. Vui lòng đăng nhập lại.</string>
     <string name="error_unknown">Đã xảy ra lỗi hệ thống không xác định.</string>
 
-    <!-- Settings Screen -->
+
     <string name="settings_title">Cài đặt</string>
     <string name="settings_section_customize">Tùy chỉnh</string>
     <string name="settings_dark_mode">Chế độ tối</string>
@@ -94,7 +94,7 @@
     <string name="settings_dialog_language_title">Chọn ngôn ngữ</string>
     <string name="settings_dialog_cancel">Hủy</string>
 
-    <!-- Profile Screen Additional Strings -->
+
     <string name="profile_default_name">Tên học viên</string>
     <string name="profile_default_bio">Chưa có giới thiệu bản thân.</string>
     <string name="profile_registered">Đã đăng ký</string>

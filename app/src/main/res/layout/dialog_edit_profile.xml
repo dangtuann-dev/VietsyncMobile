@@ -9,7 +9,7 @@
     android:paddingBottom="24dp"
     android:background="@drawable/bg_dialog_rounded">
 
-    <!-- Bottom Sheet Drag Handle -->
+
     <View
         android:layout_width="48dp"
         android:layout_height="4dp"
@@ -27,7 +27,7 @@
         android:textStyle="bold"
         android:layout_marginBottom="20dp" />
 
-    <!-- Full Name Input -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutFullName"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -47,7 +47,7 @@
             android:textColor="@color/secondary" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Bio Input -->
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/layoutBio"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -71,7 +71,7 @@
             android:textColor="@color/secondary" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!-- Action Buttons -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

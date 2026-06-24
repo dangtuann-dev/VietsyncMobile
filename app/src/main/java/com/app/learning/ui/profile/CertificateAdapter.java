@@ -69,7 +69,7 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
         if (rawDate == null) return "";
         try {
             if (rawDate.contains("T")) {
-                String datePart = rawDate.split("T")[0]; // "2026-06-22"
+                String datePart = rawDate.split("T")[0];
                 String[] parts = datePart.split("-");
                 if (parts.length == 3) {
                     return parts[2] + "/" + parts[1] + "/" + parts[0];

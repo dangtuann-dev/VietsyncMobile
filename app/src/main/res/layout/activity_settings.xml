@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/background">
 
-    <!-- Header Toolbar -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
@@ -60,7 +60,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
-            <!-- Section 1: Tùy chỉnh ứng dụng -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -86,7 +86,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Dark Mode Row -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
@@ -133,7 +133,7 @@
                         android:background="@color/divider"
                         android:layout_marginStart="56dp" />
 
-                    <!-- Push Notifications Row -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rowNotificationSettings"
                         android:layout_width="match_parent"
@@ -185,7 +185,7 @@
                         android:background="@color/divider"
                         android:layout_marginStart="56dp" />
 
-                    <!-- Language Selection Row -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rowLanguage"
                         android:layout_width="match_parent"
@@ -244,7 +244,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- Section 2: Khác & Giới thiệu -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -270,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <!-- Clear Cache Row -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/rowClearCache"
                         android:layout_width="match_parent"
@@ -309,7 +309,7 @@
                         android:layout_height="1dp"
                         android:background="@color/divider" />
 
-                    <!-- Version Row -->
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="60dp"

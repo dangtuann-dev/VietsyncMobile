@@ -41,13 +41,13 @@ public class SettingsActivity extends BaseActivity {
         rowClearCache = findViewById(R.id.rowClearCache);
         tvCacheSize = findViewById(R.id.tvCacheSize);
 
-        // Bind data
+
         switchDarkMode.setChecked(userPreference.isDarkModeEnabled());
-        
+
         String lang = userPreference.getAppLanguage();
         tvCurrentLanguage.setText("en".equals(lang) ? "English" : "Tiếng Việt");
 
-        // Action Listeners
+
         btnBack.setOnClickListener(v -> onBackPressed());
 
         switchDarkMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -68,7 +68,7 @@ public class SettingsActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        // No specific live data observations needed
+
     }
 
     private void showLanguageDialog() {
@@ -81,11 +81,11 @@ public class SettingsActivity extends BaseActivity {
                     String selectedLang = (which == 1) ? "en" : "vi";
                     userPreference.setAppLanguage(selectedLang);
                     tvCurrentLanguage.setText(languages[which]);
-                    
-                    // Apply locale change
+
+
                     androidx.core.os.LocaleListCompat appLocale = androidx.core.os.LocaleListCompat.forLanguageTags(selectedLang);
                     AppCompatDelegate.setApplicationLocales(appLocale);
-                    
+
                     showToast(getString(R.string.settings_toast_language_changed, languages[which]));
                     dialog.dismiss();
                 })

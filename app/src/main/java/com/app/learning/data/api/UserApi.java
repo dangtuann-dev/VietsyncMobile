@@ -16,10 +16,10 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-/**
- * UserApi defines endpoints for user metadata, stats retrieval, and avatar upload
- * directly communicating with Supabase database and storage systems.
- */
+
+
+
+
 public interface UserApi {
 
     class EnrollmentDto {
@@ -48,18 +48,18 @@ public interface UserApi {
         }
     }
 
-    /**
-     * Gets user profile row by user ID.
-     */
+
+
+
     @GET("rest/v1/users")
     Call<List<User>> getUser(
             @Query("id") String idFilter,
             @Query("select") String select
     );
 
-    /**
-     * Updates user profile fields by user ID.
-     */
+
+
+
     @PATCH("rest/v1/users")
     Call<List<User>> updateUser(
             @Query("id") String idFilter,
@@ -67,37 +67,37 @@ public interface UserApi {
             @Header("Prefer") String preferRepresentation
     );
 
-    /**
-     * Retrieves user enrollments to count stats.
-     */
+
+
+
     @GET("rest/v1/enrollments")
     Call<List<EnrollmentDto>> getUserEnrollments(
             @Query("user_id") String userIdFilter,
             @Query("select") String select
     );
 
-    /**
-     * Retrieves user certificates to count achievement stats.
-     */
+
+
+
     @GET("rest/v1/certificates")
     Call<List<CertificateDto>> getUserCertificates(
             @Query("user_id") String userIdFilter,
             @Query("select") String select
     );
 
-    /**
-     * Retrieves user certificates with complete course details.
-     */
+
+
+
     @GET("rest/v1/certificates")
     Call<List<com.app.learning.data.model.Certificate>> getFullUserCertificates(
             @Query("user_id") String userIdFilter,
             @Query("select") String select
     );
 
-    /**
-     * Uploads raw avatar image bytes to the "avatars" bucket on Supabase Storage.
-     * We pass x-upsert header to overwrite old avatars.
-     */
+
+
+
+
     @POST("storage/v1/object/avatars/{filename}")
     Call<Map<String, String>> uploadAvatar(
             @Path("filename") String filename,
@@ -105,17 +105,17 @@ public interface UserApi {
             @Header("x-upsert") String xUpsert
     );
 
-    /**
-     * Gets notification preferences from the user_settings table.
-     */
+
+
+
     @GET("rest/v1/user_settings")
     Call<List<Map<String, Object>>> getUserSettings(
             @Query("user_id") String userIdFilter
     );
 
-    /**
-     * Upserts notification preferences into the user_settings table.
-     */
+
+
+
     @POST("rest/v1/user_settings")
     Call<Void> upsertUserSettings(
             @Body Map<String, Object> body,

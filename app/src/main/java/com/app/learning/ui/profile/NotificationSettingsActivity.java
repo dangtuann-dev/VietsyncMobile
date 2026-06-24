@@ -3,9 +3,9 @@ package com.app.learning.ui.profile;
 import com.app.learning.ui.base.BaseActivity;
 import com.example.vietsyncmobile.R;
 
-/**
- * Activity hosting the NotificationSettingsFragment.
- */
+
+
+
 public class NotificationSettingsActivity extends BaseActivity {
 
     @Override
@@ -24,6 +24,6 @@ public class NotificationSettingsActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        // No specific live data observations needed at Activity level
+
     }
 }

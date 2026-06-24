@@ -12,16 +12,16 @@ import androidx.datastore.rxjava3.RxDataStore;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
-/**
- * NotificationPreferences is a Jetpack DataStore Preferences wrapper replacing SharedPreferences
- * to store notification toggle preferences and Quiet Hours settings asynchronously.
- */
+
+
+
+
 public class NotificationPreferences {
 
     private static volatile NotificationPreferences instance;
     private final RxDataStore<Preferences> dataStore;
 
-    // Preference Keys
+
     public static final Preferences.Key<Boolean> KEY_NEW_COURSE = PreferencesKeys.booleanKey("new_course_announcements");
     public static final Preferences.Key<Boolean> KEY_ASSIGNMENT = PreferencesKeys.booleanKey("assignment_deadlines");
     public static final Preferences.Key<Boolean> KEY_DISCUSSION = PreferencesKeys.booleanKey("discussion_replies");
@@ -53,7 +53,7 @@ public class NotificationPreferences {
         return dataStore;
     }
 
-    // --- GETTERS (Return Flowable to automatically observe changes) ---
+
 
     public Flowable<Boolean> getNewCourseAnnouncements(boolean defaultValue) {
         return dataStore.data().map(prefs -> {
@@ -111,7 +111,7 @@ public class NotificationPreferences {
         });
     }
 
-    // --- SETTERS (Return Single representing async write operations) ---
+
 
     public Single<Preferences> setNewCourseAnnouncements(boolean enabled) {
         return dataStore.updateDataAsync(prefs -> {

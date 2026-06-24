@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-/**
- * User model representing user profile records in the database.
- */
+
+
+
 public class User implements Serializable {
 
     @SerializedName("id")
@@ -22,7 +22,7 @@ public class User implements Serializable {
     private String avatarUrl;
 
     @SerializedName("role")
-    private String role; // student, instructor, admin
+    private String role;
 
     @SerializedName("bio")
     private String bio;

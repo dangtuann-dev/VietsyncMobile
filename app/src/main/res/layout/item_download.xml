@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="12dp">
 
-        <!-- Icon Container -->
+
         <FrameLayout
             android:id="@+id/iconContainer"
             android:layout_width="48dp"
@@ -34,7 +34,7 @@
                 app:tint="@color/primary" />
         </FrameLayout>
 
-        <!-- Details -->
+
         <LinearLayout
             android:id="@+id/detailsContainer"
             android:layout_width="0dp"
@@ -104,7 +104,7 @@
 
         </LinearLayout>
 
-        <!-- Delete Action -->
+
         <ImageView
             android:id="@+id/btnDelete"
             android:layout_width="40dp"

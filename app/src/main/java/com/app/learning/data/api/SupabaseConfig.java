@@ -8,17 +8,17 @@ import io.github.jan.supabase.gotrue.Auth;
 import io.github.jan.supabase.postgrest.Postgrest;
 import kotlin.Unit;
 
-/**
- * SupabaseConfig is a thread-safe singleton configuration manager for Supabase services.
- * It builds the official SupabaseClient using variables exposed via BuildConfig.
- */
+
+
+
+
 public final class SupabaseConfig {
 
     private static volatile SupabaseConfig instance;
     private final SupabaseClient supabaseClient;
 
     private SupabaseConfig() {
-        // Read URL and Key from BuildConfig safely
+
         String supabaseUrl = BuildConfig.SUPABASE_URL;
         String supabaseAnonKey = BuildConfig.SUPABASE_ANON_KEY;
 
@@ -29,12 +29,12 @@ public final class SupabaseConfig {
             throw new IllegalStateException("Supabase Anon Key is not configured. Please check local.properties.");
         }
 
-        // Initialize Supabase Kotlin Client in Java
+
         this.supabaseClient = SupabaseClientBuilderKt.createSupabaseClient(
                 supabaseUrl,
                 supabaseAnonKey,
                 builder -> {
-                    // Install Auth and Postgrest plugins
+
                     builder.install(Auth.Companion, authConfig -> Unit.INSTANCE);
                     builder.install(Postgrest.Companion, postgrestConfig -> Unit.INSTANCE);
                     return Unit.INSTANCE;
@@ -42,11 +42,11 @@ public final class SupabaseConfig {
         );
     }
 
-    /**
-     * Retrieves the singleton configuration instance of SupabaseConfig.
-     *
-     * @return The singleton SupabaseConfig instance
-     */
+
+
+
+
+
     public static SupabaseConfig getInstance() {
         if (instance == null) {
             synchronized (SupabaseConfig.class) {
@@ -58,11 +58,11 @@ public final class SupabaseConfig {
         return instance;
     }
 
-    /**
-     * Exposes the configured SupabaseClient singleton instance.
-     *
-     * @return The configured SupabaseClient instance
-     */
+
+
+
+
+
     public SupabaseClient getClient() {
         return supabaseClient;
     }

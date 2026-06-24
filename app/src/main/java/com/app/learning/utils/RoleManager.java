@@ -8,9 +8,9 @@ import com.app.learning.data.model.UserModel;
 import java.util.EnumSet;
 import java.util.Set;
 
-/**
- * RoleManager checks user sessions and determines roles and granular permissions.
- */
+
+
+
 public class RoleManager {
 
     public enum Permission {
@@ -57,13 +57,13 @@ public class RoleManager {
         return instance;
     }
 
-    /**
-     * Retrieve current user role from active sessions (UserPreference or SessionManager).
-     * Defaults to Role.STUDENT if session is empty.
-     */
+
+
+
+
     @NonNull
     public Role getCurrentRole() {
-        // 1. Try UserPreference
+
         UserPreference userPreference = UserPreference.getInstance(context);
         if (userPreference.isLoggedIn()) {
             User user = userPreference.getUserProfile();
@@ -72,7 +72,7 @@ public class RoleManager {
             }
         }
 
-        // 2. Try SessionManager
+
         SessionManager sessionManager = SessionManager.getInstance(context);
         if (sessionManager.isLoggedIn()) {
             UserModel userModel = sessionManager.getUser();
@@ -81,12 +81,12 @@ public class RoleManager {
             }
         }
 
-        return Role.STUDENT; // Safe default
+        return Role.STUDENT;
     }
 
-    /**
-     * Helper to verify if user has a specific granular permission.
-     */
+
+
+
     public boolean hasPermission(Permission permission) {
         return getCurrentRole().hasPermission(permission);
     }

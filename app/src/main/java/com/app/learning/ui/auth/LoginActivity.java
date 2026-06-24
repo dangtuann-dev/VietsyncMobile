@@ -18,10 +18,10 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.example.vietsyncmobile.R;
 
-/**
- * LoginActivity presents the login screen for the users.
- * It features EdX branding, inputs validation, MVVM state observers and custom focus animations.
- */
+
+
+
+
 public class LoginActivity extends BaseActivity {
 
     private TextInputLayout tilEmail;
@@ -49,7 +49,7 @@ public class LoginActivity extends BaseActivity {
 
         @Override
     protected void initViews() {
-        // Initialize view references
+
         tilEmail = findViewById(R.id.til_email);
         tilPassword = findViewById(R.id.til_password);
         edtEmail = findViewById(R.id.edt_email);
@@ -59,41 +59,41 @@ public class LoginActivity extends BaseActivity {
         tvForgotPassword = findViewById(R.id.tv_forgot_password);
         tvRegister = findViewById(R.id.tv_register);
 
-        // Bind viewmodel
+
         loginViewModel = new ViewModelProvider(this, new LoginViewModel.Factory(this)).get(LoginViewModel.class);
 
-        // Connect click listeners
+
         btnLogin.setOnClickListener(v -> attemptLogin());
         tvForgotPassword.setOnClickListener(v -> navigateToForgotPassword());
         tvRegister.setOnClickListener(v -> navigateToRegister());
 
-        // Setup real-time error clearing and custom micro-animations
+
         setupTextWatchers();
         setupFocusAnimations();
     }
 
     @Override
     protected void initObservers() {
-        // Observe base loading & error states
+
         observeViewModel(loginViewModel);
 
-        // Observe custom login results
+
         loginViewModel.getLoginResult().observe(this, resource -> {
             if (resource != null) {
                 if (resource.isSuccess()) {
                     showToast("Đăng nhập thành công!");
                     navigateToHome();
                 } else if (resource.isError()) {
-                    // Handled automatically by observeViewModel(loginViewModel)
-                    // but we can add specific handling if required
+
+
                 }
             }
         });
     }
 
-    /**
-     * Conducts validation checks on user inputs and calls the login service.
-     */
+
+
+
     private void attemptLogin() {
         if (validateInputs()) {
             String email = edtEmail.getText().toString().trim();
@@ -102,9 +102,9 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
-    /**
-     * Standard regex and empty-check input validations.
-     */
+
+
+
     private boolean validateInputs() {
         String email = edtEmail.getText().toString().trim();
         String password = edtPassword.getText().toString().trim();
@@ -133,9 +133,9 @@ public class LoginActivity extends BaseActivity {
         return isValid;
     }
 
-    /**
-     * Setup TextWatcher to automatically clear TextInputLayout errors as user types.
-     */
+
+
+
     private void setupTextWatchers() {
         edtEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -164,16 +164,16 @@ public class LoginActivity extends BaseActivity {
         });
     }
 
-    /**
-     * Setup custom micro-animations for input fields.
-     * Scales up the input text layout on focus to create a premium tactile response.
-     */
+
+
+
+
     private void setupFocusAnimations() {
         View.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
             float scale = hasFocus ? 1.02f : 1.0f;
             float elevation = hasFocus ? dpToPx(4) : 0f;
 
-            // Find parent TextInputLayout to animate the entire input card together
+
             View parent = (View) view.getParent();
             if (parent instanceof TextInputLayout) {
                 parent.animate()
@@ -200,7 +200,7 @@ public class LoginActivity extends BaseActivity {
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
-    // Navigate to Register screen with slide animation
+
     private void navigateToRegister() {
         Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);
         startActivity(intent);

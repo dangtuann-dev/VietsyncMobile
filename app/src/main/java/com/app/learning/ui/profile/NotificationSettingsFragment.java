@@ -58,7 +58,7 @@ public class NotificationSettingsFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(NotificationSettingsViewModel.class);
 
-        // Bind views
+
         btnBack = view.findViewById(R.id.btnBack);
         switchNewCourse = view.findViewById(R.id.switchNewCourse);
         switchAssignment = view.findViewById(R.id.switchAssignment);
@@ -81,7 +81,7 @@ public class NotificationSettingsFragment extends Fragment {
     }
 
     private void setupListeners() {
-        // Switch listeners
+
         switchNewCourse.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (buttonView.isPressed()) {
                 disposables.add(viewModel.updateNewCourseAnnouncements(isChecked)
@@ -137,13 +137,13 @@ public class NotificationSettingsFragment extends Fragment {
             }
         });
 
-        // Time Picker Row listeners
+
         rowStartTime.setOnClickListener(v -> showTimePickerDialog(true));
         rowEndTime.setOnClickListener(v -> showTimePickerDialog(false));
      }
 
      private void observeLocalPreferences() {
-         // Observe and update toggles reactively
+
          disposables.add(viewModel.getNewCourseAnnouncements()
                  .subscribeOn(Schedulers.io())
                  .observeOn(AndroidSchedulers.mainThread())
@@ -194,7 +194,7 @@ public class NotificationSettingsFragment extends Fragment {
 
          viewModel.fetchRemoteSettings(userId).observe(getViewLifecycleOwner(), resource -> {
              if (resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
-                 // Remote settings fetched, write them to local DataStore
+
                  viewModel.saveToLocalDataStore(resource.data);
              }
          });

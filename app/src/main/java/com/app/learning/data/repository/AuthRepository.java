@@ -21,10 +21,10 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-/**
- * AuthRepository coordinates Supabase Auth network requests and persists credentials
- * securely through the {@link SessionManager}.
- */
+
+
+
+
 public class AuthRepository extends BaseRepository {
 
     private final AuthApi authApi;
@@ -36,10 +36,10 @@ public class AuthRepository extends BaseRepository {
         this.sessionManager = SessionManager.getInstance(context);
     }
 
-    /**
-     * Authenticates user with email and password.
-     * Saves session payload on success.
-     */
+
+
+
+
     public LiveData<Resource<AuthResponse>> login(String email, String password) {
         MutableLiveData<Resource<AuthResponse>> rawLiveData = new MutableLiveData<>();
         MediatorLiveData<Resource<AuthResponse>> resultLiveData = new MediatorLiveData<>();
@@ -53,7 +53,7 @@ public class AuthRepository extends BaseRepository {
             if (resource.isLoading()) {
                 resultLiveData.setValue(Resource.loading());
             } else if (resource.isSuccess() && resource.data != null) {
-                // Save token and user details to secure storage
+
                 sessionManager.saveSession(resource.data);
                 resultLiveData.setValue(Resource.success(resource.data));
             } else if (resource.isError()) {
@@ -64,9 +64,9 @@ public class AuthRepository extends BaseRepository {
         return resultLiveData;
     }
 
-    /**
-     * Registers a new user with Supabase Auth, accepting custom metadata mapping.
-     */
+
+
+
     public LiveData<Resource<AuthResponse>> register(String email, String password, Map<String, Object> metadata) {
         MutableLiveData<Resource<AuthResponse>> rawLiveData = new MutableLiveData<>();
         MediatorLiveData<Resource<AuthResponse>> resultLiveData = new MediatorLiveData<>();
@@ -90,16 +90,16 @@ public class AuthRepository extends BaseRepository {
         return resultLiveData;
     }
 
-    /**
-     * Signs out the user locally and notifies Supabase server.
-     * Wipes secure preferences immediately regardless of network outcomes.
-     */
+
+
+
+
     public LiveData<Resource<Void>> logout() {
         MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
         resultLiveData.setValue(Resource.loading());
 
         String token = sessionManager.getAccessToken();
-        // Wipe local session instantly
+
         sessionManager.clearSession();
 
         if (token == null || token.trim().isEmpty()) {
@@ -110,11 +110,11 @@ public class AuthRepository extends BaseRepository {
         Call<Void> call = authApi.logout("Bearer " + token);
         executors.networkIO().execute(() -> {
             try {
-                // Synchronously call logout endpoint on background network thread
+
                 call.execute();
                 resultLiveData.postValue(Resource.success(null));
             } catch (IOException e) {
-                // Return success even on failure, as the local session is cleared
+
                 resultLiveData.postValue(Resource.success(null));
             }
         });
@@ -122,9 +122,9 @@ public class AuthRepository extends BaseRepository {
         return resultLiveData;
     }
 
-    /**
-     * Asynchronously refreshes JWT access token using the stored refresh token.
-     */
+
+
+
     public LiveData<Resource<AuthResponse>> refreshToken() {
         MutableLiveData<Resource<AuthResponse>> rawLiveData = new MutableLiveData<>();
         MediatorLiveData<Resource<AuthResponse>> resultLiveData = new MediatorLiveData<>();
@@ -154,13 +154,13 @@ public class AuthRepository extends BaseRepository {
         return resultLiveData;
     }
 
-    /**
-     * Synchronously refreshes JWT access token.
-     * Primarily designed to run inside background Services or Workers.
-     *
-     * @return The updated AuthResponse if successful, or null if no refresh token found.
-     * @throws Exception If network call fails or server returns error.
-     */
+
+
+
+
+
+
+
     @Nullable
     public AuthResponse refreshTokenSync() throws Exception {
         String refreshToken = sessionManager.getRefreshToken();
@@ -184,9 +184,9 @@ public class AuthRepository extends BaseRepository {
         }
     }
 
-    /**
-     * Fetches details of the current authenticated user from Supabase.
-     */
+
+
+
     public LiveData<Resource<UserModel>> getUser() {
         MutableLiveData<Resource<UserModel>> resultLiveData = new MutableLiveData<>();
         resultLiveData.setValue(Resource.loading());
@@ -226,9 +226,9 @@ public class AuthRepository extends BaseRepository {
         return resultLiveData;
     }
 
-    /**
-     * Triggers Supabase password recovery email.
-     */
+
+
+
     public LiveData<Resource<Void>> resetPassword(String email) {
         MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
         resultLiveData.setValue(Resource.loading());
@@ -262,9 +262,9 @@ public class AuthRepository extends BaseRepository {
         return resultLiveData;
     }
 
-    /**
-     * Updates the user's password using the access token extracted from the recovery link.
-     */
+
+
+
     public LiveData<Resource<UserModel>> updatePassword(String token, String newPassword) {
         MutableLiveData<Resource<UserModel>> resultLiveData = new MutableLiveData<>();
         resultLiveData.setValue(Resource.loading());

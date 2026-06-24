@@ -11,11 +11,11 @@ import com.app.learning.data.model.User;
 import com.app.learning.data.repository.UserRepository;
 import com.app.learning.ui.base.BaseViewModel;
 
-/**
- * RegisterViewModel handles the registration flow. It forwards the data to {@link UserRepository}
- * which communicates with Supabase Auth. The repository returns a LiveData<Resource<User>> that
- * we expose via {@code getRegisterResult()} for the UI to observe.
- */
+
+
+
+
+
 public class RegisterViewModel extends BaseViewModel {
 
     private final UserRepository userRepository;
@@ -29,23 +29,23 @@ public class RegisterViewModel extends BaseViewModel {
         return registerResult;
     }
 
-    /**
-     * Initiates registration. The repository will also store the session and the ViewModel will
-     * automatically expose loading/error states via {@link BaseViewModel}.
-     */
+
+
+
+
     public void register(String fullName, String email, String password, String role) {
         showLoading();
         clearError();
         LiveData<Resource<User>> source = userRepository.register(email, password, fullName, role);
-        // The repository currently registers with role default "student"; we set role locally if needed.
-        // Role handling could be extended in the backend; for UI we simply pass the role onward.
+
+
         registerResult.addSource(source, resource -> {
             if (resource != null) {
                 if (resource.isLoading()) {
                     showLoading();
                 } else if (resource.isSuccess()) {
                     hideLoading();
-                    // Optionally update role on the User object if backend supports it
+
                     User user = resource.data;
                     if (user != null) {
                         user.setRole(role);
@@ -66,7 +66,7 @@ public class RegisterViewModel extends BaseViewModel {
         });
     }
 
-    /** Factory for ViewModelProvider */
+
     public static class Factory implements ViewModelProvider.Factory {
         private final android.content.Context context;
 

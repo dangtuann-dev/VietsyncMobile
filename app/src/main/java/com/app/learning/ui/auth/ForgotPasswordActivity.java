@@ -29,13 +29,13 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * ForgotPasswordActivity orchestrates requesting recovery links and setting new passwords.
- * It dynamically handles both states, including intercepting deep links from email recoveries.
- */
+
+
+
+
 public class ForgotPasswordActivity extends BaseActivity {
 
-    // View declarations
+
     private ImageView btnBack;
     private LinearLayout layoutStepRequest;
     private TextInputLayout tilEmail;
@@ -73,7 +73,7 @@ public class ForgotPasswordActivity extends BaseActivity {
 
     @Override
     protected void initViews() {
-        // Initialize view references
+
         btnBack = findViewById(R.id.btn_back);
         layoutStepRequest = findViewById(R.id.layout_step_request);
         tilEmail = findViewById(R.id.til_email);
@@ -88,17 +88,17 @@ public class ForgotPasswordActivity extends BaseActivity {
         edtConfirmPassword = findViewById(R.id.edt_confirm_password);
         btnResetPassword = findViewById(R.id.btn_reset_password);
 
-        // Bind ViewModel
+
         forgotPasswordViewModel = new ViewModelProvider(this, new ForgotPasswordViewModel.Factory(this))
                 .get(ForgotPasswordViewModel.class);
 
-        // Setup click listeners
+
         btnBack.setOnClickListener(v -> onBackPressed());
         tvBackToLogin.setOnClickListener(v -> navigateToLogin());
         btnSend.setOnClickListener(v -> attemptSendRecovery());
         btnResetPassword.setOnClickListener(v -> attemptResetPassword());
 
-        // Setup real-time error clearing and custom micro-animations
+
         setupTextWatchers();
         setupFocusAnimations();
     }
@@ -107,7 +107,7 @@ public class ForgotPasswordActivity extends BaseActivity {
     protected void initObservers() {
         observeViewModel(forgotPasswordViewModel);
 
-        // Observer for email recovery trigger
+
         forgotPasswordViewModel.getResetPasswordResult().observe(this, resource -> {
             if (resource != null) {
                 if (resource.isSuccess()) {
@@ -116,7 +116,7 @@ public class ForgotPasswordActivity extends BaseActivity {
             }
         });
 
-        // Observer for password update success
+
         forgotPasswordViewModel.getUpdatePasswordResult().observe(this, resource -> {
             if (resource != null) {
                 if (resource.isSuccess()) {
@@ -127,24 +127,24 @@ public class ForgotPasswordActivity extends BaseActivity {
         });
     }
 
-    /**
-     * Inspects the incoming intent to detect deep links sent from the password reset email.
-     */
+
+
+
     private void handleIntent(Intent intent) {
         if (intent == null) return;
         android.net.Uri data = intent.getData();
         if (data != null) {
             String scheme = data.getScheme();
             String host = data.getHost();
-            
+
             if ("vietsync".equals(scheme) && "reset-password".equals(host)) {
                 String fragment = data.getFragment();
                 Map<String, String> params = parseFragment(fragment);
-                
+
                 String token = params.get("access_token");
                 String type = params.get("type");
 
-                // Check query parameters as fallback
+
                 if (token == null || token.isEmpty()) {
                     token = data.getQueryParameter("access_token");
                 }
@@ -160,17 +160,17 @@ public class ForgotPasswordActivity extends BaseActivity {
         }
     }
 
-    /**
-     * Displays step 2 (new password input) and hides step 1.
-     */
+
+
+
     private void showResetPasswordStep() {
         layoutStepRequest.setVisibility(View.GONE);
         layoutStepReset.setVisibility(View.VISIBLE);
     }
 
-    /**
-     * Conducts validation checks on step 1 input and triggers recovery request.
-     */
+
+
+
     private void attemptSendRecovery() {
         String email = edtEmail.getText().toString().trim();
         if (email.isEmpty()) {
@@ -185,9 +185,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         forgotPasswordViewModel.resetPassword(email);
     }
 
-    /**
-     * Conducts validation checks on step 2 inputs and updates password.
-     */
+
+
+
     private void attemptResetPassword() {
         String newPassword = edtNewPassword.getText().toString().trim();
         String confirmPassword = edtConfirmPassword.getText().toString().trim();
@@ -220,9 +220,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         }
     }
 
-    /**
-     * Displays a dialog containing instruction steps for completing recovery check.
-     */
+
+
+
     private void showSuccessDialog() {
         Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -242,9 +242,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         dialog.show();
     }
 
-    /**
-     * Parses the fragments appended in the deep link hash.
-     */
+
+
+
     private Map<String, String> parseFragment(String fragment) {
         Map<String, String> params = new HashMap<>();
         if (fragment != null && !fragment.isEmpty()) {
@@ -265,9 +265,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         return params;
     }
 
-    /**
-     * Setup TextWatcher to automatically clear TextInputLayout errors as user types.
-     */
+
+
+
     private void setupTextWatchers() {
         TextWatcher emailWatcher = new TextWatcher() {
             @Override
@@ -310,9 +310,9 @@ public class ForgotPasswordActivity extends BaseActivity {
         });
     }
 
-    /**
-     * Setup focus scaling animations for premium tactile input feedback.
-     */
+
+
+
     private void setupFocusAnimations() {
         View.OnFocusChangeListener focusChangeListener = (view, hasFocus) -> {
             float scale = hasFocus ? 1.02f : 1.0f;

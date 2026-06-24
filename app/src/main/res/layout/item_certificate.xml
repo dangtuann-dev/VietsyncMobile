@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Course Thumbnail -->
+
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgCourseThumbnail"
             android:layout_width="80dp"
@@ -28,7 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Details -->
+
         <LinearLayout
             android:id="@+id/detailsLayout"
             android:layout_width="0dp"
@@ -61,7 +61,7 @@
 
         </LinearLayout>
 
-        <!-- View Certificate Button -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnViewCertificate"
             style="@style/Widget.Material3.Button.TextButton"

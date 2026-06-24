@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background">
 
-    <!-- Header Toolbar -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/toolbarLayout"
         android:layout_width="match_parent"
@@ -68,7 +68,7 @@
         android:background="@color/divider"
         app:layout_constraintTop_toBottomOf="@id/toolbarLayout" />
 
-    <!-- RecyclerView for Downloads -->
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvDownloads"
         android:layout_width="match_parent"
@@ -78,7 +78,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbarDivider" />
 
-    <!-- Empty State View -->
+
     <LinearLayout
         android:id="@+id/layoutEmpty"
         android:layout_width="wrap_content"

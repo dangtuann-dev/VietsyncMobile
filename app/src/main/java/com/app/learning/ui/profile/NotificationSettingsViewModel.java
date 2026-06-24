@@ -17,10 +17,10 @@ import java.util.Map;
 import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
-/**
- * NotificationSettingsViewModel coordinates local Jetpack DataStore preference values
- * and remote updates/retrievals via Supabase.
- */
+
+
+
+
 public class NotificationSettingsViewModel extends AndroidViewModel {
 
     private final UserRepository userRepository;
@@ -34,9 +34,9 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
         this.userPreference = UserPreference.getInstance(application);
     }
 
-    /**
-     * Gets the logged-in user's ID.
-     */
+
+
+
     public String getUserId() {
         if (userPreference.getUserProfile() != null) {
             return userPreference.getUserProfile().getId();
@@ -44,7 +44,7 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
         return null;
     }
 
-    // --- Local DataStore Flowables ---
+
 
     public Flowable<Boolean> getNewCourseAnnouncements() {
         return notificationPreferences.getNewCourseAnnouncements(true);
@@ -78,7 +78,7 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
         return notificationPreferences.getQuietHoursEnabled(false);
     }
 
-    // --- Update Local DataStore ---
+
 
     public Single<?> updateNewCourseAnnouncements(boolean enabled) {
         return notificationPreferences.setNewCourseAnnouncements(enabled);
@@ -112,25 +112,25 @@ public class NotificationSettingsViewModel extends AndroidViewModel {
         return notificationPreferences.setQuietHoursEnabled(enabled);
     }
 
-    // --- Supabase Network Calls ---
 
-    /**
-     * Loads settings from Supabase.
-     */
+
+
+
+
     public LiveData<Resource<Map<String, Object>>> fetchRemoteSettings(String userId) {
         return userRepository.getUserSettingsFromSupabase(userId);
     }
 
-    /**
-     * Updates settings on Supabase.
-     */
+
+
+
     public LiveData<Resource<Void>> syncSettingsToRemote(String userId, Map<String, Object> settings) {
         return userRepository.saveUserSettingsToSupabase(userId, settings);
      }
 
-    /**
-     * Helper to write a Map of settings to the local DataStore.
-     */
+
+
+
     public void saveToLocalDataStore(Map<String, Object> settings) {
         if (settings == null) return;
 

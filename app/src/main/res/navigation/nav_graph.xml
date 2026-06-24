@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/fragment_home">
 
-    <!-- Student Destinations -->
+
     <fragment
         android:id="@+id/fragment_home"
         android:name="com.app.learning.ui.home.HomeFragment"
@@ -24,14 +24,14 @@
         android:label="Học tập"
         tools:layout="@layout/fragment_my_learning" />
 
-    <!-- Shared/Common Destinations -->
+
     <fragment
         android:id="@+id/fragment_profile"
         android:name="com.app.learning.ui.profile.ProfileFragment"
         android:label="Hồ sơ"
         tools:layout="@layout/fragment_profile" />
 
-    <!-- Teacher Destinations -->
+
     <fragment
         android:id="@+id/fragment_teacher_dashboard"
         android:name="com.app.learning.ui.dashboard.TeacherDashboardFragment"

@@ -2,10 +2,10 @@ package com.app.learning.data.api;
 
 import com.google.gson.annotations.SerializedName;
 
-/**
- * ApiError represents structural error response messages thrown by the Supabase PostgREST server.
- * Typically returns details like Postgres error code, description, and suggestions (hint).
- */
+
+
+
+
 public class ApiError {
 
     @SerializedName("code")

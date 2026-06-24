@@ -1,8 +1,8 @@
 package com.app.learning.ui.onboarding;
 
-/**
- * OnboardingPage represents the model structure for each page of the onboarding screen.
- */
+
+
+
 public class OnboardingPage {
     private final int lottieRawRes;
     private final String title;

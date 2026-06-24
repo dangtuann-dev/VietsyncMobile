@@ -13,9 +13,9 @@ import com.app.learning.data.model.UserModel;
 import com.app.learning.data.repository.AuthRepository;
 import com.app.learning.ui.base.BaseViewModel;
 
-/**
- * ForgotPasswordViewModel coordinates password recovery emails and resetting of passwords.
- */
+
+
+
 public class ForgotPasswordViewModel extends BaseViewModel {
 
     private final AuthRepository authRepository;
@@ -26,23 +26,23 @@ public class ForgotPasswordViewModel extends BaseViewModel {
         this.authRepository = authRepository;
     }
 
-    /**
-     * LiveData representing the outcome of requesting a password recovery email.
-     */
+
+
+
     public LiveData<Resource<Void>> getResetPasswordResult() {
         return resetPasswordResult;
     }
 
-    /**
-     * LiveData representing the outcome of updating/resetting the user's password.
-     */
+
+
+
     public LiveData<Resource<UserModel>> getUpdatePasswordResult() {
         return updatePasswordResult;
     }
 
-    /**
-     * Requests Supabase to send a recovery email.
-     */
+
+
+
     public void resetPassword(String email) {
         showLoading();
         clearError();
@@ -70,9 +70,9 @@ public class ForgotPasswordViewModel extends BaseViewModel {
         });
     }
 
-    /**
-     * Resets the user's password to a new value via the recovery session token.
-     */
+
+
+
     public void updatePassword(String token, String newPassword) {
         showLoading();
         clearError();
@@ -100,9 +100,9 @@ public class ForgotPasswordViewModel extends BaseViewModel {
         });
     }
 
-    /**
-     * ViewModelProvider.Factory implementation to inject AuthRepository.
-     */
+
+
+
     public static class Factory implements ViewModelProvider.Factory {
         private final Context context;
 

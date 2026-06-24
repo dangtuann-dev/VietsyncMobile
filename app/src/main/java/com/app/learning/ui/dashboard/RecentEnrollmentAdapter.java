@@ -16,9 +16,9 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * RecentEnrollmentAdapter manages list rendering for course registrations in Teacher Dashboard.
- */
+
+
+
 public class RecentEnrollmentAdapter extends RecyclerView.Adapter<RecentEnrollmentAdapter.ViewHolder> {
 
     private final List<RecentEnrollment> enrollmentList;
@@ -44,7 +44,7 @@ public class RecentEnrollmentAdapter extends RecyclerView.Adapter<RecentEnrollme
         holder.txtCourseName.setText("Khóa học: " + enrollment.getCourseName());
         holder.txtEnrollDate.setText(enrollment.getEnrollDate());
 
-        // Load avatar using Glide, with profile placeholder fallback
+
         if (enrollment.getAvatarUrl() != null && !enrollment.getAvatarUrl().isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(enrollment.getAvatarUrl())

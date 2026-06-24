@@ -13,11 +13,11 @@ import java.io.IOException;
 import retrofit2.Call;
 import retrofit2.Response;
 
-/**
- * BaseRepository acts as a foundational base class for all repositories.
- * It encapsulates common logic for executing network calls, handling errors,
- * and dispatching results using the {@link Resource} wrapper.
- */
+
+
+
+
+
 public abstract class BaseRepository {
 
     protected final AppExecutors executors;
@@ -28,21 +28,21 @@ public abstract class BaseRepository {
         this.gson = new Gson();
     }
 
-    /**
-     * Executes a Retrofit Call synchronously on the background network thread,
-     * posting loading, success, or error states to the provided MutableLiveData.
-     *
-     * @param call     The Retrofit Call object
-     * @param liveData The LiveData container to post updates into
-     * @param <T>      The model type expected from the API
-     */
+
+
+
+
+
+
+
+
     protected <T> void executeCall(Call<T> call, MutableLiveData<Resource<T>> liveData) {
-        // Dispatch LOADING state instantly
+
         liveData.postValue(Resource.loading());
 
         executors.networkIO().execute(() -> {
             try {
-                // Perform synchronous execution on background thread
+
                 Response<T> response = call.execute();
 
                 if (response.isSuccessful()) {
@@ -52,7 +52,7 @@ public abstract class BaseRepository {
                     liveData.postValue(Resource.error(error));
                 }
             } catch (IOException e) {
-                // Handles socket, timeout or offline connectivity exceptions
+
                 android.util.Log.e("BaseRepository", "Network IO Failure", e);
                 liveData.postValue(Resource.error(new ApiError(
                         "503",
@@ -61,7 +61,7 @@ public abstract class BaseRepository {
                         "Network IO Failure"
                 )));
             } catch (Exception e) {
-                // Generic safety block
+
                 liveData.postValue(Resource.error(new ApiError(
                         "500",
                         "Đã xảy ra lỗi hệ thống: " + e.getLocalizedMessage(),
@@ -72,12 +72,12 @@ public abstract class BaseRepository {
         });
     }
 
-    /**
-     * Parses the HTTP error response body using GSON.
-     *
-     * @param response The Retrofit Response container representing a failure
-     * @return Deserialized ApiError model
-     */
+
+
+
+
+
+
     @NonNull
     protected ApiError parseError(Response<?> response) {
         if (response.errorBody() == null) {

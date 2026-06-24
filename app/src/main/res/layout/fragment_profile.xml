@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingBottom="32dp">
 
-        <!-- Top Profile Banner Decor -->
+
         <View
             android:id="@+id/bannerBackground"
             android:layout_width="0dp"
@@ -22,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Avatar Container -->
+
         <FrameLayout
             android:id="@+id/avatarContainer"
             android:layout_width="110dp"
@@ -55,7 +55,7 @@
 
         </FrameLayout>
 
-        <!-- User Information -->
+
         <TextView
             android:id="@+id/txtUserName"
             android:layout_width="0dp"
@@ -102,7 +102,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtUserEmail" />
 
-        <!-- Stats Card -->
+
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardStats"
             android:layout_width="0dp"
@@ -125,7 +125,7 @@
                 android:paddingVertical="16dp"
                 android:weightSum="3">
 
-                <!-- Enrolled Stats -->
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -152,7 +152,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- Completed Stats -->
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- Certificates Stats -->
+
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -209,7 +209,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Divider -->
+
         <View
             android:id="@+id/divider1"
             android:layout_width="0dp"
@@ -220,7 +220,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/cardStats" />
 
-        <!-- Menu Container -->
+
         <LinearLayout
             android:id="@+id/layoutMenu"
             android:layout_width="0dp"
@@ -230,7 +230,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/divider1">
 
-            <!-- Edit Profile Row -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rowEditProfile"
                 android:layout_width="match_parent"
@@ -278,7 +278,7 @@
                 android:background="@color/divider"
                 android:layout_marginStart="60dp" />
 
-            <!-- My Certificates Row -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rowCertificates"
                 android:layout_width="match_parent"
@@ -326,7 +326,7 @@
                 android:background="@color/divider"
                 android:layout_marginStart="60dp" />
 
-            <!-- Download History Row -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rowDownloads"
                 android:layout_width="match_parent"
@@ -374,7 +374,7 @@
                 android:background="@color/divider"
                 android:layout_marginStart="60dp" />
 
-            <!-- Settings Row -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rowSettings"
                 android:layout_width="match_parent"
@@ -422,7 +422,7 @@
                 android:background="@color/divider"
                 android:layout_marginStart="60dp" />
 
-            <!-- Logout Row -->
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/rowLogout"
                 android:layout_width="match_parent"
@@ -471,7 +471,7 @@
 
         </LinearLayout>
 
-        <!-- Change Password Action Button -->
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChangePassword"
             style="@style/Widget.Material3.Button.OutlinedButton"

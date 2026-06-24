@@ -56,7 +56,7 @@ public class MyCertificatesActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
-        // Observers configured inside loadCertificates method for direct fetch
+
     }
 
     private void loadCertificates() {

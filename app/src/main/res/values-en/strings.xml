@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- General App Configuration -->
+
     <string name="app_name">Vietsync Learning</string>
     <string name="action_ok">OK</string>
     <string name="action_cancel">Cancel</string>
@@ -8,7 +8,7 @@
     <string name="state_loading">Loading...</string>
     <string name="state_saving">Saving...</string>
 
-    <!-- Authentication Screens -->
+
     <string name="auth_title_login">Log In</string>
     <string name="auth_title_register">Register</string>
     <string name="auth_hint_email">Email Address</string>
@@ -61,7 +61,7 @@
     <string name="learn_quiz_correct">Correct!</string>
     <string name="learn_quiz_incorrect">Incorrect. Try again!</string>
     <string name="learn_quiz_explanation">Explanation:</string>
-    
+
     <!-- Certificates & Profile -->
     <string name="profile_edit">Edit Profile</string>
     <string name="profile_logout">Log Out</string>

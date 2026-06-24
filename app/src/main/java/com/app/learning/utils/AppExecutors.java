@@ -8,11 +8,11 @@ import androidx.annotation.NonNull;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-/**
- * AppExecutors maintains thread pools globally to organize asynchronous background
- * executions (disk database storage, network requests) and handle callback transitions
- * back to the main UI thread.
- */
+
+
+
+
+
 public class AppExecutors {
 
     private static volatile AppExecutors instance;
@@ -42,23 +42,23 @@ public class AppExecutors {
         return instance;
     }
 
-    /**
-     * Single-thread executor for local database (Room/SQLite) read-write operations.
-     */
+
+
+
     public Executor diskIO() {
         return diskIO;
     }
 
-    /**
-     * Fixed-size thread pool for remote REST API network queries.
-     */
+
+
+
     public Executor networkIO() {
         return networkIO;
     }
 
-    /**
-     * Handler-delegated executor that posts Runnable items onto the Android Main Looper.
-     */
+
+
+
     public Executor mainThread() {
         return mainThread;
     }
