@@ -53,4 +53,17 @@
         <item name="contentPadding">@dimen/margin_medium</item>
     </style>
 
+    <style name="Widget.Learning.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <item name="itemIconTint">@color/selector_nav_tint</item>
+        <item name="itemTextColor">@color/selector_nav_tint</item>
+        <item name="itemIconSize">24dp</item>
+        <item name="itemTextAppearanceActive">@style/TextAppearance.Learning.BottomNavLabel</item>
+        <item name="itemTextAppearanceInactive">@style/TextAppearance.Learning.BottomNavLabel</item>
+        <item name="labelVisibilityMode">labeled</item>
+    </style>
+
+    <style name="TextAppearance.Learning.BottomNavLabel" parent="TextAppearance.Material3.LabelSmall">
+        <item name="android:textSize">10sp</item>
+    </style>
+
 </resources>

@@ -22,7 +22,11 @@
         android:id="@+id/fragment_my_learning"
         android:name="com.app.learning.ui.learning.MyLearningFragment"
         android:label="Học tập"
-        tools:layout="@layout/fragment_my_learning" />
+        tools:layout="@layout/fragment_my_learning">
+        <action
+            android:id="@+id/action_my_learning_to_lesson_detail"
+            app:destination="@id/fragment_lesson_detail" />
+    </fragment>
 
 
     <fragment
@@ -49,5 +53,11 @@
         android:name="com.app.learning.ui.course.CreateCourseFragment"
         android:label="Tạo khóa học"
         tools:layout="@layout/fragment_create_course" />
+
+    <fragment
+        android:id="@+id/fragment_lesson_detail"
+        android:name="com.app.learning.ui.learning.LessonDetailFragment"
+        android:label="Chi tiết bài học"
+        tools:layout="@layout/fragment_lesson_detail" />
 
 </navigation>

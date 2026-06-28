@@ -62,7 +62,8 @@
         <activity
             android:name="com.app.learning.MainActivity"
             android:exported="false"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
 
 
         <activity
