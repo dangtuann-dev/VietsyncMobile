@@ -127,7 +127,7 @@ public class MainActivity extends BaseActivity {
             View navHostView = findViewById(R.id.nav_host_fragment);
             if (navHostView != null) {
                 FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) navHostView.getLayoutParams();
-                int marginDp = (visibility == View.VISIBLE) ? 56 : 0;
+                int marginDp = (visibility == View.VISIBLE) ? 80 : 0;
                 params.bottomMargin = Math.round(marginDp * getResources().getDisplayMetrics().density);
                 navHostView.setLayoutParams(params);
             }

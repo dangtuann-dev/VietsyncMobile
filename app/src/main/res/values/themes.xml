@@ -77,4 +77,8 @@
         <item name="cornerSize">@dimen/button_radius</item>
     </style>
 
+    <style name="ThemeOverlay.Learning.BottomNavigationView" parent="">
+        <item name="colorSecondaryContainer">@android:color/transparent</item>
+    </style>
+
 </resources>

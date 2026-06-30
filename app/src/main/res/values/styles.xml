@@ -60,6 +60,8 @@
         <item name="itemTextAppearanceActive">@style/TextAppearance.Learning.BottomNavLabel</item>
         <item name="itemTextAppearanceInactive">@style/TextAppearance.Learning.BottomNavLabel</item>
         <item name="labelVisibilityMode">labeled</item>
+        <item name="itemPaddingTop">10dp</item>
+        <item name="itemPaddingBottom">10dp</item>
     </style>
 
     <style name="TextAppearance.Learning.BottomNavLabel" parent="TextAppearance.Material3.LabelSmall">
