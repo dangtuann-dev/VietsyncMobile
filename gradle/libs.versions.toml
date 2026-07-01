@@ -24,6 +24,8 @@ navigation = "2.8.5"
 lottie = "6.4.0"
 datastore = "1.1.1"
 rxandroid = "3.0.2"
+room = "2.6.1"
+
 
 [libraries]
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigation" }
@@ -61,6 +63,9 @@ circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.re
 lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 androidx-datastore-preferences-rxjava3 = { group = "androidx.datastore", name = "datastore-preferences-rxjava3", version.ref = "datastore" }
 rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

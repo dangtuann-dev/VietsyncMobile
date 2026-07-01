@@ -60,6 +60,15 @@ public class HomeFragment extends BaseFragment {
         rvPopularCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
         loadUserProfile();
+
+        View cvSearch = view.findViewById(R.id.cv_search);
+        if (cvSearch != null) {
+            cvSearch.setOnClickListener(v -> openSearchActivity());
+        }
+        if (etSearch != null) {
+            etSearch.setFocusable(false);
+            etSearch.setOnClickListener(v -> openSearchActivity());
+        }
     }
 
     @Override
@@ -169,6 +178,12 @@ public class HomeFragment extends BaseFragment {
     public void onDestroyView() {
         stopBannerAutoScroll();
         super.onDestroyView();
+    }
+
+    private void openSearchActivity() {
+        android.content.Intent intent = new android.content.Intent(requireActivity(), com.app.learning.ui.search.SearchActivity.class);
+        startActivity(intent);
+        requireActivity().overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }
 

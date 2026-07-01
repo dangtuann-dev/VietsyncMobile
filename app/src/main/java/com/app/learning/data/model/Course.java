@@ -133,4 +133,16 @@ public class Course implements Serializable {
     public void setEnrolledCount(int enrolledCount) {
         this.enrolledCount = enrolledCount;
     }
+
+    @SerializedName("instructor")
+    private User instructor;
+
+    public User getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(User instructor) {
+        this.instructor = instructor;
+    }
 }
+

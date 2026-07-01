@@ -9,6 +9,9 @@ public class Category implements Serializable {
     private String colorHex;
     private String colorLightHex;
 
+    public Category() {
+    }
+
     public Category(Long id, String name, int iconResId, String colorHex, String colorLightHex) {
         this.id = id;
         this.name = name;
@@ -16,6 +19,7 @@ public class Category implements Serializable {
         this.colorHex = colorHex;
         this.colorLightHex = colorLightHex;
     }
+
 
     public Long getId() {
         return id;

@@ -91,6 +91,9 @@ dependencies {
     implementation(libs.lottie)
     implementation(libs.androidx.datastore.preferences.rxjava3)
     implementation(libs.rxandroid)
+    implementation(libs.androidx.room.runtime)
+    annotationProcessor(libs.androidx.room.compiler)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
