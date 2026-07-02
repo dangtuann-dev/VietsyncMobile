@@ -14,9 +14,19 @@
 
     <fragment
         android:id="@+id/fragment_courses"
-        android:name="com.app.learning.ui.course.CoursesFragment"
-        android:label="Khóa học"
-        tools:layout="@layout/fragment_courses" />
+        android:name="com.app.learning.ui.explore.ExploreFragment"
+        android:label="Khám phá"
+        tools:layout="@layout/explore_fragment">
+        <action
+            android:id="@+id/action_exploreFragment_to_courseListFragment"
+            app:destination="@id/courseListFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/courseListFragment"
+        android:name="com.app.learning.ui.course.CourseListFragment"
+        android:label="Danh sách khóa học"
+        tools:layout="@layout/course_list_fragment" />
 
     <fragment
         android:id="@+id/fragment_my_learning"
