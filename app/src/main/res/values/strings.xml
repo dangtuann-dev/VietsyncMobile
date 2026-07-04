@@ -34,6 +34,8 @@
     <string name="home_tab_home">Trang chủ</string>
     <string name="home_tab_my_courses">Khóa học</string>
     <string name="home_tab_profile">Hồ sơ</string>
+    <string name="home_tab_explore">Khám phá</string>
+    <string name="home_tab_learning">Học tập</string>
 
 
     <string name="course_instructor">Giảng viên: %1$s</string>
@@ -123,4 +125,64 @@
         <item>Đánh giá</item>
         <item>Giá thấp đến cao</item>
     </string-array>
+
+    <!-- Settings Strings -->
+    <string name="settings_general">Cài đặt chung</string>
+    <string name="settings_language">Ngôn ngữ</string>
+    <string name="settings_dark_mode_summary">Thay đổi giao diện sáng tối</string>
+    <string name="settings_font_size">Cỡ chữ</string>
+    <string name="settings_data">Dữ liệu</string>
+    <string name="settings_about">Giới thiệu</string>
+    <string name="settings_privacy_policy">Chính sách bảo mật</string>
+    <string name="settings_terms_of_service">Điều khoản dịch vụ</string>
+    
+    <string-array name="language_entries">
+        <item>Tiếng Việt</item>
+        <item>English</item>
+    </string-array>
+    
+    <string-array name="language_values">
+        <item>vi</item>
+        <item>en</item>
+    </string-array>
+    
+    <string-array name="font_size_entries">
+        <item>Nhỏ</item>
+        <item>Vừa</item>
+        <item>Lớn</item>
+    </string-array>
+    
+    <string-array name="font_size_values">
+        <item>small</item>
+        <item>medium</item>
+        <item>large</item>
+    </string-array>
+
+    <!-- Drawer Strings -->
+    <string name="menu_my_courses">Khóa học của tôi</string>
+    <string name="menu_wishlist">Danh sách yêu thích</string>
+    <string name="menu_downloads">Tải xuống</string>
+    <string name="menu_certificates">Chứng chỉ</string>
+    <string name="menu_help_support">Trợ giúp &amp; Hỗ trợ</string>
+    <string name="menu_rate_app">Đánh giá ứng dụng</string>
+    <string name="menu_settings">Cài đặt</string>
+    <string name="menu_logout">Đăng xuất</string>
+    <!-- Notification Strings -->
+    <string name="notification_title">Thông báo</string>
+    <string name="notification_tab_all">Tất cả</string>
+    <string name="notification_tab_unread">Chưa đọc</string>
+    <string name="notification_tab_course">Khóa học</string>
+    <string name="notification_tab_system">Hệ thống</string>
+    <string name="notification_empty_title">Không có thông báo nào</string>
+    <string name="notification_empty_desc">Khi bạn có thông báo mới, chúng sẽ xuất hiện ở đây.</string>
+    <string name="notification_clear_all">Đánh dấu tất cả đã đọc</string>
+    <string name="notification_delete_all">Xóa tất cả</string>
+    <string name="notification_select">Chọn</string>
+    <string name="notification_cancel">Hủy</string>
+    <string name="notification_delete_selected">Xóa đã chọn</string>
+    <string name="notification_time_just_now">Vừa xong</string>
+    <string name="notification_time_minutes">%1$d phút trước</string>
+    <string name="notification_time_hours">%1$d giờ trước</string>
+    <string name="notification_time_days">%1$d ngày trước</string>
+    
 </resources>

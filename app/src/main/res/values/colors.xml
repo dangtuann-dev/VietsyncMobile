@@ -51,4 +51,9 @@
 
     <color name="category_indigo">#6366F1</color>
     <color name="category_indigo_light">#EEF2FF</color>
+
+    <color name="text_primary">#1A1C1E</color>
+    <color name="text_secondary">#43474E</color>
+    <color name="text_hint">#9E9E9E</color>
+    <color name="white">#FFFFFF</color>
 </resources>

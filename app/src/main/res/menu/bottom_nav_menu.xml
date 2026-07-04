@@ -3,17 +3,17 @@
     <item
         android:id="@+id/fragment_home"
         android:icon="@drawable/ic_home"
-        android:title="Trang chủ" />
+        android:title="@string/home_tab_home" />
     <item
         android:id="@+id/fragment_courses"
         android:icon="@drawable/ic_explore"
-        android:title="Khám phá" />
+        android:title="@string/home_tab_explore" />
     <item
         android:id="@+id/fragment_my_learning"
         android:icon="@drawable/ic_book"
-        android:title="Học tập" />
+        android:title="@string/home_tab_learning" />
     <item
         android:id="@+id/fragment_profile"
         android:icon="@drawable/ic_person"
-        android:title="Hồ sơ" />
+        android:title="@string/home_tab_profile" />
 </menu>

@@ -70,4 +70,15 @@
         android:label="Chi tiết bài học"
         tools:layout="@layout/fragment_lesson_detail" />
 
+    <fragment
+        android:id="@+id/fragment_settings"
+        android:name="com.app.learning.ui.profile.SettingsFragment"
+        android:label="@string/settings_title" />
+
+    <fragment
+        android:id="@+id/fragment_notification"
+        android:name="com.app.learning.ui.notification.NotificationFragment"
+        android:label="@string/notification_title"
+        tools:layout="@layout/fragment_notification" />
+
 </navigation>

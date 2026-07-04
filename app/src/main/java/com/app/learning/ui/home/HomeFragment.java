@@ -30,8 +30,10 @@ public class HomeFragment extends BaseFragment {
     private RecyclerView rvFeaturedCourses;
     private RecyclerView rvContinueLearning;
     private RecyclerView rvPopularCourses;
+    private TextView tvNotificationBadge;
 
     private HomeViewModel viewModel;
+    private com.app.learning.ui.notification.NotificationViewModel notificationViewModel;
     private final Handler bannerHandler = new Handler(Looper.getMainLooper());
     private Runnable bannerRunnable;
     private int bannerCount = 0;
@@ -52,6 +54,7 @@ public class HomeFragment extends BaseFragment {
         rvFeaturedCourses = view.findViewById(R.id.rv_featured_courses);
         rvContinueLearning = view.findViewById(R.id.rv_continue_learning);
         rvPopularCourses = view.findViewById(R.id.rv_popular_courses);
+        tvNotificationBadge = view.findViewById(R.id.tv_notification_badge);
 
         rvCategories.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvFeaturedCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
@@ -69,12 +72,41 @@ public class HomeFragment extends BaseFragment {
             etSearch.setFocusable(false);
             etSearch.setOnClickListener(v -> openSearchActivity());
         }
+
+        View ivNotification = view.findViewById(R.id.iv_notification);
+        if (ivNotification != null) {
+            ivNotification.setOnClickListener(v -> {
+                androidx.navigation.Navigation.findNavController(v).navigate(R.id.fragment_notification);
+            });
+        }
     }
 
     @Override
     protected void initObservers() {
         viewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        notificationViewModel = new ViewModelProvider(this).get(com.app.learning.ui.notification.NotificationViewModel.class);
+        
         observeViewModel(viewModel);
+
+        notificationViewModel.getNotificationsLiveData().observe(getViewLifecycleOwner(), resource -> {
+            if (resource != null && resource.data != null) {
+                int unreadCount = 0;
+                for (com.app.learning.data.model.NotificationModel notif : resource.data) {
+                    if (!notif.isRead()) {
+                        unreadCount++;
+                    }
+                }
+                if (unreadCount > 0) {
+                    tvNotificationBadge.setVisibility(View.VISIBLE);
+                    tvNotificationBadge.setText(unreadCount > 99 ? "99+" : String.valueOf(unreadCount));
+                } else {
+                    tvNotificationBadge.setVisibility(View.GONE);
+                }
+            }
+        });
+        
+        // Trigger load
+        notificationViewModel.loadNotifications();
 
         viewModel.getBanners().observe(getViewLifecycleOwner(), banners -> {
             if (banners != null && !banners.isEmpty()) {
@@ -117,7 +149,7 @@ public class HomeFragment extends BaseFragment {
     private void loadUserProfile() {
         User user = UserPreference.getInstance(requireContext()).getUserProfile();
         if (user != null) {
-            String name = !TextUtils.isEmpty(user.getFullName()) ? user.getFullName() : "Học viên";
+            String name = !TextUtils.isEmpty(user.getFullName()) ? user.getFullName() : getString(R.string.profile_role_student);
             tvStudentName.setText(name);
 
             if (!TextUtils.isEmpty(user.getAvatarUrl())) {
@@ -130,7 +162,7 @@ public class HomeFragment extends BaseFragment {
                 ivAvatar.setImageResource(R.drawable.ic_profile_placeholder);
             }
         } else {
-            tvStudentName.setText("Học viên");
+            tvStudentName.setText(getString(R.string.profile_role_student));
             ivAvatar.setImageResource(R.drawable.ic_profile_placeholder);
         }
     }

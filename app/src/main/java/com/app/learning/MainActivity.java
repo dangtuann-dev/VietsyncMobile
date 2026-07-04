@@ -12,7 +12,14 @@ import androidx.navigation.NavGraph;
 import androidx.navigation.NavInflater;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.core.view.GravityCompat;
+import com.google.android.material.navigation.NavigationView;
+import android.content.Intent;
+import android.widget.Toast;
 
+import com.app.learning.ui.profile.DownloadHistoryActivity;
+import com.app.learning.ui.profile.MyCertificatesActivity;
 import com.app.learning.ui.base.BaseActivity;
 import com.app.learning.utils.RoleManager;
 import com.example.vietsyncmobile.R;
@@ -22,6 +29,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends BaseActivity {
 
     private BottomNavigationView bottomNavigationView;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
     private NavController navController;
     private boolean isBottomNavNeededForDestination = true;
     private boolean isKeyboardVisible = false;
@@ -34,6 +43,8 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void initViews() {
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        drawerLayout = findViewById(R.id.drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
         NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.nav_host_fragment);
@@ -58,6 +69,34 @@ public class MainActivity extends BaseActivity {
         setupDestinationListener();
 
         setNotificationBadge(3);
+        setupDrawerMenu();
+    }
+    
+    private void setupDrawerMenu() {
+        if (navigationView != null) {
+            navigationView.setNavigationItemSelectedListener(item -> {
+                int id = item.getItemId();
+                if (id == R.id.nav_my_courses) {
+                    navController.navigate(R.id.fragment_my_courses);
+                } else if (id == R.id.nav_wishlist) {
+                    Toast.makeText(this, "Wishlist - Coming Soon", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_downloads) {
+                    startActivity(new Intent(this, DownloadHistoryActivity.class));
+                } else if (id == R.id.nav_certificates) {
+                    startActivity(new Intent(this, MyCertificatesActivity.class));
+                } else if (id == R.id.nav_help_support) {
+                    Toast.makeText(this, "Help & Support - Coming Soon", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_rate_app) {
+                    Toast.makeText(this, "Rate App - Coming Soon", Toast.LENGTH_SHORT).show();
+                } else if (id == R.id.nav_settings) {
+                    navController.navigate(R.id.fragment_settings);
+                } else if (id == R.id.nav_logout) {
+                    Toast.makeText(this, "Logout clicked", Toast.LENGTH_SHORT).show();
+                }
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            });
+        }
     }
 
     @Override
@@ -136,6 +175,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
+        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+            return;
+        }
         if (navController != null) {
             if (navController.navigateUp()) {
                 return;

@@ -25,6 +25,8 @@ lottie = "6.4.0"
 datastore = "1.1.1"
 rxandroid = "3.0.2"
 room = "2.6.1"
+preference = "1.2.1"
+swiperefreshlayout = "1.1.0"
 
 
 [libraries]
@@ -65,6 +67,8 @@ androidx-datastore-preferences-rxjava3 = { group = "androidx.datastore", name = 
 rxandroid = { group = "io.reactivex.rxjava3", name = "rxandroid", version.ref = "rxandroid" }
 androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+androidx-preference = { group = "androidx.preference", name = "preference", version.ref = "preference" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 
 [plugins]

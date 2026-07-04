@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
@@ -32,7 +33,7 @@
                     android:id="@+id/tv_greeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Chào bạn,"
+                    android:text="@string/home_greeting"
                     android:textColor="@color/outline"
                     android:textSize="14sp" />
 
@@ -45,6 +46,39 @@
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp">
+
+                <ImageView
+                    android:id="@+id/iv_notification"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_notifications"
+                    app:tint="@color/secondary" />
+
+                <TextView
+                    android:id="@+id/tv_notification_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|end"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_badge_notification"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    tools:text="3"
+                    tools:visibility="visible" />
+            </FrameLayout>
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_avatar"
@@ -119,7 +153,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Chủ đề học tập"
+                android:text="@string/home_section_categories"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -146,7 +180,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Khóa học nổi bật"
+                android:text="@string/home_section_popular"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -173,7 +207,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Tiếp tục học"
+                android:text="@string/home_section_enrolled"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -197,7 +231,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="Khóa học phổ biến"
+                android:text="@string/home_section_popular"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold" />

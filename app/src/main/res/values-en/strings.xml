@@ -35,6 +35,8 @@
     <string name="home_tab_home">Home</string>
     <string name="home_tab_my_courses">Courses</string>
     <string name="home_tab_profile">Profile</string>
+    <string name="home_tab_explore">Explore</string>
+    <string name="home_tab_learning">Learning</string>
 
     <!-- Course & Lesson Details -->
     <string name="course_instructor">Instructor: %1$s</string>
@@ -114,4 +116,22 @@
     <string name="profile_toast_password_success">Password changed successfully!</string>
     <string name="profile_toast_password_error">Password change failed</string>
     <string name="profile_logout_confirm_msg">Are you sure you want to log out?</string>
+
+    <!-- Notification Strings -->
+    <string name="notification_title">Notifications</string>
+    <string name="notification_tab_all">All</string>
+    <string name="notification_tab_unread">Unread</string>
+    <string name="notification_tab_course">Courses</string>
+    <string name="notification_tab_system">System</string>
+    <string name="notification_empty_title">No Notifications</string>
+    <string name="notification_empty_desc">When you get notifications, they\'ll show up here.</string>
+    <string name="notification_clear_all">Mark all as read</string>
+    <string name="notification_delete_all">Delete all</string>
+    <string name="notification_select">Select</string>
+    <string name="notification_cancel">Cancel</string>
+    <string name="notification_delete_selected">Delete selected</string>
+    <string name="notification_time_just_now">Just now</string>
+    <string name="notification_time_minutes">%1$d mins ago</string>
+    <string name="notification_time_hours">%1$d hrs ago</string>
+    <string name="notification_time_days">%1$d days ago</string>
 </resources>

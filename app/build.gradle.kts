@@ -93,6 +93,8 @@ dependencies {
     implementation(libs.rxandroid)
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.swiperefreshlayout)
 
 
     testImplementation(libs.junit)
