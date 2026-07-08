@@ -11,14 +11,12 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.app.learning.data.api.Resource;
 import com.app.learning.data.model.Category;
 import com.app.learning.data.model.Course;
 import com.app.learning.data.repository.CourseRepository;
 import com.example.vietsyncmobile.R;
 import com.google.android.material.tabs.TabLayout;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,11 +27,8 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
     private TabLayout tabLayout;
     private RecyclerView categoriesRecyclerView;
     private CategoryGridAdapter categoryAdapter;
-
-    // Full list loaded from the database; filtered list shown in the adapter
     private final List<Category> allCategories = new ArrayList<>();
     private String activeTabFilter = "All";
-
     private CourseRepository courseRepository;
 
     @Nullable
@@ -82,12 +77,10 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
         categoriesRecyclerView.setAdapter(categoryAdapter);
     }
 
-    /** Fetch categories from Supabase via CourseRepository and populate the adapter. */
     private void loadCategoriesFromDb() {
         courseRepository.getCategories().observe(getViewLifecycleOwner(), resource -> {
             if (resource != null && resource.isSuccess() && resource.data != null) {
                 allCategories.clear();
-                // Assign icon res-ids based on known category names (DB has no iconResId field)
                 for (Category cat : resource.data) {
                     cat.setIconResId(iconForCategory(cat.getName()));
                     if (cat.getColorHex() == null) cat.setColorHex("#3B82F6");
@@ -99,10 +92,6 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
         });
     }
 
-    /**
-     * Fetch all courses with only category_id selected, count occurrences per category,
-     * then push the counts map to the adapter so it displays real numbers.
-     */
     private void loadCourseCountsFromDb() {
         Map<String, String> options = new HashMap<>();
         options.put("select", "category_id");
@@ -134,7 +123,6 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
         categoryAdapter.setCategories(filtered);
     }
 
-    /** Map known Supabase category names to drawable resource IDs. */
     private int iconForCategory(String name) {
         if (name == null) return R.drawable.ic_explore;
         switch (name.toLowerCase()) {
@@ -152,6 +140,6 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
         Bundle bundle = new Bundle();
         bundle.putString("categoryId", category.getId() != null ? String.valueOf(category.getId()) : "");
         bundle.putString("categoryName", category.getName());
-        navController.navigate(R.id.action_exploreFragment_to_courseListFragment, bundle);
+        navController.navigate(R.id.action_exploreFragment_to_danhSachKhoaHocFragment, bundle);
     }
 }

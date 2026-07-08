@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TrangThaiTrongView">
+        <attr name="emptyMessage" format="string" />
+        <attr name="emptyImage" format="reference" />
+        <attr name="showRetryButton" format="boolean" />
+        <attr name="retryButtonText" format="string" />
+    </declare-styleable>
+</resources>

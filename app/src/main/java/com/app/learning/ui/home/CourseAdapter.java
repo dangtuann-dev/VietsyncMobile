@@ -19,26 +19,16 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     private final List<Course> courses;
     private final boolean isHorizontal;
 
-    /**
-     * Backward-compatible constructor — defaults to horizontal layout (item_course_horizontal).
-     * Used by HomeFragment.
-     */
     public CourseAdapter(List<Course> courses) {
         this.courses = courses != null ? courses : new ArrayList<>();
         this.isHorizontal = true;
     }
 
-    /**
-     * Full constructor.
-     * Pass isHorizontal=false to use the vertical card layout (item_course_card).
-     * Used by CourseListFragment.
-     */
     public CourseAdapter(List<Course> courses, boolean isHorizontal) {
         this.courses = courses != null ? courses : new ArrayList<>();
         this.isHorizontal = isHorizontal;
     }
 
-    /** Replace the dataset and refresh. Used by CourseListFragment observer. */
     public void setCourses(List<Course> newCourses) {
         this.courses.clear();
         if (newCourses != null) {
@@ -62,7 +52,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         Course course = courses.get(position);
 
         if (isHorizontal) {
-            // ── item_course_horizontal ──────────────────────────────────────
             if (holder.tvTitle != null)    holder.tvTitle.setText(course.getTitle());
             if (holder.tvLevel != null)    holder.tvLevel.setText(course.getLevel());
             if (holder.tvDuration != null) holder.tvDuration.setText(course.getDuration() + " giờ");
@@ -78,7 +67,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
                     .error(R.drawable.ic_logo_placeholder)
                     .into(holder.ivThumbnail);
         } else {
-            // ── item_course_card ────────────────────────────────────────────
             if (holder.tvTitle != null) holder.tvTitle.setText(course.getTitle());
 
             if (holder.tvInstructor != null) {
@@ -118,7 +106,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     }
 
     static class CourseViewHolder extends RecyclerView.ViewHolder {
-        // Horizontal-layout fields (item_course_horizontal)
         ImageView ivThumbnail;
         TextView  tvTitle;
         TextView  tvLevel;
@@ -126,7 +113,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
         TextView  tvRating;
         TextView  tvPrice;
 
-        // Vertical card-layout fields (item_course_card)
         TextView  tvInstructor;
         RatingBar ratingBar;
         TextView  tvRatingCount;

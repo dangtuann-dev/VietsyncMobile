@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="6dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="0dp"
+    app:strokeColor="@color/surface_variant"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/sk_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:background="@color/surface_variant" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <View
+                android:id="@+id/sk_category"
+                android:layout_width="60dp"
+                android:layout_height="16dp"
+                android:background="@color/surface_variant" />
+
+            <View
+                android:id="@+id/sk_title1"
+                android:layout_width="match_parent"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/surface_variant" />
+
+            <View
+                android:id="@+id/sk_title2"
+                android:layout_width="100dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="4dp"
+                android:background="@color/surface_variant" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <View
+                    android:id="@+id/sk_avatar"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@color/surface_variant" />
+
+                <View
+                    android:id="@+id/sk_instructor"
+                    android:layout_width="80dp"
+                    android:layout_height="12dp"
+                    android:layout_marginStart="6dp"
+                    android:background="@color/surface_variant" />
+
+            </LinearLayout>
+
+            <View
+                android:id="@+id/sk_price"
+                android:layout_width="70dp"
+                android:layout_height="16dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/surface_variant" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

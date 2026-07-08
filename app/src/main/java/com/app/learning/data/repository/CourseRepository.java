@@ -75,7 +75,7 @@ public class CourseRepository extends BaseRepository {
         }
         options.put("order", order);
         
-        int limit = 10;
+        int limit = 20;
         int offset = (page - 1) * limit;
         options.put("limit", String.valueOf(limit));
         options.put("offset", String.valueOf(offset));
@@ -108,7 +108,7 @@ public class CourseRepository extends BaseRepository {
         }
         options.put("order", order);
         
-        int limit = 10;
+        int limit = 20;
         int offset = (page - 1) * limit;
         options.put("limit", String.valueOf(limit));
         options.put("offset", String.valueOf(offset));
