@@ -81,4 +81,10 @@
         android:label="@string/notification_title"
         tools:layout="@layout/fragment_notification" />
 
+    <fragment
+        android:id="@+id/fragment_wishlist"
+        android:name="com.app.learning.ui.wishlist.WishlistFragment"
+        android:label="@string/menu_wishlist"
+        tools:layout="@layout/fragment_wishlist" />
+
 </navigation>

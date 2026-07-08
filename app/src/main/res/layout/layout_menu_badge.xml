@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tv_badge"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_vertical"
+    android:background="@drawable/bg_badge_notification"
+    android:gravity="center"
+    android:minWidth="20dp"
+    android:minHeight="20dp"
+    android:paddingStart="6dp"
+    android:paddingEnd="6dp"
+    android:textColor="@android:color/white"
+    android:textSize="11sp"
+    android:textStyle="bold"
+    android:visibility="gone" />

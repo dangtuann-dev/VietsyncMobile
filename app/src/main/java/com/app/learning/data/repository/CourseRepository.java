@@ -128,6 +128,29 @@ public class CourseRepository extends BaseRepository {
         });
     }
 
+    public LiveData<Resource<Course>> getCourseById(String id) {
+        MutableLiveData<Resource<Course>> resultLiveData = new MutableLiveData<>();
+        Call<List<Course>> call = courseApi.getCourseById("eq." + id, "*,instructor:users(full_name)");
+        
+        MutableLiveData<Resource<List<Course>>> listLiveData = new MutableLiveData<>();
+        executeCall(call, listLiveData);
+        
+        listLiveData.observeForever(resource -> {
+            if (resource.status == Resource.Status.SUCCESS) {
+                if (resource.data != null && !resource.data.isEmpty()) {
+                    resultLiveData.setValue(Resource.success(resource.data.get(0)));
+                } else {
+                    resultLiveData.setValue(Resource.error(new com.app.learning.data.api.ApiError("404", "Không tìm thấy khóa học", null, null)));
+                }
+            } else if (resource.status == Resource.Status.ERROR) {
+                resultLiveData.setValue(Resource.error(resource.error));
+            } else if (resource.status == Resource.Status.LOADING) {
+                resultLiveData.setValue(Resource.loading());
+            }
+        });
+        return resultLiveData;
+    }
+
     private String resolveCategoryId(String categoryIdOrName) {
         if (categoryIdOrName == null || categoryIdOrName.trim().isEmpty()) {
             return null;

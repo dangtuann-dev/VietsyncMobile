@@ -18,6 +18,7 @@ import com.google.android.material.navigation.NavigationView;
 import android.content.Intent;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
 import com.app.learning.ui.profile.DownloadHistoryActivity;
 import com.app.learning.ui.profile.MyCertificatesActivity;
 import com.app.learning.ui.base.BaseActivity;
@@ -34,6 +35,7 @@ public class MainActivity extends BaseActivity {
     private NavController navController;
     private boolean isBottomNavNeededForDestination = true;
     private boolean isKeyboardVisible = false;
+    private com.app.learning.ui.wishlist.WishlistViewModel wishlistViewModel;
 
     @Override
     protected int getLayoutId() {
@@ -79,7 +81,7 @@ public class MainActivity extends BaseActivity {
                 if (id == R.id.nav_my_courses) {
                     navController.navigate(R.id.fragment_my_courses);
                 } else if (id == R.id.nav_wishlist) {
-                    Toast.makeText(this, "Wishlist - Coming Soon", Toast.LENGTH_SHORT).show();
+                    navController.navigate(R.id.fragment_wishlist);
                 } else if (id == R.id.nav_downloads) {
                     startActivity(new Intent(this, DownloadHistoryActivity.class));
                 } else if (id == R.id.nav_certificates) {
@@ -101,6 +103,28 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initObservers() {
+        wishlistViewModel = new ViewModelProvider(this).get(com.app.learning.ui.wishlist.WishlistViewModel.class);
+        wishlistViewModel.getWishlistLiveData().observe(this, resource -> {
+            if (resource != null && resource.status == com.app.learning.data.api.Resource.Status.SUCCESS && resource.data != null) {
+                setWishlistBadge(resource.data.size());
+            }
+        });
+        wishlistViewModel.loadWishlists();
+    }
+
+    public void setWishlistBadge(int count) {
+        if (navigationView != null) {
+            View actionView = navigationView.getMenu().findItem(R.id.nav_wishlist).getActionView();
+            if (actionView instanceof android.widget.TextView) {
+                android.widget.TextView badge = (android.widget.TextView) actionView;
+                if (count > 0) {
+                    badge.setVisibility(View.VISIBLE);
+                    badge.setText(String.valueOf(count));
+                } else {
+                    badge.setVisibility(View.GONE);
+                }
+            }
+        }
     }
 
     public void setNotificationBadge(int count) {
