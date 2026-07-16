@@ -97,6 +97,16 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.app.learning.ui.course.PaymentActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.course.EnrollmentSuccessActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
 
 
 

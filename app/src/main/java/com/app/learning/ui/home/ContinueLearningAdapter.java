@@ -9,7 +9,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 import com.app.learning.data.model.Course;
+import com.app.learning.ui.course.CourseDetailActivity;
 import com.bumptech.glide.Glide;
 import com.example.vietsyncmobile.R;
 import java.util.List;
@@ -32,6 +34,19 @@ public class ContinueLearningAdapter extends RecyclerView.Adapter<ContinueLearni
     @Override
     public void onBindViewHolder(@NonNull ContinueViewHolder holder, int position) {
         Course course = courses.get(position);
+        
+        View.OnClickListener clickListener = v -> {
+            Intent intent = new Intent(v.getContext(), CourseDetailActivity.class);
+            intent.putExtra("course", course);
+            intent.putExtra("course_id", course.getId());
+            v.getContext().startActivity(intent);
+        };
+        
+        holder.itemView.setOnClickListener(clickListener);
+        if (holder.btnResume != null) {
+            holder.btnResume.setOnClickListener(clickListener);
+        }
+        
         holder.tvTitle.setText(course.getTitle());
         holder.tvDuration.setText(course.getDuration() + " giờ");
 

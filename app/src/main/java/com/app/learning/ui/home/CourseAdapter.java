@@ -8,7 +8,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import android.content.Intent;
 import com.app.learning.data.model.Course;
+import com.app.learning.ui.course.CourseDetailActivity;
 import com.bumptech.glide.Glide;
 import com.example.vietsyncmobile.R;
 import java.util.ArrayList;
@@ -50,6 +52,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseView
     @Override
     public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
         Course course = courses.get(position);
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), CourseDetailActivity.class);
+            intent.putExtra("course", course);
+            intent.putExtra("course_id", course.getId());
+            v.getContext().startActivity(intent);
+        });
 
         if (isHorizontal) {
             if (holder.tvTitle != null)    holder.tvTitle.setText(course.getTitle());

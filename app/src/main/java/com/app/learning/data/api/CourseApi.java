@@ -13,6 +13,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import com.app.learning.data.model.Category;
+import com.app.learning.data.model.Lesson;
 
 
 
@@ -83,5 +84,23 @@ public interface CourseApi {
     @GET("rest/v1/categories")
     Call<List<Category>> getCategories(
             @Query("select") String select
+    );
+
+    @GET("rest/v1/lessons")
+    Call<List<Lesson>> getLessonsByCourseId(
+            @Query("course_id") String courseIdFilter,
+            @Query("order") String order
+    );
+
+    @GET("rest/v1/enrollments")
+    Call<List<Map<String, Object>>> checkEnrollment(
+            @Query("user_id") String userIdFilter,
+            @Query("course_id") String courseIdFilter
+    );
+
+    @POST("rest/v1/enrollments")
+    Call<Void> enrollInCourse(
+            @Body Map<String, Object> body,
+            @Header("Prefer") String preferHeader
     );
 }

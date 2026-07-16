@@ -90,4 +90,11 @@ public class NotificationRepository extends BaseRepository {
         executeCall(call, resultLiveData);
         return resultLiveData;
     }
+
+    public LiveData<Resource<Void>> createNotification(NotificationModel notification) {
+        MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
+        Call<Void> call = notificationApi.createNotification(notification);
+        executeCall(call, resultLiveData);
+        return resultLiveData;
+    }
 }

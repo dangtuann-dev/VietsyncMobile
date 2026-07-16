@@ -47,4 +47,9 @@ public interface NotificationApi {
     Call<Void> deleteMultipleNotifications(
             @Query(value = "id", encoded = true) String idFilter
     );
+
+    @POST("rest/v1/notifications")
+    Call<Void> createNotification(
+            @Body NotificationModel notification
+    );
 }
