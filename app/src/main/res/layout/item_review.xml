@@ -75,6 +75,53 @@
         android:paddingStart="46dp"
         android:paddingEnd="0dp" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="8dp"
+        android:paddingStart="46dp">
+
+        <LinearLayout
+            android:id="@+id/btn_helpful"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingVertical="4dp"
+            android:paddingHorizontal="8dp">
+
+            <ImageView
+                android:id="@+id/iv_helpful"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:src="@drawable/ic_thumb_up"
+                app:tint="@color/text_secondary" />
+
+            <TextView
+                android:id="@+id/tv_helpful_btn_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="Hữu ích"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_helpful_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="0"
+            android:textColor="@color/text_secondary"
+            android:textSize="12sp" />
+    </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
