@@ -51,6 +51,20 @@ android {
         compose = true
         buildConfig = true
     }
+
+    sourceSets {
+        getByName("main") {
+            res.directories.addAll(
+                listOf(
+                    "src/main/res",
+                    "src/main/res/layout/group1_core_auth",
+                    "src/main/res/layout/group2_fragments_flows",
+                    "src/main/res/layout/group3_dialogs_layouts_items",
+                    "src/main/res/layout/group4_general_search_notifications"
+                )
+            )
+        }
+    }
 }
 
 dependencies {
