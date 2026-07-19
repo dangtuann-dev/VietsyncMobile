@@ -10,6 +10,7 @@ import com.app.learning.data.api.CourseApi;
 import com.app.learning.data.api.Resource;
 import com.app.learning.data.model.Category;
 import com.app.learning.data.model.Course;
+import com.app.learning.data.model.Lesson;
 
 import java.util.List;
 import java.util.Map;
@@ -176,5 +177,43 @@ public class CourseRepository extends BaseRepository {
                     return null;
             }
         }
+    }
+
+    public LiveData<Resource<List<Lesson>>> getLessons(String courseId) {
+        MutableLiveData<Resource<List<Lesson>>> resultLiveData = new MutableLiveData<>();
+        Call<List<Lesson>> call = courseApi.getLessonsByCourseId("eq." + courseId, "order_index.asc");
+        executeCall(call, resultLiveData);
+        return resultLiveData;
+    }
+
+    public LiveData<Resource<Boolean>> checkEnrollment(String userId, String courseId) {
+        MutableLiveData<Resource<Boolean>> resultLiveData = new MutableLiveData<>();
+        Call<List<Map<String, Object>>> call = courseApi.checkEnrollment("eq." + userId, "eq." + courseId);
+        
+        MutableLiveData<Resource<List<Map<String, Object>>>> checkLiveData = new MutableLiveData<>();
+        executeCall(call, checkLiveData);
+        
+        checkLiveData.observeForever(resource -> {
+            if (resource.status == Resource.Status.SUCCESS) {
+                boolean isEnrolled = resource.data != null && !resource.data.isEmpty();
+                resultLiveData.setValue(Resource.success(isEnrolled));
+            } else if (resource.status == Resource.Status.ERROR) {
+                resultLiveData.setValue(Resource.error(resource.error));
+            } else if (resource.status == Resource.Status.LOADING) {
+                resultLiveData.setValue(Resource.loading());
+            }
+        });
+        return resultLiveData;
+    }
+
+    public LiveData<Resource<Void>> enrollInCourse(String userId, String courseId) {
+        MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
+        Map<String, Object> body = new HashMap<>();
+        body.put("user_id", userId);
+        body.put("course_id", courseId);
+        body.put("progress_percent", 0);
+        Call<Void> call = courseApi.enrollInCourse(body, "representation");
+        executeCall(call, resultLiveData);
+        return resultLiveData;
     }
 }
