@@ -107,6 +107,16 @@
             android:exported="false"
             android:screenOrientation="portrait" />
 
+        <activity
+            android:name="com.app.learning.ui.teacher.course.CreateCourseActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.teacher.course.ManageLessonsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
 
 
 
