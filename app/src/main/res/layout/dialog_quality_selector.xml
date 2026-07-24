@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#1E293B"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chất lượng video"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <RadioGroup
+        android:id="@+id/rgQuality"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:id="@+id/rbAuto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tự động (Khuyên dùng)"
+            android:textColor="@android:color/white"
+            android:checked="true"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/rb1080p"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1080p (Full HD)"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/rb720p"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="720p (HD)"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/rb480p"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="480p (Tiêu chuẩn)"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+
+        <RadioButton
+            android:id="@+id/rb360p"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="360p (Tiết kiệm dữ liệu)"
+            android:textColor="@android:color/white"
+            android:padding="12dp" />
+    </RadioGroup>
+
+</LinearLayout>

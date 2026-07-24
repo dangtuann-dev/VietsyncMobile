@@ -6,12 +6,26 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {SearchHistory.class}, version = 1, exportSchema = false)
+@Database(
+    entities = {
+        SearchHistory.class,
+        NoteEntity.class,
+        DownloadEntity.class,
+        PdfBookmarkEntity.class,
+        VideoPositionEntity.class
+    },
+    version = 2,
+    exportSchema = false
+)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;
 
     public abstract SearchHistoryDao searchHistoryDao();
+    public abstract NoteDao noteDao();
+    public abstract DownloadDao downloadDao();
+    public abstract PdfBookmarkDao pdfBookmarkDao();
+    public abstract VideoPositionDao videoPositionDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {

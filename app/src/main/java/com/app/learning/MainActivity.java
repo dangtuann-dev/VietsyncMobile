@@ -26,6 +26,7 @@ import com.app.learning.utils.RoleManager;
 import com.example.vietsyncmobile.R;
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import androidx.activity.OnBackPressedCallback;
 
 public class MainActivity extends BaseActivity {
 
@@ -72,6 +73,24 @@ public class MainActivity extends BaseActivity {
 
         setNotificationBadge(3);
         setupDrawerMenu();
+
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    return;
+                }
+                if (navController != null) {
+                    if (navController.navigateUp()) {
+                        return;
+                    }
+                }
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
+            }
+        });
     }
     
     private void setupDrawerMenu() {
@@ -197,17 +216,4 @@ public class MainActivity extends BaseActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {
-        if (drawerLayout != null && drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START);
-            return;
-        }
-        if (navController != null) {
-            if (navController.navigateUp()) {
-                return;
-            }
-        }
-        super.onBackPressed();
-    }
 }
