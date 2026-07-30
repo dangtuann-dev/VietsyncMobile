@@ -183,6 +183,13 @@
     <string name="notification_time_just_now">Vừa xong</string>
     <string name="notification_time_minutes">%1$d phút trước</string>
     <string name="notification_time_hours">%1$d giờ trước</string>
-    <string name="notification_time_days">%1$d ngày trước</string>
-    
+    <plurals name="courses_count">
+        <item quantity="one">%d khóa học</item>
+        <item quantity="other">%d khóa học</item>
+    </plurals>
+
+    <plurals name="students_count">
+        <item quantity="one">%d học viên</item>
+        <item quantity="other">%d học viên</item>
+    </plurals>
 </resources>

@@ -26,5 +26,7 @@ public class LearningApplication extends Application {
         String lang = com.app.learning.utils.UserPreference.getInstance(this).getAppLanguage();
         androidx.core.os.LocaleListCompat appLocale = androidx.core.os.LocaleListCompat.forLanguageTags(lang);
         androidx.appcompat.app.AppCompatDelegate.setApplicationLocales(appLocale);
+
+        com.app.learning.utils.AppInitializer.initializeAsync(this);
     }
 }

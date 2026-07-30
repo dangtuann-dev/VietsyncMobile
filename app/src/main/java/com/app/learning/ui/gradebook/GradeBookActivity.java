@@ -154,7 +154,7 @@ public class GradeBookActivity extends AppCompatActivity {
         lineDataSet.setLineWidth(3f);
         lineDataSet.setCircleRadius(5f);
         lineDataSet.setValueTextColor(Color.WHITE);
-        lineDataSet.setValueTextSize(10dp);
+        lineDataSet.setValueTextSize(10f);
 
         LineData lineData = new LineData(lineDataSet);
         lineChartGpa.setData(lineData);
@@ -175,7 +175,7 @@ public class GradeBookActivity extends AppCompatActivity {
         BarDataSet barDataSet = new BarDataSet(barEntries, "Tỷ lệ đúng (%)");
         barDataSet.setColors(new int[]{0xFF10B981, 0xFF3B82F6}); // Green, Blue
         barDataSet.setValueTextColor(Color.WHITE);
-        barDataSet.setValueTextSize(11dp);
+        barDataSet.setValueTextSize(11f);
 
         BarData barData = new BarData(barDataSet);
         barChartScores.setData(barData);

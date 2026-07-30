@@ -28,7 +28,11 @@ public class ApiClient {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
 
+        long cacheSize = 50 * 1024 * 1024L; // 50 MB
+        okhttp3.Cache cache = new okhttp3.Cache(new java.io.File(context.getCacheDir(), "http_cache"), cacheSize);
+
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
+                .cache(cache)
                 .connectTimeout(AppConstants.CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .readTimeout(AppConstants.READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .writeTimeout(AppConstants.WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
