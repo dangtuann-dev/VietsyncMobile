@@ -144,6 +144,16 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.app.learning.ui.exam.FinalExamActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.app.learning.ui.exam.ExamResultActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.app.learning.ui.discussion.PostDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait" />

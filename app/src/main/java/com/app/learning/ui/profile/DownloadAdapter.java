@@ -36,12 +36,10 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Downlo
     @Override
     public void onBindViewHolder(@NonNull DownloadViewHolder holder, int position) {
         DownloadItem item = items.get(position);
-        holder.tvLessonTitle.setText(item.getLessonTitle());
-        holder.tvCourseTitle.setText(item.getCourseTitle());
-        holder.tvSize.setText(item.getSize());
-        holder.tvDate.setText(item.getDate());
+        holder.tvTitle.setText(item.getLessonTitle());
+        holder.tvSizeStatus.setText(item.getCourseTitle() + " • " + item.getSize() + " • " + item.getDate());
 
-        holder.btnDelete.setOnClickListener(v -> {
+        holder.btnCancelDelete.setOnClickListener(v -> {
             if (deleteListener != null) {
                 deleteListener.onDelete(item, holder.getAdapterPosition());
             }
@@ -54,19 +52,15 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.Downlo
     }
 
     static class DownloadViewHolder extends RecyclerView.ViewHolder {
-        TextView tvLessonTitle;
-        TextView tvCourseTitle;
-        TextView tvSize;
-        TextView tvDate;
-        ImageView btnDelete;
+        TextView tvTitle;
+        TextView tvSizeStatus;
+        View btnCancelDelete;
 
         public DownloadViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvLessonTitle = itemView.findViewById(R.id.tvLessonTitle);
-            tvCourseTitle = itemView.findViewById(R.id.tvCourseTitle);
-            tvSize = itemView.findViewById(R.id.tvSize);
-            tvDate = itemView.findViewById(R.id.tvDate);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
+            tvTitle = itemView.findViewById(R.id.tvTitle);
+            tvSizeStatus = itemView.findViewById(R.id.tvSizeStatus);
+            btnCancelDelete = itemView.findViewById(R.id.btnCancelDelete);
         }
     }
 }

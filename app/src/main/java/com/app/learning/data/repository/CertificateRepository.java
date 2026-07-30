@@ -36,7 +36,7 @@ public class CertificateRepository {
 
     public CertificateRepository(Context context) {
         this.certificateApi = ApiClient.getInstance().createService(CertificateApi.class);
-        this.sessionManager = new SessionManager(context);
+        this.sessionManager = SessionManager.getInstance(context);
     }
 
     public void checkEligibility(String courseId, EligibilityCallback callback) {
@@ -157,6 +157,24 @@ public class CertificateRepository {
             @Override
             public void onFailure(Call<List<CertificateModel>> call, Throwable t) {
                 callback.onError(t.getMessage());
+            }
+        });
+    }
+
+    public void getCertificateById(String certId, CertificateCallback callback) {
+        certificateApi.getCertificateById("eq." + certId, "*").enqueue(new Callback<List<CertificateModel>>() {
+            @Override
+            public void onResponse(Call<List<CertificateModel>> call, Response<List<CertificateModel>> response) {
+                if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                    callback.onSuccess(response.body().get(0));
+                } else {
+                    callback.onError("Không tìm thấy chứng chỉ hợp lệ!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CertificateModel>> call, Throwable t) {
+                callback.onError("Lỗi kết nối mạng: " + t.getMessage());
             }
         });
     }

@@ -39,7 +39,7 @@ public class DiscussionRepository {
 
     public DiscussionRepository(Context context) {
         this.discussionApi = ApiClient.getInstance().createService(DiscussionApi.class);
-        this.sessionManager = new SessionManager(context);
+        this.sessionManager = SessionManager.getInstance(context);
     }
 
     public void loadPosts(String courseId, PostListCallback callback) {

@@ -14,6 +14,7 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 import com.app.learning.data.model.Category;
 import com.app.learning.data.model.Lesson;
+import com.google.gson.JsonObject;
 
 
 
@@ -102,5 +103,11 @@ public interface CourseApi {
     Call<Void> enrollInCourse(
             @Body Map<String, Object> body,
             @Header("Prefer") String preferHeader
+    );
+
+    @GET("rest/v1/lessons")
+    Call<List<JsonObject>> getLessonById(
+            @Query("id") String idFilter,
+            @Query("select") String select
     );
 }

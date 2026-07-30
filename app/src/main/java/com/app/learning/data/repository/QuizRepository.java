@@ -28,7 +28,7 @@ public class QuizRepository {
 
     public QuizRepository(Context context) {
         this.quizApi = ApiClient.getInstance().createService(QuizApi.class);
-        this.sessionManager = new SessionManager(context);
+        this.sessionManager = SessionManager.getInstance(context);
     }
 
     public void loadQuizzes(String lessonId, QuizListCallback callback) {

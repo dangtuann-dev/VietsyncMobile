@@ -179,4 +179,16 @@ public class SessionManager {
                 .apply();
         Log.d(TAG, "Session cleared successfully");
     }
+
+    @Nullable
+    public synchronized String getUserId() {
+        UserModel user = getUser();
+        return user != null ? user.getId() : null;
+    }
+
+    @Nullable
+    public synchronized String getUserFullName() {
+        UserModel user = getUser();
+        return user != null ? user.getFullName() : null;
+    }
 }

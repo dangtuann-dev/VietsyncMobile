@@ -45,10 +45,10 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
                     .load(item.getCourse().getThumbnail())
                     .placeholder(R.drawable.ic_logo_placeholder)
                     .error(R.drawable.ic_logo_placeholder)
-                    .into(holder.imgCourseThumbnail);
+                    .into(holder.imgBadge);
         } else {
             holder.tvCourseTitle.setText("Khóa học");
-            holder.imgCourseThumbnail.setImageResource(R.drawable.ic_logo_placeholder);
+            holder.imgBadge.setImageResource(R.drawable.ic_logo_placeholder);
         }
 
         holder.tvIssuedDate.setText("Ngày cấp: " + formatDate(item.getIssuedAt()));
@@ -82,14 +82,14 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
     }
 
     static class CertificateViewHolder extends RecyclerView.ViewHolder {
-        ImageView imgCourseThumbnail;
+        ImageView imgBadge;
         TextView tvCourseTitle;
         TextView tvIssuedDate;
         Button btnViewCertificate;
 
         public CertificateViewHolder(@NonNull View itemView) {
             super(itemView);
-            imgCourseThumbnail = itemView.findViewById(R.id.imgCourseThumbnail);
+            imgBadge = itemView.findViewById(R.id.imgBadge);
             tvCourseTitle = itemView.findViewById(R.id.tvCourseTitle);
             tvIssuedDate = itemView.findViewById(R.id.tvIssuedDate);
             btnViewCertificate = itemView.findViewById(R.id.btnViewCertificate);

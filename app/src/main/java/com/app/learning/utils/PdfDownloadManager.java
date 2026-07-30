@@ -35,8 +35,9 @@ public class PdfDownloadManager {
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
-                if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                    new Handler(Looper.getMainLooper()).post(() -> callback.onError("Lỗi máy chủ HTTP: " + connection.getResponseCode()));
+                int responseCode = connection.getResponseCode();
+                if (responseCode != HttpURLConnection.HTTP_OK) {
+                    new Handler(Looper.getMainLooper()).post(() -> callback.onError("Lỗi máy chủ HTTP: " + responseCode));
                     return;
                 }
 

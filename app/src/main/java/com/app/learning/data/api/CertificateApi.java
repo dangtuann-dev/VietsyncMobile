@@ -19,6 +19,9 @@ public interface CertificateApi {
     @GET("rest/v1/certificates")
     Call<List<CertificateModel>> getCertificateByCourse(@Query("user_id") String userId, @Query("course_id") String courseId, @Query("select") String select);
 
+    @GET("rest/v1/certificates")
+    Call<List<CertificateModel>> getCertificateById(@Query("id") String id, @Query("select") String select);
+
     @POST("rest/v1/certificates")
     Call<List<CertificateModel>> createCertificate(@Body JsonObject certificateData, @Query("select") String select);
 

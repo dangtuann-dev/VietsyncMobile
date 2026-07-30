@@ -52,7 +52,7 @@ public class MyCertificatesFragment extends Fragment {
             startActivity(intent);
         });
 
-        rvCertificates.setLayoutManager(new LinearLayoutManager(requireContext()));
+        rvCertificates.setLayoutManager(new androidx.recyclerview.widget.GridLayoutManager(requireContext(), 2));
         rvCertificates.setAdapter(adapter);
 
         loadCertificates();

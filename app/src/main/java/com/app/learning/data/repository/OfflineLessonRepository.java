@@ -5,6 +5,7 @@ import android.content.Context;
 import com.app.learning.data.local.AppDatabase;
 import com.app.learning.data.local.DownloadDao;
 import com.app.learning.data.local.DownloadEntity;
+import com.app.learning.utils.AppExecutors;
 
 import java.io.File;
 

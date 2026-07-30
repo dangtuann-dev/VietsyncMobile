@@ -56,4 +56,5 @@
     <color name="text_secondary">#43474E</color>
     <color name="text_hint">#9E9E9E</color>
     <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 </resources>

@@ -494,3 +494,17 @@ INSERT INTO public.quiz_attempts (user_id, quiz_id, selected_answer, is_correct)
 VALUES
   ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'e0eebc99-9c0b-4ef8-bb6d-6bb9bd380021', 'Model (Repository/Remote API)', true)
 ON CONFLICT (id) DO NOTHING;
+
+
+-- Final Exam Attempts Table
+CREATE TABLE IF NOT EXISTS public.exam_attempts (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    user_id UUID REFERENCES public.users(id) ON DELETE CASCADE NOT NULL,
+    course_id UUID REFERENCES public.courses(id) ON DELETE CASCADE NOT NULL,
+    score INT NOT NULL,
+    passed BOOLEAN NOT NULL,
+    attempt_number INT NOT NULL,
+    submitted_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    CONSTRAINT unique_user_course_attempt UNIQUE (user_id, course_id, attempt_number)
+);
+

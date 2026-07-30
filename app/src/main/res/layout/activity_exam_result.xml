@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#0F172A">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kết Quả Thi Cuối Khóa"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp" />
+
+        <!-- Score Ring Card -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardScore"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:layout_marginVertical="24dp"
+            app:cardBackgroundColor="#1E293B"
+            app:cardCornerRadius="90dp"
+            app:strokeColor="#3B82F6"
+            app:strokeWidth="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tvScoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="21 / 30"
+                    android:textColor="#38BDF8"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvPercentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="70%"
+                    android:textColor="#F59E0B"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Pass/Fail Badge -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="8dp"
+            app:strokeWidth="0dp"
+            android:layout_marginBottom="24dp">
+
+            <TextView
+                android:id="@+id/tvBadgeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ĐẠT (PASS)"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="15sp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Section Analysis Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phân tích theo bài học (Section Analysis)"
+            android:textColor="#94A3B8"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="12dp"
+            android:layout_marginStart="4dp" />
+
+        <!-- Section Analysis List -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="#1E293B"
+            app:cardCornerRadius="12dp"
+            app:strokeColor="#334155"
+            app:strokeWidth="1dp"
+            android:layout_marginBottom="24dp">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvSectionAnalysis"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:nestedScrollingEnabled="false" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Action Buttons -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGetCertificate"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Nhận Chứng Chỉ"
+            android:backgroundTint="#10B981"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"
+            app:cornerRadius="12dp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_certificate"
+            app:iconTint="@android:color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnRetake"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Thi Lại (Còn 2 lượt)"
+            android:backgroundTint="#F59E0B"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="12dp"
+            app:cornerRadius="12dp"
+            android:visibility="gone" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnReviewAnswers"
+            style="@style/Widget.Material3.Button.OutlinedButton"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Xem lại câu trả lời"
+            android:textColor="#3B82F6"
+            app:strokeColor="#3B82F6"
+            android:layout_marginBottom="12dp"
+            app:cornerRadius="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnFinish"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:text="Quay về trang khóa học"
+            android:backgroundTint="#3B82F6"
+            android:textColor="@android:color/white"
+            android:layout_marginBottom="24dp"
+            app:cornerRadius="12dp" />
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

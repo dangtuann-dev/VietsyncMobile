@@ -113,6 +113,7 @@ dependencies {
     implementation(libs.androidx.media3.exoplayer.hls)
     implementation(libs.androidx.work.runtime)
     implementation(libs.zxing.core)
+    implementation(libs.mpandroidchart)
 
 
     testImplementation(libs.junit)

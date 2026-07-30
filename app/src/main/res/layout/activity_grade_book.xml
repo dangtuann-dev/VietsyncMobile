@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#0F172A">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="#1E293B"
+        app:navigationIcon="@drawable/ic_back"
+        app:navigationIconTint="@android:color/white"
+        app:title="Học Bạ Điện Tử"
+        app:titleTextColor="@android:color/white">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnExportCsv"
+            style="@style/Widget.Material3.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="8dp"
+            android:text="Xuất CSV"
+            android:textColor="#3B82F6" />
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#1E293B"
+        app:tabTextColor="#94A3B8"
+        app:tabSelectedTextColor="#3B82F6"
+        app:tabIndicatorColor="#3B82F6"
+        app:tabMode="fixed">
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tổng quan" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quizzes" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bài tập" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <!-- OVERVIEW SECTION -->
+            <LinearLayout
+                android:id="@+id/layoutOverview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <!-- Stats summary Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp">
+
+                    <!-- GPA Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="6dp"
+                        app:cardBackgroundColor="#1E293B"
+                        app:cardCornerRadius="12dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="GPA"
+                                android:textColor="#94A3B8"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvGpa"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="3.62"
+                                android:textColor="#38BDF8"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Completion Rate Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="3dp"
+                        app:cardBackgroundColor="#1E293B"
+                        app:cardCornerRadius="12dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Hoàn thành"
+                                android:textColor="#94A3B8"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvCompletionRate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="85%"
+                                android:textColor="#10B981"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- Learning Hours Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginStart="6dp"
+                        app:cardBackgroundColor="#1E293B"
+                        app:cardCornerRadius="12dp"
+                        app:strokeWidth="0dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="16dp"
+                            android:gravity="center">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Giờ học"
+                                android:textColor="#94A3B8"
+                                android:textSize="12sp" />
+                            <TextView
+                                android:id="@+id/tvLearningHours"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="48.5h"
+                                android:textColor="#F59E0B"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+                <!-- Line Chart: Weekly GPA Progress -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#1E293B"
+                    app:cardCornerRadius="12dp"
+                    app:strokeWidth="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Tiến độ điểm qua các tuần"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="12dp"/>
+                        <com.github.mikephil.charting.charts.LineChart
+                            android:id="@+id/lineChartGpa"
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Bar Chart: Score Distribution -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#1E293B"
+                    app:cardCornerRadius="12dp"
+                    app:strokeWidth="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phân bố điểm số"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="12dp"/>
+                        <com.github.mikephil.charting.charts.BarChart
+                            android:id="@+id/barChartScores"
+                            android:layout_width="match_parent"
+                            android:layout_height="220dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Radar Chart: Skill Levels -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    app:cardBackgroundColor="#1E293B"
+                    app:cardCornerRadius="12dp"
+                    app:strokeWidth="0dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Đánh giá kỹ năng học tập"
+                            android:textColor="@android:color/white"
+                            android:textStyle="bold"
+                            android:textSize="15sp"
+                            android:layout_marginBottom="12dp"/>
+                        <com.github.mikephil.charting.charts.RadarChart
+                            android:id="@+id/radarChartSkills"
+                            android:layout_width="match_parent"
+                            android:layout_height="250dp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <!-- QUIZZES TAB SECTION -->
+            <LinearLayout
+                android:id="@+id/layoutQuizzes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvQuizzes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <!-- ASSIGNMENTS TAB SECTION -->
+            <LinearLayout
+                android:id="@+id/layoutAssignments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tvEmptyAssignments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Không tìm thấy bài tập nào được nộp."
+                    android:textColor="#94A3B8"
+                    android:gravity="center"
+                    android:padding="40dp" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAssignments"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
+
+            </LinearLayout>
+
+        </FrameLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>
