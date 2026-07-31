@@ -65,6 +65,12 @@ public class SavedFragment extends BaseFragment {
         loadCourses();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCourses();
+    }
+
     private void loadCourses() {
         viewModel.loadEnrolledCourses(requireContext(), "saved").observe(getViewLifecycleOwner(), resource -> {
             if (resource != null) {

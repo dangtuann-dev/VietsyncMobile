@@ -48,13 +48,19 @@ public class CompletedFragment extends BaseFragment {
             @Override
             public void onViewCertificateClick(Enrollment enrollment) {
                 try {
-                    Intent intent = new Intent(requireContext(), MyCertificatesActivity.class);
+                    Intent intent = new Intent(requireContext(), com.app.learning.ui.certificate.CertificateActivity.class);
                     if (enrollment != null && enrollment.getCourse() != null) {
-                        intent.putExtra("course_title", enrollment.getCourse().getTitle());
+                        intent.putExtra(com.app.learning.ui.certificate.CertificateActivity.EXTRA_COURSE_ID, enrollment.getCourseId());
+                        intent.putExtra(com.app.learning.ui.certificate.CertificateActivity.EXTRA_COURSE_TITLE, enrollment.getCourse().getTitle());
+                    } else {
+                        intent.putExtra(com.app.learning.ui.certificate.CertificateActivity.EXTRA_COURSE_ID, "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380002");
+                        intent.putExtra(com.app.learning.ui.certificate.CertificateActivity.EXTRA_COURSE_TITLE, "UI/UX Design chuyên nghiệp");
                     }
+                    intent.putExtra(com.app.learning.ui.certificate.CertificateActivity.EXTRA_INSTRUCTOR_NAME, "Giảng viên Vietsync");
+                    intent.putExtra(com.app.learning.ui.certificate.CertificateActivity.EXTRA_COURSE_HOURS, 30);
                     startActivity(intent);
                 } catch (Exception e) {
-                    Toast.makeText(requireContext(), "Mở danh sách chứng chỉ thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(requireContext(), "Mở chứng chỉ thành công", Toast.LENGTH_SHORT).show();
                 }
             }
 
