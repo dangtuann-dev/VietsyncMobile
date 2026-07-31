@@ -122,6 +122,13 @@ CREATE TABLE public.user_settings (
     quiet_hours_end TEXT DEFAULT '07:00'
 );
 
+CREATE TABLE IF NOT EXISTS public.wishlists (
+    user_id UUID REFERENCES public.users(id) ON DELETE CASCADE NOT NULL,
+    course_id UUID REFERENCES public.courses(id) ON DELETE CASCADE NOT NULL,
+    created_at TIMESTAMPTZ DEFAULT NOW() NOT NULL,
+    PRIMARY KEY (user_id, course_id)
+);
+
 
 
 
