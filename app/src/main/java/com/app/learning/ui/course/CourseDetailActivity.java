@@ -216,6 +216,12 @@ public class CourseDetailActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateEnrollmentButton();
+    }
+
     private void displayCourseHeader(Course course) {
         tvTitle.setText(course.getTitle());
         
@@ -245,8 +251,10 @@ public class CourseDetailActivity extends BaseActivity {
     }
 
     private void updateEnrollmentButton() {
-        if (isEnrolled) {
-            btnEnroll.setText("Continue Learning");
+        boolean enrolled = isEnrolled || (userPreference != null && courseId != null && userPreference.isWishlisted("enrolled_" + courseId));
+        if (enrolled) {
+            isEnrolled = true;
+            btnEnroll.setText("Học tiếp tục");
             btnEnroll.setBackgroundColor(getResources().getColor(R.color.category_green));
         } else {
             btnEnroll.setText("Đăng ký học");
