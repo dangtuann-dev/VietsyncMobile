@@ -38,9 +38,9 @@ public class EnrollmentSuccessActivity extends BaseActivity {
         lavCelebration.playAnimation();
 
         btnStartLearning.setOnClickListener(v -> {
-            Intent intent = new Intent(this, CourseDetailActivity.class);
-            intent.putExtra("course_id", courseId);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            Intent intent = new Intent(this, com.app.learning.ui.learning.LessonPlayerActivity.class);
+            intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_COURSE_ID, courseId);
+            intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_LESSON_TITLE, courseTitle != null ? courseTitle : "Bài 1: Giới thiệu khóa học");
             startActivity(intent);
             finish();
         });

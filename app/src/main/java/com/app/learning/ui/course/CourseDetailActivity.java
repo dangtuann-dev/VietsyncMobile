@@ -116,8 +116,10 @@ public class CourseDetailActivity extends BaseActivity {
         // Enroll functionality
         btnEnroll.setOnClickListener(v -> {
             if (isEnrolled) {
-                Toast.makeText(this, "Bắt đầu bài học!", Toast.LENGTH_SHORT).show();
-                viewPager.setCurrentItem(1, true);
+                Intent intent = new Intent(this, com.app.learning.ui.learning.LessonPlayerActivity.class);
+                intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_COURSE_ID, courseId);
+                intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_LESSON_TITLE, (course != null && course.getTitle() != null) ? course.getTitle() : "Bài 1: Giới thiệu khóa học");
+                startActivity(intent);
             } else {
                 if (course != null) {
                     EnrollmentBottomSheet.newInstance(course).show(getSupportFragmentManager(), "enrollment_sheet");
