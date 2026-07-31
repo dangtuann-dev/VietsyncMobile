@@ -214,7 +214,7 @@ public class CourseDetailActivity extends BaseActivity {
         // Trigger loading
         if (courseId != null) {
             wishlistViewModel.checkWishlistStatus(courseId);
-            courseDetailViewModel.init(courseId, userId);
+            courseDetailViewModel.init(courseId, userId, course);
         }
     }
 

@@ -450,8 +450,8 @@ VALUES
     'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380011',
     'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380001',
     'Bài 1: Giới thiệu khóa học & Thiết lập môi trường',
-    'https://www.w3schools.com/html/mov_bbb.mp4',
-    'Trong bài học này chúng ta sẽ tải Android Studio, cấu hình JDK và chạy Emulator đầu tiên.',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'Trong bài học này chúng me sẽ tải Android Studio, cấu hình JDK và chạy Emulator đầu tiên.',
     1,
     15
   ),
@@ -459,7 +459,7 @@ VALUES
     'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380012',
     'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380001',
     'Bài 2: Cấu trúc mô hình MVVM trong Android',
-    'https://www.w3schools.com/html/movie.mp4',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
     'Học về luồng dữ liệu một chiều của MVVM, cách tách biệt UI (Activity/Fragment) khỏi Business Logic.',
     2,
     25
@@ -468,7 +468,7 @@ VALUES
     'd0eebc99-9c0b-4ef8-bb6d-6bb9bd380013',
     'c0eebc99-9c0b-4ef8-bb6d-6bb9bd380002',
     'Bài 1: Khái niệm UI và UX cơ bản',
-    'https://www.w3schools.com/html/mov_bbb.mp4',
+    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
     'Khác biệt giữa giao diện và trải nghiệm người dùng. Tầm quan trọng của tư duy thiết kế.',
     1,
     10
