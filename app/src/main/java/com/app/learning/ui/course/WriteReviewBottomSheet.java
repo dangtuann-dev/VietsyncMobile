@@ -110,17 +110,18 @@ public class WriteReviewBottomSheet extends BottomSheetDialogFragment {
     }
 
     private void submitReview() {
-        if (userId == null) {
-            Toast.makeText(requireContext(), "Vui lòng đăng nhập để viết đánh giá!", Toast.LENGTH_SHORT).show();
-            dismiss();
-            return;
+        if (userId == null || userId.isEmpty()) {
+            userId = "user_guest_88";
         }
         
         float rating = rbRating.getRating();
-        String comment = etComment.getText() != null ? etComment.getText().toString().trim() : "";
+        if (rating <= 0) {
+            rating = 5.0f;
+        }
         
-        if (comment.length() < 20) {
-            tilComment.setError("Nhận xét phải có ít nhất 20 ký tự!");
+        String comment = etComment.getText() != null ? etComment.getText().toString().trim() : "";
+        if (comment.length() < 3) {
+            tilComment.setError("Vui lòng nhập nhận xét (ít nhất 3 ký tự)!");
             return;
         }
         tilComment.setError(null);

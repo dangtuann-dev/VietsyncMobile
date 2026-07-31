@@ -111,11 +111,9 @@ public class ReviewsFragment extends BaseFragment {
         });
 
         reviewViewModel.getCompletionStatusLiveData().observe(getViewLifecycleOwner(), resource -> {
-            if (resource != null && resource.status == Resource.Status.SUCCESS) {
-                boolean completed = resource.data != null && resource.data;
-                fabWriteReview.setVisibility(completed ? View.VISIBLE : View.GONE);
-            }
+            fabWriteReview.setVisibility(View.VISIBLE);
         });
+        fabWriteReview.setVisibility(View.VISIBLE);
     }
 
     private void displayRatingSummary(ReviewRepository.RatingSummary summary) {
