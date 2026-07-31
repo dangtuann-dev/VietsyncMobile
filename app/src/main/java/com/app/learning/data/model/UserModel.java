@@ -59,7 +59,10 @@ public class UserModel implements Serializable {
     }
 
     public String getRole() {
-        return role;
+        if (role != null && !role.trim().isEmpty() && !role.equals("authenticated")) {
+            return role;
+        }
+        return userMetadata != null ? userMetadata.getRole() : null;
     }
 
     public void setRole(String role) {
@@ -122,12 +125,16 @@ public class UserModel implements Serializable {
         @SerializedName("avatar_url")
         private String avatarUrl;
 
+        @SerializedName("role")
+        private String role;
+
         public UserMetadata() {
         }
 
-        public UserMetadata(String fullName, String avatarUrl) {
+        public UserMetadata(String fullName, String avatarUrl, String role) {
             this.fullName = fullName;
             this.avatarUrl = avatarUrl;
+            this.role = role;
         }
 
         public String getFullName() {
@@ -144,6 +151,14 @@ public class UserModel implements Serializable {
 
         public void setAvatarUrl(String avatarUrl) {
             this.avatarUrl = avatarUrl;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
         }
     }
 }

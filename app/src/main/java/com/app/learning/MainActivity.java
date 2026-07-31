@@ -57,10 +57,13 @@ public class MainActivity extends BaseActivity {
             NavGraph graph = inflater.inflate(R.navigation.nav_graph);
 
             RoleManager.Role role = RoleManager.getInstance(this).getCurrentRole();
+            android.view.Menu menu = bottomNavigationView.getMenu();
             if (role == RoleManager.Role.TEACHER) {
                 graph.setStartDestination(R.id.fragment_teacher_dashboard);
+                menu.findItem(R.id.fragment_teacher_dashboard).setVisible(true);
             } else {
                 graph.setStartDestination(R.id.fragment_home);
+                menu.findItem(R.id.fragment_teacher_dashboard).setVisible(false);
             }
 
             navController.setGraph(graph);

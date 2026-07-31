@@ -9,6 +9,10 @@
         android:icon="@drawable/ic_explore"
         android:title="@string/home_tab_explore" />
     <item
+        android:id="@+id/fragment_teacher_dashboard"
+        android:icon="@drawable/ic_dashboard"
+        android:title="Bảng điều khiển" />
+    <item
         android:id="@+id/fragment_my_learning"
         android:icon="@drawable/ic_book"
         android:title="@string/home_tab_learning" />
