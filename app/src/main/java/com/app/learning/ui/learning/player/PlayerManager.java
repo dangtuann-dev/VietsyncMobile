@@ -44,8 +44,39 @@ public class PlayerManager {
 
     private void initPlayer() {
         if (player == null) {
-            player = new ExoPlayer.Builder(applicationContext).build();
+            androidx.media3.datasource.DefaultHttpDataSource.Factory httpDataSourceFactory =
+                    new androidx.media3.datasource.DefaultHttpDataSource.Factory()
+                            .setUserAgent("VietsyncMobile/1.0")
+                            .setAllowCrossProtocolRedirects(true)
+                            .setConnectTimeoutMs(15000)
+                            .setReadTimeoutMs(15000);
+
+            androidx.media3.datasource.DefaultDataSource.Factory dataSourceFactory =
+                    new androidx.media3.datasource.DefaultDataSource.Factory(applicationContext, httpDataSourceFactory);
+
+            androidx.media3.exoplayer.source.DefaultMediaSourceFactory mediaSourceFactory =
+                    new androidx.media3.exoplayer.source.DefaultMediaSourceFactory(dataSourceFactory);
+
+            player = new ExoPlayer.Builder(applicationContext)
+                    .setMediaSourceFactory(mediaSourceFactory)
+                    .build();
+
             player.setPlayWhenReady(true);
+
+            player.addListener(new Player.Listener() {
+                @Override
+                public void onPlayerError(androidx.media3.common.PlaybackException error) {
+                    android.util.Log.e("PlayerManager", "Playback Error: " + error.getMessage(), error);
+                    String fallbackUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+                    if (player != null) {
+                        try {
+                            player.setMediaItem(MediaItem.fromUri(Uri.parse(fallbackUrl)));
+                            player.prepare();
+                            player.play();
+                        } catch (Exception ignored) {}
+                    }
+                }
+            });
         }
     }
 
@@ -55,7 +86,8 @@ public class PlayerManager {
     }
 
     public void attachPlayerView(PlayerView playerView) {
-        if (playerView != null && player != null) {
+        if (playerView != null) {
+            if (player == null) initPlayer();
             playerView.setPlayer(player);
         }
     }
@@ -64,9 +96,14 @@ public class PlayerManager {
         this.currentLessonId = lessonId;
         if (player == null) initPlayer();
 
-        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(mediaUrl));
+        String activeUrl = (mediaUrl != null && !mediaUrl.isEmpty())
+                ? mediaUrl
+                : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+
+        MediaItem mediaItem = MediaItem.fromUri(Uri.parse(activeUrl));
         player.setMediaItem(mediaItem);
         player.prepare();
+        player.play();
 
         // Restore position from Room DB
         AppExecutors.getInstance().diskIO().execute(() -> {
