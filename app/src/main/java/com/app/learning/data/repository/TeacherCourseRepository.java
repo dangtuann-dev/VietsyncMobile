@@ -155,4 +155,80 @@ public class TeacherCourseRepository extends BaseRepository {
         
         return resultLiveData;
     }
+
+    public LiveData<Resource<List<Course>>> getCoursesForInstructor(String instructorId) {
+        MutableLiveData<Resource<List<Course>>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+        Call<List<Course>> call = teacherApi.getCourses("eq." + instructorId, "*");
+        executeCall(call, result);
+        return result;
+    }
+
+    public LiveData<Resource<List<com.app.learning.data.model.Enrollment>>> getEnrollmentsForCourse(String courseId) {
+        MutableLiveData<Resource<List<com.app.learning.data.model.Enrollment>>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+        Call<List<com.app.learning.data.model.Enrollment>> call = teacherApi.getEnrollments("eq." + courseId, "*,user:users(*)");
+        executeCall(call, result);
+        return result;
+    }
+
+    public LiveData<Resource<com.app.learning.data.model.Enrollment>> addStudentToCourse(String email, String courseId) {
+        MediatorLiveData<Resource<com.app.learning.data.model.Enrollment>> result = new MediatorLiveData<>();
+        result.setValue(Resource.loading());
+
+        MutableLiveData<Resource<List<com.app.learning.data.model.User>>> userQueryLiveData = new MutableLiveData<>();
+        Call<List<com.app.learning.data.model.User>> userCall = teacherApi.getUserByEmail("eq." + email);
+        executeCall(userCall, userQueryLiveData);
+
+        result.addSource(userQueryLiveData, userResource -> {
+            if (userResource.isSuccess() && userResource.data != null) {
+                if (userResource.data.isEmpty()) {
+                    result.setValue(Resource.error(new ApiError("404", "Không tìm thấy học viên với email này", null, null)));
+                } else {
+                    com.app.learning.data.model.User student = userResource.data.get(0);
+                    
+                    Map<String, Object> body = new java.util.HashMap<>();
+                    body.put("user_id", student.getId());
+                    body.put("course_id", courseId);
+                    body.put("progress_percent", 0);
+                    
+                    MutableLiveData<Resource<List<com.app.learning.data.model.Enrollment>>> addLiveData = new MutableLiveData<>();
+                    Call<List<com.app.learning.data.model.Enrollment>> addCall = teacherApi.addEnrollment(body, "return=representation");
+                    executeCall(addCall, addLiveData);
+                    
+                    result.addSource(addLiveData, addResource -> {
+                        if (addResource.isSuccess() && addResource.data != null && !addResource.data.isEmpty()) {
+                            com.app.learning.data.model.Enrollment enrollment = addResource.data.get(0);
+                            enrollment.setUser(student);
+                            result.setValue(Resource.success(enrollment));
+                        } else if (addResource.isError()) {
+                            result.setValue(Resource.error(addResource.error));
+                        }
+                    });
+                }
+            } else if (userResource.isError()) {
+                result.setValue(Resource.error(userResource.error));
+            }
+        });
+
+        return result;
+    }
+
+    public LiveData<Resource<Void>> updateStudentProgress(String userId, String courseId, int progress) {
+        MutableLiveData<Resource<Void>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+        Map<String, Object> updates = new java.util.HashMap<>();
+        updates.put("progress_percent", progress);
+        Call<Void> call = teacherApi.updateEnrollment("eq." + userId, "eq." + courseId, updates);
+        executeCall(call, result);
+        return result;
+    }
+
+    public LiveData<Resource<Void>> removeStudentFromCourse(String userId, String courseId) {
+        MutableLiveData<Resource<Void>> result = new MutableLiveData<>();
+        result.setValue(Resource.loading());
+        Call<Void> call = teacherApi.deleteEnrollment("eq." + userId, "eq." + courseId);
+        executeCall(call, result);
+        return result;
+    }
 }

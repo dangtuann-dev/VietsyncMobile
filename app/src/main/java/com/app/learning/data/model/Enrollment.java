@@ -23,6 +23,9 @@ public class Enrollment implements Serializable {
     @SerializedName("course")
     private Course course;
 
+    @SerializedName("user")
+    private User user;
+
     public Enrollment() {
     }
 
@@ -72,5 +75,13 @@ public class Enrollment implements Serializable {
 
     public void setCourse(Course course) {
         this.course = course;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

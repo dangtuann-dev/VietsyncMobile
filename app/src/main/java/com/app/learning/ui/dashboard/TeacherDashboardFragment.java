@@ -39,9 +39,21 @@ public class TeacherDashboardFragment extends BaseFragment {
         txtTotalRevenue = view.findViewById(R.id.txtTotalRevenue);
         rvRecentEnrollments = view.findViewById(R.id.rvRecentEnrollments);
 
-
         rvRecentEnrollments.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        // Hook up Course Creation
+        view.findViewById(R.id.fabCreateCourse).setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(getActivity(), com.app.learning.ui.teacher.course.CreateCourseActivity.class);
+            startActivity(intent);
+        });
+
+        // Hook up Course & Student Management
+        View.OnClickListener manageStudentsListener = v -> {
+            android.content.Intent intent = new android.content.Intent(getActivity(), com.app.learning.ui.teacher.course.ManageStudentsActivity.class);
+            startActivity(intent);
+        };
+        view.findViewById(R.id.cardTotalCourses).setOnClickListener(manageStudentsListener);
+        view.findViewById(R.id.cardTotalStudents).setOnClickListener(manageStudentsListener);
 
         loadStats();
         loadRecentEnrollments();

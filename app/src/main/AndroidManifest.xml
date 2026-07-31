@@ -119,6 +119,11 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name="com.app.learning.ui.teacher.course.ManageStudentsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.app.learning.ui.certificate.CertificateActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
