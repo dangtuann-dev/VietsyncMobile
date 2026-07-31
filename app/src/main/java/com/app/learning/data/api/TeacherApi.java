@@ -49,6 +49,11 @@ public interface TeacherApi {
             @Query("id") String idFilter
     );
 
+    @DELETE("rest/v1/courses")
+    Call<Void> deleteCourse(
+            @Query("id") String idFilter
+    );
+
     @GET("rest/v1/courses")
     Call<List<Course>> getCourses(
             @Query("instructor_id") String instructorIdFilter,

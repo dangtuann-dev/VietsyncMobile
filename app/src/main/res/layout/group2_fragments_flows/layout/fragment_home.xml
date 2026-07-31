@@ -180,7 +180,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:text="@string/home_section_popular"
+                android:text="@string/home_section_featured"
                 android:textColor="@color/secondary"
                 android:textSize="16sp"
                 android:textStyle="bold" />

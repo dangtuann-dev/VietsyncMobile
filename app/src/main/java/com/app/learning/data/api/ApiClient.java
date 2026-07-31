@@ -36,6 +36,7 @@ public class ApiClient {
                 .connectTimeout(AppConstants.CONNECT_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .readTimeout(AppConstants.READ_TIMEOUT_SECONDS, TimeUnit.SECONDS)
                 .writeTimeout(AppConstants.WRITE_TIMEOUT_SECONDS, TimeUnit.SECONDS)
+                .authenticator(new TokenAuthenticator(context))
                 .addInterceptor(new AuthInterceptor(context, supabaseApiKey))
                 .addInterceptor(loggingInterceptor)
                 .build();

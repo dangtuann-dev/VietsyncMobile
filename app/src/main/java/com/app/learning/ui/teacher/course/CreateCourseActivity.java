@@ -95,7 +95,7 @@ public class CreateCourseActivity extends AppCompatActivity {
     }
 
     private void setupDropdowns() {
-        String[] categories = {"Development", "Business", "Design", "Marketing"}; // Dummy categories
+        String[] categories = {"Công nghệ thông tin", "Kinh doanh & Khởi nghiệp", "Thiết kế đồ họa", "Ngoại ngữ"}; 
         ArrayAdapter<String> catAdapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, categories);
         spinCategory.setAdapter(catAdapter);
 
@@ -215,8 +215,16 @@ public class CreateCourseActivity extends AppCompatActivity {
         course.setTitle(etTitle.getText().toString());
         course.setDescription(etDescription.getText().toString());
         course.setPrice(Double.parseDouble(etPrice.getText().toString()));
-        course.setLevel(spinLevel.getText().toString());
-        course.setCategoryId(1L); // Default category for now
+        course.setLevel(spinLevel.getText().toString().toLowerCase());
+        
+        long categoryId = 1L;
+        String selectedCategory = spinCategory.getText().toString();
+        if (selectedCategory.equals("Công nghệ thông tin")) categoryId = 1L;
+        else if (selectedCategory.equals("Kinh doanh & Khởi nghiệp")) categoryId = 2L;
+        else if (selectedCategory.equals("Thiết kế đồ họa")) categoryId = 3L;
+        else if (selectedCategory.equals("Ngoại ngữ")) categoryId = 4L;
+        
+        course.setCategoryId(categoryId);
         course.setInstructorId(user.getId());
         course.setThumbnail(thumbnailUrl);
 

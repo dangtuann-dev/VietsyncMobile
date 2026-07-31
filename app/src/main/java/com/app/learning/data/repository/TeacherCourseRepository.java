@@ -145,6 +145,39 @@ public class TeacherCourseRepository extends BaseRepository {
 
         return resultLiveData;
     }
+
+    public LiveData<Resource<Void>> deleteCourse(String courseId) {
+        MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
+        resultLiveData.setValue(Resource.loading());
+
+        Call<Void> call = teacherApi.deleteCourse("eq." + courseId);
+        executeCall(call, resultLiveData);
+
+        return resultLiveData;
+    }
+
+    public LiveData<Resource<Course>> updateCourse(String courseId, Map<String, Object> updates) {
+        MutableLiveData<Resource<List<Course>>> rawLiveData = new MutableLiveData<>();
+        MediatorLiveData<Resource<Course>> resultLiveData = new MediatorLiveData<>();
+        resultLiveData.setValue(Resource.loading());
+
+        Call<List<Course>> call = teacherApi.updateCourse("eq." + courseId, updates, "return=representation");
+        executeCall(call, rawLiveData);
+
+        resultLiveData.addSource(rawLiveData, resource -> {
+            if (resource.isLoading()) {
+                resultLiveData.setValue(Resource.loading());
+            } else if (resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
+                resultLiveData.setValue(Resource.success(resource.data.get(0)));
+            } else if (resource.isError()) {
+                resultLiveData.setValue(Resource.error(resource.error));
+            } else {
+                resultLiveData.setValue(Resource.error(new ApiError("500", "Failed to update course", null, null)));
+            }
+        });
+
+        return resultLiveData;
+    }
     
     public LiveData<Resource<List<Lesson>>> getLessons(String courseId) {
         MutableLiveData<Resource<List<Lesson>>> resultLiveData = new MutableLiveData<>();

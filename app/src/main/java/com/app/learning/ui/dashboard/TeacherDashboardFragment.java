@@ -48,12 +48,15 @@ public class TeacherDashboardFragment extends BaseFragment {
         });
 
         // Hook up Course & Student Management
-        View.OnClickListener manageStudentsListener = v -> {
+        view.findViewById(R.id.cardTotalCourses).setOnClickListener(v -> {
+            android.content.Intent intent = new android.content.Intent(getActivity(), com.app.learning.ui.teacher.course.ManageCoursesActivity.class);
+            startActivity(intent);
+        });
+
+        view.findViewById(R.id.cardTotalStudents).setOnClickListener(v -> {
             android.content.Intent intent = new android.content.Intent(getActivity(), com.app.learning.ui.teacher.course.ManageStudentsActivity.class);
             startActivity(intent);
-        };
-        view.findViewById(R.id.cardTotalCourses).setOnClickListener(manageStudentsListener);
-        view.findViewById(R.id.cardTotalStudents).setOnClickListener(manageStudentsListener);
+        });
 
         loadStats();
         loadRecentEnrollments();

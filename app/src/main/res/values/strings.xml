@@ -29,6 +29,7 @@
     <string name="home_greeting">Chào bạn,</string>
     <string name="home_search_hint">Tìm khóa học, bài học...</string>
     <string name="home_section_categories">Danh Mục Nổi Bật</string>
+    <string name="home_section_featured">Khóa Học Nổi Bật</string>
     <string name="home_section_popular">Khóa Học Phổ Biến</string>
     <string name="home_section_enrolled">Khóa Học Của Tôi</string>
     <string name="home_tab_home">Trang chủ</string>

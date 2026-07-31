@@ -9,6 +9,7 @@ import com.app.learning.ui.base.BaseViewModel;
 import com.example.vietsyncmobile.R;
 import java.util.ArrayList;
 import java.util.List;
+import com.app.learning.data.repository.CourseRepository;
 
 public class HomeViewModel extends BaseViewModel {
 
@@ -17,8 +18,10 @@ public class HomeViewModel extends BaseViewModel {
     private final MutableLiveData<List<Course>> featuredCourses = new MutableLiveData<>();
     private final MutableLiveData<List<Course>> continueLearning = new MutableLiveData<>();
     private final MutableLiveData<List<Course>> popularCourses = new MutableLiveData<>();
+    private CourseRepository courseRepository;
 
     public HomeViewModel() {
+        courseRepository = new CourseRepository();
         loadBanners();
         loadCategories();
         loadFeaturedCourses();
@@ -55,18 +58,42 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     public void loadCategories() {
-        List<Category> list = new ArrayList<>();
-        list.add(new Category(1L, "Lập trình", R.drawable.ic_courses, "#3B82F6", "#EFF6FF"));
-        list.add(new Category(2L, "Thiết kế", R.drawable.ic_edit, "#EF4444", "#FEF2F2"));
-        list.add(new Category(3L, "Ngoại ngữ", R.drawable.ic_certificate, "#10B981", "#ECFDF5"));
-        list.add(new Category(4L, "Marketing", R.drawable.ic_dashboard, "#8B5CF6", "#F5F3FF"));
-        list.add(new Category(5L, "Cá nhân", R.drawable.ic_person, "#F59E0B", "#FFFBEB"));
-        categories.setValue(list);
+        courseRepository.getCategories().observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
+                for (Category cat : resource.data) {
+                    if (cat.getId() == 1L) {
+                        cat.setColorHex("#3B82F6"); // Blue
+                        cat.setColorLightHex("#EFF6FF");
+                        cat.setIconResId(R.drawable.ic_book);
+                    } else if (cat.getId() == 2L) {
+                        cat.setColorHex("#EF4444"); // Red
+                        cat.setColorLightHex("#FEF2F2");
+                        cat.setIconResId(R.drawable.ic_edit);
+                    } else if (cat.getId() == 3L) {
+                        cat.setColorHex("#10B981"); // Green
+                        cat.setColorLightHex("#ECFDF5");
+                        cat.setIconResId(R.drawable.ic_certificate);
+                    } else {
+                        cat.setColorHex("#8B5CF6"); // Purple
+                        cat.setColorLightHex("#F3E8FF");
+                        cat.setIconResId(R.drawable.ic_grid);
+                    }
+                }
+                categories.setValue(resource.data);
+            } else {
+                List<Category> list = new ArrayList<>();
+                list.add(new Category(1L, "Công nghệ thông tin", R.drawable.ic_courses, "#3B82F6", "#EFF6FF"));
+                list.add(new Category(2L, "Kinh doanh & Khởi nghiệp", R.drawable.ic_explore, "#10B981", "#ECFDF5"));
+                list.add(new Category(3L, "Thiết kế đồ họa", R.drawable.ic_filter, "#F59E0B", "#FFFBEB"));
+                list.add(new Category(4L, "Ngoại ngữ", R.drawable.ic_history, "#EF4444", "#FEF2F2"));
+                categories.setValue(list);
+            }
+        });
     }
 
     public void loadFeaturedCourses() {
+        // Load mock data
         List<Course> list = new ArrayList<>();
-
         Course c1 = new Course();
         c1.setId("f1");
         c1.setTitle("Lập trình Android nâng cao với Kotlin");
@@ -98,6 +125,19 @@ public class HomeViewModel extends BaseViewModel {
         list.add(c3);
 
         featuredCourses.setValue(list);
+
+        // Then fetch real data and prepend
+        java.util.Map<String, String> options = new java.util.HashMap<>();
+        options.put("select", "*,instructor:users(full_name)");
+        options.put("order", "id.desc");
+        options.put("limit", "5");
+        courseRepository.searchCourses(options).observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null) {
+                List<Course> combined = new ArrayList<>(resource.data);
+                combined.addAll(featuredCourses.getValue() != null ? featuredCourses.getValue() : new ArrayList<>());
+                featuredCourses.setValue(combined);
+            }
+        });
     }
 
     public void loadContinueLearning() {
@@ -121,8 +161,8 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     public void loadPopularCourses() {
+        // Load mock data
         List<Course> list = new ArrayList<>();
-
         Course c1 = new Course();
         c1.setId("p1");
         c1.setTitle("Lập trình Web với React và Node.js");
@@ -154,5 +194,18 @@ public class HomeViewModel extends BaseViewModel {
         list.add(c3);
 
         popularCourses.setValue(list);
+
+        // Then fetch real data and prepend
+        java.util.Map<String, String> options = new java.util.HashMap<>();
+        options.put("select", "*,instructor:users(full_name)");
+        options.put("order", "enrolled_count.desc");
+        options.put("limit", "5");
+        courseRepository.searchCourses(options).observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null) {
+                List<Course> combined = new ArrayList<>(resource.data);
+                combined.addAll(popularCourses.getValue() != null ? popularCourses.getValue() : new ArrayList<>());
+                popularCourses.setValue(combined);
+            }
+        });
     }
 }
