@@ -93,7 +93,7 @@ public class RegisterActivity extends BaseActivity {
             String fullName = edtFullName.getText().toString().trim();
             String email = edtEmail.getText().toString().trim();
             String password = edtPassword.getText().toString().trim();
-            String role = (rbTeacher.isChecked()) ? "teacher" : "student";
+            String role = (rbTeacher.isChecked()) ? "instructor" : "student";
             registerViewModel.register(fullName, email, password, role);
         }
     }
