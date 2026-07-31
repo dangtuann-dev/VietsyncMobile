@@ -192,10 +192,55 @@ public class LessonPlayerActivity extends AppCompatActivity {
         }
     }
 
+    private static class LessonItem {
+        String id, title, videoUrl;
+        LessonItem(String id, String title, String videoUrl) {
+            this.id = id;
+            this.title = title;
+            this.videoUrl = videoUrl;
+        }
+    }
+
+    private final java.util.List<LessonItem> lessonList = new java.util.ArrayList<>();
+    private int currentLessonIndex = 0;
+
+    private void initLessonList() {
+        lessonList.clear();
+        lessonList.add(new LessonItem("d0eebc99-9c0b-4ef8-bb6d-6bb9bd380011", "Bài 1: Giới thiệu khóa học & Kiến trúc MVVM", "android.resource://" + getPackageName() + "/" + R.raw.sample_lesson));
+        lessonList.add(new LessonItem("d0eebc99-9c0b-4ef8-bb6d-6bb9bd380012", "Bài 2: Thiết kế giao diện và xử lý luồng dữ liệu", "android.resource://" + getPackageName() + "/" + R.raw.sample_lesson_2));
+        lessonList.add(new LessonItem("d0eebc99-9c0b-4ef8-bb6d-6bb9bd380013", "Bài 3: Tích hợp Supabase Database và API", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"));
+        lessonList.add(new LessonItem("d0eebc99-9c0b-4ef8-bb6d-6bb9bd380014", "Bài 4: Tối ưu hiệu năng và Kiểm thử ứng dụng", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"));
+    }
+
     private void navigateLesson(boolean next) {
         playerManager.saveCurrentPosition();
-        Toast.makeText(this, next ? "Chuyển sang bài tiếp theo" : "Quay lại bài trước", Toast.LENGTH_SHORT).show();
-        overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+        if (lessonList.isEmpty()) initLessonList();
+
+        if (next) {
+            if (currentLessonIndex < lessonList.size() - 1) {
+                currentLessonIndex++;
+            } else {
+                Toast.makeText(this, "Bạn đang ở bài học cuối cùng!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            if (currentLessonIndex > 0) {
+                currentLessonIndex--;
+            } else {
+                Toast.makeText(this, "Bạn đang ở bài học đầu tiên!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        LessonItem currentLesson = lessonList.get(currentLessonIndex);
+        lessonId = currentLesson.id;
+        lessonTitle = currentLesson.title;
+        videoUrl = currentLesson.videoUrl;
+
+        toolbar.setTitle(lessonTitle);
+        playerManager.setMediaUrl(lessonId, videoUrl);
+
+        Toast.makeText(this, "Đã chuyển: " + lessonTitle, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.app.learning.ui.learning;
 
+import android.content.Context;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import com.app.learning.data.api.Resource;
@@ -33,7 +34,7 @@ public class MyLearningViewModel extends BaseViewModel {
         return userId;
     }
 
-    public LiveData<Resource<List<Enrollment>>> loadEnrolledCourses(String status) {
+    public LiveData<Resource<List<Enrollment>>> loadEnrolledCourses(Context context, String status) {
         String activeUserId = resolveActiveUserId();
         MutableLiveData<Resource<List<Enrollment>>> resultLiveData = new MutableLiveData<>();
         resultLiveData.setValue(Resource.loading());
@@ -44,14 +45,18 @@ public class MyLearningViewModel extends BaseViewModel {
             } else if (resource != null && resource.status == Resource.Status.LOADING) {
                 resultLiveData.setValue(Resource.loading());
             } else {
-                List<Enrollment> fallback = getMockEnrollments(status, activeUserId);
+                List<Enrollment> fallback = getMockEnrollments(context, status, activeUserId);
                 resultLiveData.setValue(Resource.success(fallback));
             }
         });
         return resultLiveData;
     }
 
-    private List<Enrollment> getMockEnrollments(String status, String activeUserId) {
+    public LiveData<Resource<List<Enrollment>>> loadEnrolledCourses(String status) {
+        return loadEnrolledCourses(null, status);
+    }
+
+    private List<Enrollment> getMockEnrollments(Context context, String status, String activeUserId) {
         List<Enrollment> list = new ArrayList<>();
 
         com.app.learning.data.model.Course c1 = new com.app.learning.data.model.Course();
@@ -84,6 +89,14 @@ public class MyLearningViewModel extends BaseViewModel {
         c3.setRating(4.90);
         c3.setPrice(0);
 
+        java.util.Set<String> removedSavedIds = (context != null)
+                ? com.app.learning.utils.UserPreference.getInstance(context).getRemovedSavedSet()
+                : new java.util.HashSet<>();
+
+        java.util.Set<String> wishlistSet = (context != null)
+                ? com.app.learning.utils.UserPreference.getInstance(context).getWishlistSet()
+                : new java.util.HashSet<>();
+
         if ("completed".equalsIgnoreCase(status)) {
             Enrollment e1 = new Enrollment();
             e1.setUserId(activeUserId);
@@ -92,12 +105,44 @@ public class MyLearningViewModel extends BaseViewModel {
             e1.setProgressPercent(100);
             list.add(e1);
         } else if ("saved".equalsIgnoreCase(status)) {
-            Enrollment e1 = new Enrollment();
-            e1.setUserId(activeUserId);
-            e1.setCourseId(c3.getId());
-            e1.setCourse(c3);
-            e1.setProgressPercent(0);
-            list.add(e1);
+            java.util.Map<String, com.app.learning.data.model.Course> knownCourses = new java.util.HashMap<>();
+            knownCourses.put(c1.getId(), c1);
+            knownCourses.put(c2.getId(), c2);
+            knownCourses.put(c3.getId(), c3);
+
+            // Add all wishlisted courses
+            for (String wishId : wishlistSet) {
+                if (wishId != null && !removedSavedIds.contains(wishId)) {
+                    com.app.learning.data.model.Course c = knownCourses.get(wishId);
+                    if (c == null) {
+                        c = new com.app.learning.data.model.Course();
+                        c.setId(wishId);
+                        c.setTitle("Khóa học đã lưu");
+                        c.setDescription("Khóa học trong danh sách yêu thích của bạn.");
+                        c.setThumbnail("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400");
+                        c.setLevel("intermediate");
+                        c.setDuration(1000);
+                        c.setRating(4.80);
+                        c.setPrice(0);
+                    }
+                    Enrollment e = new Enrollment();
+                    e.setUserId(activeUserId);
+                    e.setCourseId(c.getId());
+                    e.setCourse(c);
+                    e.setProgressPercent(0);
+                    list.add(e);
+                }
+            }
+
+            // Default fallback course if wishlist is empty and not manually removed
+            if (list.isEmpty() && !removedSavedIds.contains(c3.getId())) {
+                Enrollment e1 = new Enrollment();
+                e1.setUserId(activeUserId);
+                e1.setCourseId(c3.getId());
+                e1.setCourse(c3);
+                e1.setProgressPercent(0);
+                list.add(e1);
+            }
         } else {
             Enrollment e1 = new Enrollment();
             e1.setUserId(activeUserId);

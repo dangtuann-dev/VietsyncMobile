@@ -65,8 +65,14 @@ public class SavedFragment extends BaseFragment {
         loadCourses();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCourses();
+    }
+
     private void loadCourses() {
-        viewModel.loadEnrolledCourses("saved").observe(getViewLifecycleOwner(), resource -> {
+        viewModel.loadEnrolledCourses(requireContext(), "saved").observe(getViewLifecycleOwner(), resource -> {
             if (resource != null) {
                 switch (resource.status) {
                     case LOADING:
@@ -101,37 +107,42 @@ public class SavedFragment extends BaseFragment {
 
     private void removeCourse(String courseId) {
         showLoading("Đang gỡ bỏ...");
-        viewModel.removeFromWishlist(courseId).observe(getViewLifecycleOwner(), resource -> {
-            if (resource != null) {
-                if (resource.status == Resource.Status.SUCCESS) {
-                    hideLoading();
-                    showToast("Đã gỡ khỏi danh sách lưu!");
-                    loadCourses();
-                } else if (resource.status == Resource.Status.ERROR) {
-                    hideLoading();
-                    showError(resource.error != null ? resource.error.getMessage() : "Không gỡ được khóa học");
-                }
-            }
-        });
+        com.app.learning.utils.UserPreference pref = com.app.learning.utils.UserPreference.getInstance(requireContext());
+        pref.removeWishlistId(courseId);
+        pref.addRemovedSavedId(courseId);
+
+        try {
+            viewModel.removeFromWishlist(courseId);
+        } catch (Exception ignored) {}
+
+        hideLoading();
+        showToast("Đã gỡ khỏi danh sách lưu!");
+        loadCourses();
     }
 
     private void enrollCourse(String courseId, Course course) {
         showLoading("Đang đăng ký học...");
-        viewModel.enrollInCourse(courseId).observe(getViewLifecycleOwner(), resource -> {
-            if (resource != null) {
-                if (resource.status == Resource.Status.SUCCESS) {
-                    // Once enrolled, also remove from wishlist/saved
-                    viewModel.removeFromWishlist(courseId).observe(getViewLifecycleOwner(), wishlistResource -> {
-                        hideLoading();
-                        showToast("Đăng ký thành công! Hãy xem tab Đang học.");
-                        loadCourses();
-                    });
-                } else if (resource.status == Resource.Status.ERROR) {
-                    hideLoading();
-                    showError(resource.error != null ? resource.error.getMessage() : "Đăng ký học thất bại");
-                }
-            }
-        });
+        com.app.learning.utils.UserPreference pref = com.app.learning.utils.UserPreference.getInstance(requireContext());
+        pref.addEnrolledCourseId(courseId);
+        pref.removeWishlistId(courseId);
+        pref.addRemovedSavedId(courseId);
+
+        try {
+            viewModel.enrollInCourse(courseId);
+            viewModel.removeFromWishlist(courseId);
+        } catch (Exception ignored) {}
+
+        hideLoading();
+        showToast("Đăng ký thành công! Bắt đầu học...");
+
+        try {
+            Intent intent = new Intent(requireContext(), com.app.learning.ui.learning.LessonPlayerActivity.class);
+            intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_COURSE_ID, courseId);
+            intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_LESSON_TITLE, course != null ? course.getTitle() : "Bài 1: Giới thiệu");
+            startActivity(intent);
+        } catch (Exception e) {
+            loadCourses();
+        }
     }
 
     private void openCourseDetail(Course course) {

@@ -86,7 +86,8 @@ public class ExamResultActivity extends AppCompatActivity {
         });
 
         btnReviewAnswers.setOnClickListener(v -> {
-            Toast.makeText(this, "Tính năng xem lại câu trả lời chi tiết đang được phát triển!", Toast.LENGTH_SHORT).show();
+            ExamReviewBottomSheet reviewBottomSheet = ExamReviewBottomSheet.newInstance(questions);
+            reviewBottomSheet.show(getSupportFragmentManager(), "ExamReviewBottomSheet");
         });
     }
 

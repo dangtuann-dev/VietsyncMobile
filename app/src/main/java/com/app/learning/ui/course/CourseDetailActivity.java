@@ -293,14 +293,29 @@ public class CourseDetailActivity extends BaseActivity {
     }
 
     private void toggleWishlist() {
-        if (courseId == null || userId == null) {
-            Toast.makeText(this, "Vui lòng đăng nhập để lưu khóa học!", Toast.LENGTH_SHORT).show();
+        if (courseId == null) {
+            Toast.makeText(this, "Không tìm thấy khóa học!", Toast.LENGTH_SHORT).show();
             return;
         }
         if (isWishlisted) {
-            wishlistViewModel.removeFromWishlist(courseId);
+            if (userPreference != null) {
+                userPreference.removeWishlistId(courseId);
+                userPreference.addRemovedSavedId(courseId);
+            }
+            if (userId != null) wishlistViewModel.removeFromWishlist(courseId);
+            isWishlisted = false;
+            updateWishlistMenuIcon();
+            Toast.makeText(this, "Đã bỏ lưu khóa học", Toast.LENGTH_SHORT).show();
         } else {
-            wishlistViewModel.addToWishlist(courseId);
+            if (userPreference != null) {
+                userPreference.addWishlistId(courseId);
+                java.util.Set<String> removed = userPreference.getRemovedSavedSet();
+                removed.remove(courseId);
+            }
+            if (userId != null) wishlistViewModel.addToWishlist(courseId);
+            isWishlisted = true;
+            updateWishlistMenuIcon();
+            Toast.makeText(this, "Đã lưu khóa học!", Toast.LENGTH_SHORT).show();
         }
     }
 

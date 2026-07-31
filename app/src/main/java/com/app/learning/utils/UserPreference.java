@@ -170,4 +170,31 @@ public class UserPreference {
         set.remove(courseId);
         preferences.edit().putStringSet("key_wishlist_ids", set).apply();
     }
+
+    public java.util.Set<String> getRemovedSavedSet() {
+        return new java.util.HashSet<>(preferences.getStringSet("key_removed_saved_ids", new java.util.HashSet<>()));
+    }
+
+    public void addRemovedSavedId(String courseId) {
+        if (courseId == null) return;
+        java.util.Set<String> set = getRemovedSavedSet();
+        set.add(courseId);
+        preferences.edit().putStringSet("key_removed_saved_ids", set).apply();
+    }
+
+    public java.util.Set<String> getEnrolledSet() {
+        return new java.util.HashSet<>(preferences.getStringSet("key_enrolled_course_ids", new java.util.HashSet<>()));
+    }
+
+    public boolean isCourseEnrolled(String courseId) {
+        if (courseId == null) return false;
+        return getEnrolledSet().contains(courseId);
+    }
+
+    public void addEnrolledCourseId(String courseId) {
+        if (courseId == null) return;
+        java.util.Set<String> set = getEnrolledSet();
+        set.add(courseId);
+        preferences.edit().putStringSet("key_enrolled_course_ids", set).apply();
+    }
 }

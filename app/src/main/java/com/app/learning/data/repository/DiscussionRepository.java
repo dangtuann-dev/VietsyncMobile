@@ -38,8 +38,10 @@ public class DiscussionRepository {
 
     private final DiscussionApi discussionApi;
     private final SessionManager sessionManager;
+    private final Context context;
 
     public DiscussionRepository(Context context) {
+        this.context = context != null ? context.getApplicationContext() : null;
         this.discussionApi = ApiClient.getInstance().createService(DiscussionApi.class);
         this.sessionManager = SessionManager.getInstance(context);
     }
@@ -93,10 +95,25 @@ public class DiscussionRepository {
         });
     }
 
+    private String getCurrentUserName() {
+        if (context != null) {
+            com.app.learning.data.model.User profile = com.app.learning.utils.UserPreference.getInstance(context).getUserProfile();
+            if (profile != null && profile.getFullName() != null && !profile.getFullName().trim().isEmpty()) {
+                return profile.getFullName().trim();
+            }
+        }
+        if (sessionManager != null) {
+            String sessionName = sessionManager.getUserFullName();
+            if (sessionName != null && !sessionName.trim().isEmpty()) {
+                return sessionName.trim();
+            }
+        }
+        return "Học viên Vietsync";
+    }
+
     public void createPost(String courseId, String title, String bodyText, String tags, ActionCallback callback) {
         String userId = sessionManager.getUserId();
-        String authorName = sessionManager.getUserFullName();
-        if (authorName == null || authorName.isEmpty()) authorName = "Dang Thanh Tuan";
+        String authorName = getCurrentUserName();
 
         DiscussionPostModel newPost = new DiscussionPostModel();
         newPost.setId(UUID.randomUUID().toString());
@@ -161,8 +178,7 @@ public class DiscussionRepository {
 
     public void createReply(String postId, String replyText, ActionCallback callback) {
         String userId = sessionManager.getUserId();
-        String authorName = sessionManager.getUserFullName();
-        if (authorName == null || authorName.isEmpty()) authorName = "Dang Thanh Tuan";
+        String authorName = getCurrentUserName();
 
         DiscussionReplyModel newReply = new DiscussionReplyModel();
         newReply.setId(UUID.randomUUID().toString());
