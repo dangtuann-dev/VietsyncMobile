@@ -97,7 +97,7 @@ public class Review implements Serializable {
         if (user != null && user.getFullName() != null) {
             return user.getFullName();
         }
-        return userName != null ? userName : "Học viên EdX";
+        return userName != null ? userName : "Học viên Vietsync";
     }
 
     public void setUserName(String userName) {

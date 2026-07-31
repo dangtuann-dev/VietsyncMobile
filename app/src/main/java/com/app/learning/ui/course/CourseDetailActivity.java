@@ -229,7 +229,7 @@ public class CourseDetailActivity extends BaseActivity {
         
         String instructorName = (course.getInstructor() != null && course.getInstructor().getFullName() != null)
                 ? course.getInstructor().getFullName()
-                : "Giảng viên EdX";
+                : "Giảng viên Vietsync";
         tvInstructor.setText(getString(R.string.course_instructor, instructorName));
 
         double rating = course.getRating() > 0 ? course.getRating() : 4.8;

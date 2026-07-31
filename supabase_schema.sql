@@ -367,22 +367,22 @@ CREATE POLICY "Allow users to update/insert their own settings"
 
 INSERT INTO auth.users (id, email, raw_user_meta_data)
 VALUES
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000001', 'admin@edxapp.com', '{"full_name": "Admin System", "role": "admin"}'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000002', 'instructor.tuan@edxapp.com', '{"full_name": "Dr. Nguyễn Minh Tuấn", "role": "instructor", "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb"}'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000003', 'instructor.hoa@edxapp.com', '{"full_name": "Prof. Lê Thị Hoa", "role": "instructor", "avatar_url": "https://images.unsplash.com/photo-1544005313-94ddf0286df2"}'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'student.an@edxapp.com', '{"full_name": "Trần Văn An", "role": "student"}'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000005', 'student.binh@edxapp.com', '{"full_name": "Phạm Thị Bình", "role": "student"}')
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000001', 'admin@vietsync.com', '{"full_name": "Admin System", "role": "admin"}'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000002', 'instructor.tuan@vietsync.com', '{"full_name": "Dr. Nguyễn Minh Tuấn", "role": "instructor", "avatar_url": "https://images.unsplash.com/photo-1534528741775-53994a69daeb"}'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000003', 'instructor.hoa@vietsync.com', '{"full_name": "Prof. Lê Thị Hoa", "role": "instructor", "avatar_url": "https://images.unsplash.com/photo-1544005313-94ddf0286df2"}'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'student.an@vietsync.com', '{"full_name": "Trần Văn An", "role": "student"}'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000005', 'student.binh@vietsync.com', '{"full_name": "Phạm Thị Bình", "role": "student"}')
 ON CONFLICT (id) DO NOTHING;
 
 
 
 INSERT INTO public.users (id, email, full_name, avatar_url, role)
 VALUES
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000001', 'admin@edxapp.com', 'Admin System', '', 'admin'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000002', 'instructor.tuan@edxapp.com', 'Dr. Nguyễn Minh Tuấn', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb', 'instructor'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000003', 'instructor.hoa@edxapp.com', 'Prof. Lê Thị Hoa', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2', 'instructor'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'student.an@edxapp.com', 'Trần Văn An', '', 'student'),
-  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000005', 'student.binh@edxapp.com', 'Phạm Thị Bình', '', 'student')
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000001', 'admin@vietsync.com', 'Admin System', '', 'admin'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000002', 'instructor.tuan@vietsync.com', 'Dr. Nguyễn Minh Tuấn', 'https://images.unsplash.com/photo-1534528741775-53994a69daeb', 'instructor'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000003', 'instructor.hoa@vietsync.com', 'Prof. Lê Thị Hoa', 'https://images.unsplash.com/photo-1544005313-94ddf0286df2', 'instructor'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000004', 'student.an@vietsync.com', 'Trần Văn An', '', 'student'),
+  ('e1a46cf7-8d00-4b2a-89a1-5d9f00000005', 'student.binh@vietsync.com', 'Phạm Thị Bình', '', 'student')
 ON CONFLICT (id) DO UPDATE SET
   full_name = EXCLUDED.full_name,
   avatar_url = EXCLUDED.avatar_url,
@@ -417,7 +417,7 @@ VALUES
     'https://images.unsplash.com/photo-1607799279861-4dd421887fb3',
     'e1a46cf7-8d00-4b2a-89a1-5d9f00000002',
     1,
-    299000.00,
+    0.00,
     'intermediate',
     1200,
     4.85
@@ -429,7 +429,7 @@ VALUES
     'https://images.unsplash.com/photo-1561070791-26c113006238',
     'e1a46cf7-8d00-4b2a-89a1-5d9f00000003',
     3,
-    199000.00,
+    0.00,
     'beginner',
     900,
     4.90

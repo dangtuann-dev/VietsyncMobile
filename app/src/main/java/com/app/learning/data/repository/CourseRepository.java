@@ -160,22 +160,17 @@ public class CourseRepository extends BaseRepository {
             Long.parseLong(categoryIdOrName);
             return categoryIdOrName;
         } catch (NumberFormatException e) {
-            switch (categoryIdOrName.toLowerCase()) {
-                case "technology":
-                case "công nghệ thông tin":
-                    return "1";
-                case "business":
-                case "kinh doanh & khởi nghiệp":
-                    return "2";
-                case "design":
-                case "thiết kế đồ họa":
-                    return "3";
-                case "language":
-                case "ngoại ngữ":
-                    return "4";
-                default:
-                    return null;
+            String lower = categoryIdOrName.toLowerCase().trim();
+            if (lower.contains("công nghệ") || lower.equals("technology")) {
+                return "1";
+            } else if (lower.contains("kinh doanh") || lower.equals("business")) {
+                return "2";
+            } else if (lower.contains("thiết kế") || lower.equals("design")) {
+                return "3";
+            } else if (lower.contains("ngôn ngữ") || lower.contains("ngoại ngữ") || lower.equals("language")) {
+                return "4";
             }
+            return null;
         }
     }
 

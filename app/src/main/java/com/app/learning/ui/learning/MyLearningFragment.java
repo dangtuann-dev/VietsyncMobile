@@ -26,6 +26,12 @@ public class MyLearningFragment extends BaseFragment {
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
 
+        viewModel = new ViewModelProvider(this).get(MyLearningViewModel.class);
+        User user = UserPreference.getInstance(requireContext()).getUserProfile();
+        if (user != null && user.getId() != null && !user.getId().isEmpty()) {
+            viewModel.setUserId(user.getId());
+        }
+
         // Prevent reloading the pages when swipe
         viewPager.setOffscreenPageLimit(2);
 
@@ -49,13 +55,6 @@ public class MyLearningFragment extends BaseFragment {
 
     @Override
     protected void initObservers() {
-        viewModel = new ViewModelProvider(this).get(MyLearningViewModel.class);
-        
-        // Pass the logged-in user's ID to the view model
-        User user = UserPreference.getInstance(requireContext()).getUserProfile();
-        if (user != null) {
-            viewModel.setUserId(user.getId());
-        }
     }
 }
 

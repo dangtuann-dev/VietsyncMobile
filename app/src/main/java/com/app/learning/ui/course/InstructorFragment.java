@@ -46,7 +46,7 @@ public class InstructorFragment extends BaseFragment {
         if (instructor != null) {
             tvName.setText(instructor.getFullName() != null ? instructor.getFullName() : "Giảng viên");
             
-            String roleStr = "Giảng viên EdX";
+            String roleStr = "Giảng viên Vietsync";
             if (instructor.getRole() != null) {
                 if ("instructor".equalsIgnoreCase(instructor.getRole())) {
                     roleStr = "Giảng viên chuyên môn";
@@ -66,7 +66,7 @@ public class InstructorFragment extends BaseFragment {
                     .error(R.drawable.ic_profile_placeholder)
                     .into(ivAvatar);
         } else {
-            tvName.setText("Giảng viên EdX");
+            tvName.setText("Giảng viên Vietsync");
             tvRole.setText("Giảng viên chuyên môn");
             tvBio.setText("Giảng viên nhiều năm kinh nghiệm nghiên cứu và giảng dạy về lĩnh vực phát triển công nghệ di động và phần mềm hệ thống.");
             ivAvatar.setImageResource(R.drawable.ic_profile_placeholder);

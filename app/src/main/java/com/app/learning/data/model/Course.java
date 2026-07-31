@@ -95,7 +95,7 @@ public class Course implements Serializable {
     }
 
     public double getPrice() {
-        return price;
+        return 0.0;
     }
 
     public void setPrice(double price) {
