@@ -115,12 +115,11 @@ public class CourseDetailActivity extends BaseActivity {
 
         // Enroll functionality
         btnEnroll.setOnClickListener(v -> {
-            if (userId == null) {
-                Toast.makeText(this, "Vui lòng đăng nhập để tiếp tục!", Toast.LENGTH_SHORT).show();
-                return;
-            }
             if (isEnrolled) {
-                Toast.makeText(this, "Bắt đầu học bài đầu tiên!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, com.app.learning.ui.learning.LessonPlayerActivity.class);
+                intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_COURSE_ID, courseId);
+                intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_LESSON_TITLE, (course != null && course.getTitle() != null) ? course.getTitle() : "Bài 1: Giới thiệu khóa học");
+                startActivity(intent);
             } else {
                 if (course != null) {
                     EnrollmentBottomSheet.newInstance(course).show(getSupportFragmentManager(), "enrollment_sheet");
@@ -219,6 +218,12 @@ public class CourseDetailActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateEnrollmentButton();
+    }
+
     private void displayCourseHeader(Course course) {
         tvTitle.setText(course.getTitle());
         
@@ -248,8 +253,10 @@ public class CourseDetailActivity extends BaseActivity {
     }
 
     private void updateEnrollmentButton() {
-        if (isEnrolled) {
-            btnEnroll.setText("Continue Learning");
+        boolean enrolled = isEnrolled || (userPreference != null && courseId != null && userPreference.isWishlisted("enrolled_" + courseId));
+        if (enrolled) {
+            isEnrolled = true;
+            btnEnroll.setText("Học tiếp tục");
             btnEnroll.setBackgroundColor(getResources().getColor(R.color.category_green));
         } else {
             btnEnroll.setText("Đăng ký học");

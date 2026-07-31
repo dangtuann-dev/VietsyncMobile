@@ -42,6 +42,27 @@ public class CurriculumFragment extends BaseFragment {
         
         adapter = new CurriculumAdapter();
         elvCurriculum.setAdapter(adapter);
+
+        elvCurriculum.setOnChildClickListener((parent, v, groupPosition, childPosition, id) -> {
+            Lesson lesson = (Lesson) adapter.getChild(groupPosition, childPosition);
+            if (lesson != null) {
+                if ("quiz".equalsIgnoreCase(lesson.getType())) {
+                    android.content.Intent intent = new android.content.Intent(requireContext(), com.app.learning.ui.quiz.QuizActivity.class);
+                    intent.putExtra("quiz_id", lesson.getId());
+                    intent.putExtra("course_id", lesson.getCourseId());
+                    startActivity(intent);
+                } else {
+                    android.content.Intent intent = new android.content.Intent(requireContext(), com.app.learning.ui.learning.LessonPlayerActivity.class);
+                    intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_LESSON_ID, lesson.getId());
+                    intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_COURSE_ID, lesson.getCourseId());
+                    intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_LESSON_TITLE, lesson.getTitle());
+                    intent.putExtra(com.app.learning.ui.learning.LessonPlayerActivity.EXTRA_VIDEO_URL, lesson.getVideoUrl());
+                    startActivity(intent);
+                }
+                return true;
+            }
+            return false;
+        });
     }
 
     @Override
