@@ -68,7 +68,28 @@ public class MainActivity extends BaseActivity {
 
             navController.setGraph(graph);
 
-            NavigationUI.setupWithNavController(bottomNavigationView, navController);
+            bottomNavigationView.setOnItemSelectedListener(item -> {
+                int itemId = item.getItemId();
+                int currentId = navController.getCurrentDestination() != null ? navController.getCurrentDestination().getId() : 0;
+
+                if (itemId == currentId) {
+                    return true;
+                }
+
+                androidx.navigation.NavOptions navOptions = new androidx.navigation.NavOptions.Builder()
+                        .setLaunchSingleTop(true)
+                        .setPopUpTo(R.id.fragment_home, itemId == R.id.fragment_home)
+                        .setEnterAnim(android.R.anim.fade_in)
+                        .setExitAnim(android.R.anim.fade_out)
+                        .build();
+
+                try {
+                    navController.navigate(itemId, null, navOptions);
+                    return true;
+                } catch (Exception e) {
+                    return false;
+                }
+            });
         }
 
         setupKeyboardListener();
