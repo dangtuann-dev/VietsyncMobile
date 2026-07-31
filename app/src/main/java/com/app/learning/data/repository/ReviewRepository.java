@@ -21,6 +21,7 @@ import retrofit2.Call;
 public class ReviewRepository extends BaseRepository {
 
     private final ReviewApi reviewApi;
+    private Context context;
 
     public ReviewRepository() {
         super();
@@ -29,6 +30,7 @@ public class ReviewRepository extends BaseRepository {
 
     public ReviewRepository(@NonNull Context context) {
         this();
+        this.context = context.getApplicationContext();
     }
 
     public static class RatingSummary {
@@ -140,9 +142,32 @@ public class ReviewRepository extends BaseRepository {
         return resultLiveData;
     }
 
+    private String getCurrentUserName() {
+        if (context != null) {
+            com.app.learning.data.model.User profile = com.app.learning.utils.UserPreference.getInstance(context).getUserProfile();
+            if (profile != null && profile.getFullName() != null && !profile.getFullName().trim().isEmpty()) {
+                return profile.getFullName().trim();
+            }
+        }
+        return "Học viên Vietsync";
+    }
+
+    private String getCurrentUserAvatar() {
+        if (context != null) {
+            com.app.learning.data.model.User profile = com.app.learning.utils.UserPreference.getInstance(context).getUserProfile();
+            if (profile != null && profile.getAvatarUrl() != null && !profile.getAvatarUrl().trim().isEmpty()) {
+                return profile.getAvatarUrl().trim();
+            }
+        }
+        return "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150";
+    }
+
     public LiveData<Resource<Void>> submitReview(String courseId, String userId, float rating, String comment) {
         MutableLiveData<Resource<Void>> resultLiveData = new MutableLiveData<>();
         resultLiveData.setValue(Resource.loading());
+
+        String currentName = getCurrentUserName();
+        String currentAvatar = getCurrentUserAvatar();
 
         Review newReview = new Review();
         newReview.setId(java.util.UUID.randomUUID().toString());
@@ -151,13 +176,13 @@ public class ReviewRepository extends BaseRepository {
         newReview.setRating(rating);
         newReview.setComment(comment);
         newReview.setHelpfulCount(0);
-        newReview.setUserName("Dang Thanh Tuan");
-        newReview.setUserAvatar("https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150");
+        newReview.setUserName(currentName);
+        newReview.setUserAvatar(currentAvatar);
         newReview.setDate("Hôm nay");
 
         Review.ReviewUser u = new Review.ReviewUser();
-        u.setFullName("Dang Thanh Tuan");
-        u.setAvatarUrl("https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150");
+        u.setFullName(currentName);
+        u.setAvatarUrl(currentAvatar);
         newReview.setUser(u);
 
         if (!localReviewsMap.containsKey(courseId)) {
