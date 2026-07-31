@@ -49,6 +49,9 @@ public class CompletedFragment extends BaseFragment {
             public void onViewCertificateClick(Enrollment enrollment) {
                 try {
                     Intent intent = new Intent(requireContext(), MyCertificatesActivity.class);
+                    if (enrollment != null && enrollment.getCourse() != null) {
+                        intent.putExtra("course_title", enrollment.getCourse().getTitle());
+                    }
                     startActivity(intent);
                 } catch (Exception e) {
                     Toast.makeText(requireContext(), "Mở danh sách chứng chỉ thành công", Toast.LENGTH_SHORT).show();
@@ -57,7 +60,13 @@ public class CompletedFragment extends BaseFragment {
 
             @Override
             public void onReviewClick(Enrollment enrollment) {
-                Toast.makeText(requireContext(), "Chức năng đánh giá khóa học sẽ sớm được cập nhật!", Toast.LENGTH_SHORT).show();
+                if (enrollment != null && enrollment.getCourseId() != null) {
+                    com.app.learning.ui.course.WriteReviewBottomSheet sheet =
+                            com.app.learning.ui.course.WriteReviewBottomSheet.newInstance(enrollment.getCourseId());
+                    sheet.show(getChildFragmentManager(), "WriteReviewBottomSheet");
+                } else {
+                    Toast.makeText(requireContext(), "Chức năng đánh giá khóa học", Toast.LENGTH_SHORT).show();
+                }
             }
         });
         rvCourses.setAdapter(adapter);
