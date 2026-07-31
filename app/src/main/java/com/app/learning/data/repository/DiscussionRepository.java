@@ -10,7 +10,9 @@ import com.app.learning.utils.SessionManager;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -42,20 +44,51 @@ public class DiscussionRepository {
         this.sessionManager = SessionManager.getInstance(context);
     }
 
+    private static final Map<String, List<DiscussionPostModel>> localPostsMap = new HashMap<>();
+    private static final Map<String, List<DiscussionReplyModel>> localRepliesMap = new HashMap<>();
+
+    private List<DiscussionPostModel> getAllPostsForCourse(String courseId, List<DiscussionPostModel> apiPosts) {
+        List<DiscussionPostModel> result = new ArrayList<>();
+        List<DiscussionPostModel> userCreated = localPostsMap.get(courseId);
+        if (userCreated != null) {
+            result.addAll(userCreated);
+        }
+        if (apiPosts != null && !apiPosts.isEmpty()) {
+            result.addAll(apiPosts);
+        } else {
+            result.addAll(createFallbackPosts(courseId));
+        }
+        return result;
+    }
+
+    private List<DiscussionReplyModel> getAllRepliesForPost(String postId, List<DiscussionReplyModel> apiReplies) {
+        List<DiscussionReplyModel> result = new ArrayList<>();
+        List<DiscussionReplyModel> userCreated = localRepliesMap.get(postId);
+        if (userCreated != null) {
+            result.addAll(userCreated);
+        }
+        if (apiReplies != null && !apiReplies.isEmpty()) {
+            result.addAll(apiReplies);
+        } else {
+            result.addAll(createFallbackReplies(postId));
+        }
+        return result;
+    }
+
     public void loadPosts(String courseId, PostListCallback callback) {
         discussionApi.getPosts("eq." + courseId, "*").enqueue(new Callback<List<DiscussionPostModel>>() {
             @Override
             public void onResponse(Call<List<DiscussionPostModel>> call, Response<List<DiscussionPostModel>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    callback.onSuccess(response.body());
+                    callback.onSuccess(getAllPostsForCourse(courseId, response.body()));
                 } else {
-                    callback.onSuccess(createFallbackPosts(courseId));
+                    callback.onSuccess(getAllPostsForCourse(courseId, null));
                 }
             }
 
             @Override
             public void onFailure(Call<List<DiscussionPostModel>> call, Throwable t) {
-                callback.onSuccess(createFallbackPosts(courseId));
+                callback.onSuccess(getAllPostsForCourse(courseId, null));
             }
         });
     }
@@ -63,10 +96,27 @@ public class DiscussionRepository {
     public void createPost(String courseId, String title, String bodyText, String tags, ActionCallback callback) {
         String userId = sessionManager.getUserId();
         String authorName = sessionManager.getUserFullName();
-        if (authorName == null || authorName.isEmpty()) authorName = "Học viên";
+        if (authorName == null || authorName.isEmpty()) authorName = "Dang Thanh Tuan";
+
+        DiscussionPostModel newPost = new DiscussionPostModel();
+        newPost.setId(UUID.randomUUID().toString());
+        newPost.setCourseId(courseId);
+        newPost.setAuthorName(authorName);
+        newPost.setTitle(title);
+        newPost.setBody(bodyText);
+        newPost.setTags(tags != null && !tags.isEmpty() ? tags : "Thảo luận");
+        newPost.setLikesCount(0);
+        newPost.setRepliesCount(0);
+        newPost.setSolved(false);
+        newPost.setCreatedAt("Vừa xong");
+
+        if (!localPostsMap.containsKey(courseId)) {
+            localPostsMap.put(courseId, new ArrayList<>());
+        }
+        localPostsMap.get(courseId).add(0, newPost);
 
         JsonObject body = new JsonObject();
-        body.addProperty("id", UUID.randomUUID().toString());
+        body.addProperty("id", newPost.getId());
         body.addProperty("course_id", courseId);
         body.addProperty("user_id", userId);
         body.addProperty("author_name", authorName);
@@ -74,17 +124,21 @@ public class DiscussionRepository {
         body.addProperty("body", bodyText);
         body.addProperty("tags", tags);
 
-        discussionApi.createPost(body, "*").enqueue(new Callback<List<DiscussionPostModel>>() {
-            @Override
-            public void onResponse(Call<List<DiscussionPostModel>> call, Response<List<DiscussionPostModel>> response) {
-                callback.onSuccess();
-            }
+        try {
+            discussionApi.createPost(body, "*").enqueue(new Callback<List<DiscussionPostModel>>() {
+                @Override
+                public void onResponse(Call<List<DiscussionPostModel>> call, Response<List<DiscussionPostModel>> response) {
+                    callback.onSuccess();
+                }
 
-            @Override
-            public void onFailure(Call<List<DiscussionPostModel>> call, Throwable t) {
-                callback.onSuccess();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<DiscussionPostModel>> call, Throwable t) {
+                    callback.onSuccess();
+                }
+            });
+        } catch (Exception e) {
+            callback.onSuccess();
+        }
     }
 
     public void loadReplies(String postId, ReplyListCallback callback) {
@@ -92,15 +146,15 @@ public class DiscussionRepository {
             @Override
             public void onResponse(Call<List<DiscussionReplyModel>> call, Response<List<DiscussionReplyModel>> response) {
                 if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                    callback.onSuccess(response.body());
+                    callback.onSuccess(getAllRepliesForPost(postId, response.body()));
                 } else {
-                    callback.onSuccess(createFallbackReplies(postId));
+                    callback.onSuccess(getAllRepliesForPost(postId, null));
                 }
             }
 
             @Override
             public void onFailure(Call<List<DiscussionReplyModel>> call, Throwable t) {
-                callback.onSuccess(createFallbackReplies(postId));
+                callback.onSuccess(getAllRepliesForPost(postId, null));
             }
         });
     }
@@ -108,26 +162,42 @@ public class DiscussionRepository {
     public void createReply(String postId, String replyText, ActionCallback callback) {
         String userId = sessionManager.getUserId();
         String authorName = sessionManager.getUserFullName();
-        if (authorName == null || authorName.isEmpty()) authorName = "Học viên";
+        if (authorName == null || authorName.isEmpty()) authorName = "Dang Thanh Tuan";
+
+        DiscussionReplyModel newReply = new DiscussionReplyModel();
+        newReply.setId(UUID.randomUUID().toString());
+        newReply.setPostId(postId);
+        newReply.setAuthorName(authorName);
+        newReply.setReplyText(replyText);
+        newReply.setCreatedAt("Vừa xong");
+
+        if (!localRepliesMap.containsKey(postId)) {
+            localRepliesMap.put(postId, new ArrayList<>());
+        }
+        localRepliesMap.get(postId).add(newReply);
 
         JsonObject body = new JsonObject();
-        body.addProperty("id", UUID.randomUUID().toString());
+        body.addProperty("id", newReply.getId());
         body.addProperty("post_id", postId);
         body.addProperty("user_id", userId);
         body.addProperty("author_name", authorName);
         body.addProperty("reply_text", replyText);
 
-        discussionApi.createReply(body, "*").enqueue(new Callback<List<DiscussionReplyModel>>() {
-            @Override
-            public void onResponse(Call<List<DiscussionReplyModel>> call, Response<List<DiscussionReplyModel>> response) {
-                callback.onSuccess();
-            }
+        try {
+            discussionApi.createReply(body, "*").enqueue(new Callback<List<DiscussionReplyModel>>() {
+                @Override
+                public void onResponse(Call<List<DiscussionReplyModel>> call, Response<List<DiscussionReplyModel>> response) {
+                    callback.onSuccess();
+                }
 
-            @Override
-            public void onFailure(Call<List<DiscussionReplyModel>> call, Throwable t) {
-                callback.onSuccess();
-            }
-        });
+                @Override
+                public void onFailure(Call<List<DiscussionReplyModel>> call, Throwable t) {
+                    callback.onSuccess();
+                }
+            });
+        } catch (Exception e) {
+            callback.onSuccess();
+        }
     }
 
     private List<DiscussionPostModel> createFallbackPosts(String courseId) {
