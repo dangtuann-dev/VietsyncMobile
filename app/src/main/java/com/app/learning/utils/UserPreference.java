@@ -164,11 +164,37 @@ public class UserPreference {
         preferences.edit().putStringSet("key_wishlist_ids", set).apply();
     }
 
+    public void saveWishlistCourse(com.app.learning.data.model.Course course) {
+        if (course == null || course.getId() == null) return;
+        addWishlistId(course.getId());
+        try {
+            com.google.gson.Gson gson = new com.google.gson.Gson();
+            String json = gson.toJson(course);
+            preferences.edit().putString("key_saved_course_" + course.getId(), json).apply();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Nullable
+    public com.app.learning.data.model.Course getSavedCourse(String courseId) {
+        if (courseId == null) return null;
+        String json = preferences.getString("key_saved_course_" + courseId, null);
+        if (json != null) {
+            try {
+                return new com.google.gson.Gson().fromJson(json, com.app.learning.data.model.Course.class);
+            } catch (Exception ignored) {}
+        }
+        return null;
+    }
+
     public void removeWishlistId(String courseId) {
         if (courseId == null) return;
         java.util.Set<String> set = getWishlistSet();
         set.remove(courseId);
-        preferences.edit().putStringSet("key_wishlist_ids", set).apply();
+        preferences.edit().putStringSet("key_wishlist_ids", set)
+                .remove("key_saved_course_" + courseId)
+                .apply();
     }
 
     public java.util.Set<String> getRemovedSavedSet() {

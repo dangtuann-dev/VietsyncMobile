@@ -1,6 +1,7 @@
 package com.app.learning.ui.learning;
 
 import android.app.PictureInPictureParams;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Build;
@@ -86,6 +87,7 @@ public class LessonPlayerActivity extends AppCompatActivity {
         if (videoUrl == null) videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
 
         toolbar.setTitle(lessonTitle);
+        syncCurrentLessonIndex();
 
         viewModel = new ViewModelProvider(this).get(LessonViewModel.class);
         playerManager = PlayerManager.getInstance(this);
@@ -212,12 +214,35 @@ public class LessonPlayerActivity extends AppCompatActivity {
         lessonList.add(new LessonItem("d0eebc99-9c0b-4ef8-bb6d-6bb9bd380014", "Bài 4: Tối ưu hiệu năng và Kiểm thử ứng dụng", "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4"));
     }
 
+    private void syncCurrentLessonIndex() {
+        if (lessonList.isEmpty()) initLessonList();
+        if (lessonTitle != null || lessonId != null) {
+            for (int i = 0; i < lessonList.size(); i++) {
+                LessonItem item = lessonList.get(i);
+                if ((lessonId != null && lessonId.equalsIgnoreCase(item.id)) ||
+                    (lessonTitle != null && (lessonTitle.contains("Bài " + (i + 1)) || lessonTitle.equalsIgnoreCase(item.title)))) {
+                    currentLessonIndex = i;
+                    break;
+                }
+            }
+        }
+    }
+
     private void navigateLesson(boolean next) {
         playerManager.saveCurrentPosition();
         if (lessonList.isEmpty()) initLessonList();
 
         if (next) {
-            if (currentLessonIndex < lessonList.size() - 1) {
+            if (currentLessonIndex == 3) {
+                // Lesson 4 -> Lesson 5 (Final Exam)
+                currentLessonIndex = 4;
+                Toast.makeText(this, "Chuyển sang Bài 5: Bài kiểm tra tổng hợp!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, com.app.learning.ui.exam.FinalExamActivity.class);
+                intent.putExtra("lesson_id", lessonList.get(4).id);
+                intent.putExtra(com.app.learning.ui.exam.FinalExamActivity.EXTRA_COURSE_ID, courseId);
+                startActivity(intent);
+                return;
+            } else if (currentLessonIndex < lessonList.size() - 1) {
                 currentLessonIndex++;
             } else {
                 Toast.makeText(this, "Bạn đang ở bài học cuối cùng!", Toast.LENGTH_SHORT).show();

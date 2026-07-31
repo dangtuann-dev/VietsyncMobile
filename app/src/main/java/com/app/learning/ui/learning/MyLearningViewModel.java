@@ -110,14 +110,19 @@ public class MyLearningViewModel extends BaseViewModel {
             knownCourses.put(c2.getId(), c2);
             knownCourses.put(c3.getId(), c3);
 
+            com.app.learning.utils.UserPreference userPref = (context != null) ? com.app.learning.utils.UserPreference.getInstance(context) : null;
+            
             // Add all wishlisted courses
             for (String wishId : wishlistSet) {
                 if (wishId != null && !removedSavedIds.contains(wishId)) {
-                    com.app.learning.data.model.Course c = knownCourses.get(wishId);
+                    com.app.learning.data.model.Course c = (userPref != null) ? userPref.getSavedCourse(wishId) : null;
+                    if (c == null) {
+                        c = knownCourses.get(wishId);
+                    }
                     if (c == null) {
                         c = new com.app.learning.data.model.Course();
                         c.setId(wishId);
-                        c.setTitle("Khóa học đã lưu");
+                        c.setTitle("Khóa học Lập trình & Thiết kế");
                         c.setDescription("Khóa học trong danh sách yêu thích của bạn.");
                         c.setThumbnail("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400");
                         c.setLevel("intermediate");

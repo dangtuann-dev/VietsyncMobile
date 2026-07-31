@@ -53,11 +53,13 @@ public class CertificateAdapter extends RecyclerView.Adapter<CertificateAdapter.
 
         holder.tvIssuedDate.setText("Ngày cấp: " + formatDate(item.getIssuedAt()));
 
-        holder.btnViewCertificate.setOnClickListener(v -> {
+        View.OnClickListener clickListener = v -> {
             if (viewListener != null) {
                 viewListener.onViewClick(item);
             }
-        });
+        };
+        holder.itemView.setOnClickListener(clickListener);
+        holder.btnViewCertificate.setOnClickListener(clickListener);
     }
 
     @Override

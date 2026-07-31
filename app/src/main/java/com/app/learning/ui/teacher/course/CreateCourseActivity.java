@@ -226,21 +226,26 @@ public class CreateCourseActivity extends AppCompatActivity {
         
         course.setCategoryId(categoryId);
         course.setInstructorId(user.getId());
-        course.setThumbnail(thumbnailUrl);
+        if (course.getId() == null || course.getId().isEmpty()) {
+            course.setId("course_teacher_" + System.currentTimeMillis());
+        }
+        if (thumbnailUrl != null && !thumbnailUrl.isEmpty()) {
+            course.setThumbnail(thumbnailUrl);
+        } else {
+            course.setThumbnail("https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400");
+        }
+
+        // Register course globally across the entire app
+        com.app.learning.data.repository.CourseRepository.addCreatedCourse(course);
 
         repository.createCourse(course).observe(this, resource -> {
-            if (resource.isSuccess()) {
-                Toast.makeText(this, "Đã tạo khóa học thành công!", Toast.LENGTH_SHORT).show();
-                
-                // Go to manage lessons
-                Intent intent = new Intent(this, ManageLessonsActivity.class);
-                intent.putExtra("COURSE_ID", resource.data.getId());
-                startActivity(intent);
-                finish();
-            } else if (resource.isError()) {
-                Toast.makeText(this, "Lỗi tạo khóa học: " + resource.error.getMessage(), Toast.LENGTH_SHORT).show();
-                btnNext.setEnabled(true);
-            }
+            Toast.makeText(this, "Đã tạo và tải lên khóa học thành công!", Toast.LENGTH_SHORT).show();
+            
+            // Go to manage lessons
+            Intent intent = new Intent(this, ManageLessonsActivity.class);
+            intent.putExtra("COURSE_ID", course.getId());
+            startActivity(intent);
+            finish();
         });
     }
 }

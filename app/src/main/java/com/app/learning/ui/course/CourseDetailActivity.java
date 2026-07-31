@@ -308,7 +308,11 @@ public class CourseDetailActivity extends BaseActivity {
             Toast.makeText(this, "Đã bỏ lưu khóa học", Toast.LENGTH_SHORT).show();
         } else {
             if (userPreference != null) {
-                userPreference.addWishlistId(courseId);
+                if (course != null) {
+                    userPreference.saveWishlistCourse(course);
+                } else {
+                    userPreference.addWishlistId(courseId);
+                }
                 java.util.Set<String> removed = userPreference.getRemovedSavedSet();
                 removed.remove(courseId);
             }

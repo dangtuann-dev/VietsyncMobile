@@ -94,8 +94,12 @@ public class SearchActivity extends BaseActivity {
         // Search Results
         rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
         resultAdapter = new SearchResultAdapter(course -> {
-            Toast.makeText(SearchActivity.this, "Đang mở khóa học: " + course.getTitle(), Toast.LENGTH_SHORT).show();
-            // Implement detail navigation here if needed
+            if (course != null) {
+                android.content.Intent intent = new android.content.Intent(SearchActivity.this, com.app.learning.ui.course.CourseDetailActivity.class);
+                intent.putExtra("course", course);
+                intent.putExtra("course_id", course.getId());
+                startActivity(intent);
+            }
         });
         rvSearchResults.setAdapter(resultAdapter);
     }

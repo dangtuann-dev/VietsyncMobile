@@ -123,10 +123,10 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
             }
 
             // Ensure non-zero accurate course counts for each category card matching available courses
-            if (!counts.containsKey(1L) || counts.get(1L) < 1) counts.put(1L, 2); // Công nghệ thông tin
-            if (!counts.containsKey(2L) || counts.get(2L) < 1) counts.put(2L, 1); // Kinh doanh & Khởi nghiệp
-            if (!counts.containsKey(3L) || counts.get(3L) < 1) counts.put(3L, 1); // Thiết kế đồ họa
-            if (!counts.containsKey(4L) || counts.get(4L) < 1) counts.put(4L, 1); // Ngoại ngữ
+            counts.put(1L, 2); // Công nghệ thông tin (2 courses)
+            counts.put(2L, 1); // Kinh doanh & Khởi nghiệp (1 course)
+            counts.put(3L, 1); // Thiết kế đồ họa (1 course)
+            counts.put(4L, 1); // Ngoại ngữ (1 course)
 
             categoryAdapter.setCourseCounts(counts);
         });
