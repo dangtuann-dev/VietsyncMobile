@@ -1,19 +1,15 @@
 *.iml
 .gradle
-/local.properties
 .idea/
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
-local.properties
 *.apk
 *.ap_
 *.dex
 *.class
-*.log
-*.temp
 
 # Documentations & markdown files (does not affect project run)
 *.md
