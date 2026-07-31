@@ -265,6 +265,9 @@ public class LessonPlayerActivity extends AppCompatActivity {
         toolbar.setTitle(lessonTitle);
         playerManager.setMediaUrl(lessonId, videoUrl);
 
+        // Refresh the ViewPager so all tabs pick up the new lessonTitle
+        setupViewPager();
+
         Toast.makeText(this, "Đã chuyển: " + lessonTitle, Toast.LENGTH_SHORT).show();
     }
 

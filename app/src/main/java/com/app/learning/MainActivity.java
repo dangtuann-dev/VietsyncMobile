@@ -59,11 +59,13 @@ public class MainActivity extends BaseActivity {
             RoleManager.Role role = RoleManager.getInstance(this).getCurrentRole();
             android.view.Menu menu = bottomNavigationView.getMenu();
             if (role == RoleManager.Role.TEACHER) {
-                graph.setStartDestination(R.id.fragment_teacher_dashboard);
+                graph.setStartDestination(R.id.fragment_home);
                 menu.findItem(R.id.fragment_teacher_dashboard).setVisible(true);
+                bottomNavigationView.setSelectedItemId(R.id.fragment_home);
             } else {
                 graph.setStartDestination(R.id.fragment_home);
                 menu.findItem(R.id.fragment_teacher_dashboard).setVisible(false);
+                bottomNavigationView.setSelectedItemId(R.id.fragment_home);
             }
 
             navController.setGraph(graph);

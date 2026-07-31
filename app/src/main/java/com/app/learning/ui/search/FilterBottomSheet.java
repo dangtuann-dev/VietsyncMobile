@@ -78,11 +78,24 @@ public class FilterBottomSheet extends BottomSheetDialogFragment {
     private void setupObservers() {
         // Observe categories list
         viewModel.getCategories().observe(getViewLifecycleOwner(), resource -> {
-            if (resource != null && resource.isSuccess() && resource.data != null) {
+            if (resource != null && resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
                 availableCategories = resource.data;
-                populateCategoryChips();
+            } else if (availableCategories.isEmpty()) {
+                availableCategories.add(new Category(1L, "Công nghệ thông tin"));
+                availableCategories.add(new Category(2L, "Kinh doanh & Khởi nghiệp"));
+                availableCategories.add(new Category(3L, "Thiết kế đồ họa"));
+                availableCategories.add(new Category(4L, "Ngoại ngữ"));
             }
+            populateCategoryChips();
         });
+
+        if (availableCategories.isEmpty()) {
+            availableCategories.add(new Category(1L, "Công nghệ thông tin"));
+            availableCategories.add(new Category(2L, "Kinh doanh & Khởi nghiệp"));
+            availableCategories.add(new Category(3L, "Thiết kế đồ họa"));
+            availableCategories.add(new Category(4L, "Ngoại ngữ"));
+            populateCategoryChips();
+        }
 
         // Initialize level chip
         String level = viewModel.getSelectedLevel();
@@ -118,13 +131,22 @@ public class FilterBottomSheet extends BottomSheetDialogFragment {
             chip.setId(category.getId().intValue());
             chip.setText(category.getName());
             chip.setCheckable(true);
-            
-            // Set material filter chip style programmatically or fallback to default
-            chip.setChipBackgroundColorResource(android.R.color.transparent);
-            chip.setChipStrokeColorResource(R.color.surface_variant);
-            chip.setChipStrokeWidth(1.0f);
-            
-            if (category.getId().equals(selectedCategoryId)) {
+            chip.setClickable(true);
+
+            chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(0xFFF1F5F9));
+            chip.setTextColor(android.content.res.ColorStateList.valueOf(0xFF334155));
+
+            chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked) {
+                    chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(0xFF3B82F6));
+                    chip.setTextColor(android.content.res.ColorStateList.valueOf(0xFFFFFFFF));
+                } else {
+                    chip.setChipBackgroundColor(android.content.res.ColorStateList.valueOf(0xFFF1F5F9));
+                    chip.setTextColor(android.content.res.ColorStateList.valueOf(0xFF334155));
+                }
+            });
+
+            if (selectedCategoryId != null && category.getId().equals(selectedCategoryId)) {
                 chip.setChecked(true);
             }
             cgCategories.addView(chip);

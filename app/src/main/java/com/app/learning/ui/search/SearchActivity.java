@@ -130,10 +130,20 @@ public class SearchActivity extends BaseActivity {
     protected void initObservers() {
         observeViewModel(viewModel);
 
-        // Observe search results
+        // Observe search results — also triggers when filters change
         viewModel.getSearchResults().observe(this, resource -> {
             String query = searchView.getQuery().toString();
-            updateLayoutState(query, resource);
+            // If filters were applied with empty query, still show results
+            if (query.trim().isEmpty() && resource != null && resource.isSuccess()
+                    && resource.data != null && !resource.data.isEmpty()) {
+                rvSearchHistory.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                layoutEmptyState.setVisibility(View.GONE);
+                rvSearchResults.setVisibility(View.VISIBLE);
+                resultAdapter.setCourseList(resource.data);
+            } else {
+                updateLayoutState(query, resource);
+            }
         });
 
         // Observe local search history

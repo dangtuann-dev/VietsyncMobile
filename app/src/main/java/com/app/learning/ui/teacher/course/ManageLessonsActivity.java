@@ -45,6 +45,11 @@ public class ManageLessonsActivity extends AppCompatActivity implements AddLesso
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
 
+        String courseTitle = getIntent().getStringExtra("COURSE_TITLE");
+        if (courseTitle != null && !courseTitle.isEmpty()) {
+            toolbar.setTitle(courseTitle);
+        }
+
         ExtendedFloatingActionButton fabAddLesson = findViewById(R.id.fabAddLesson);
         fabAddLesson.setOnClickListener(v -> showAddLessonBottomSheet());
     }

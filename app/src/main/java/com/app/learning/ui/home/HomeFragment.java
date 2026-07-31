@@ -43,8 +43,13 @@ public class HomeFragment extends BaseFragment {
         return R.layout.fragment_home;
     }
 
+    private RecyclerView rvItCourses, rvBizCourses, rvDesignCourses, rvLanguageCourses;
+    private View sectionIt, sectionBiz, sectionDesign, sectionLanguage;
+    private androidx.core.widget.NestedScrollView nestedScrollView;
+
     @Override
     protected void initViews(View view) {
+        nestedScrollView = view.findViewById(R.id.nestedScrollView);
         tvGreeting = view.findViewById(R.id.tv_greeting);
         tvStudentName = view.findViewById(R.id.tv_student_name);
         ivAvatar = view.findViewById(R.id.iv_avatar);
@@ -53,21 +58,32 @@ public class HomeFragment extends BaseFragment {
         rvCategories = view.findViewById(R.id.rv_categories);
         rvFeaturedCourses = view.findViewById(R.id.rv_featured_courses);
         rvContinueLearning = view.findViewById(R.id.rv_continue_learning);
-        rvPopularCourses = view.findViewById(R.id.rv_popular_courses);
         tvNotificationBadge = view.findViewById(R.id.tv_notification_badge);
+
+        rvItCourses = view.findViewById(R.id.rv_it_courses);
+        rvBizCourses = view.findViewById(R.id.rv_biz_courses);
+        rvDesignCourses = view.findViewById(R.id.rv_design_courses);
+        rvLanguageCourses = view.findViewById(R.id.rv_language_courses);
+
+        sectionIt = view.findViewById(R.id.section_it);
+        sectionBiz = view.findViewById(R.id.section_biz);
+        sectionDesign = view.findViewById(R.id.section_design);
+        sectionLanguage = view.findViewById(R.id.section_language);
 
         rvCategories.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvFeaturedCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         rvContinueLearning.setLayoutManager(new LinearLayoutManager(requireContext()));
         rvContinueLearning.setNestedScrollingEnabled(false);
-        rvPopularCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+
+        if (rvItCourses != null) rvItCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        if (rvBizCourses != null) rvBizCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        if (rvDesignCourses != null) rvDesignCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        if (rvLanguageCourses != null) rvLanguageCourses.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
 
         loadUserProfile();
 
         View cvSearch = view.findViewById(R.id.cv_search);
-        if (cvSearch != null) {
-            cvSearch.setOnClickListener(v -> openSearchActivity());
-        }
+        if (cvSearch != null) cvSearch.setOnClickListener(v -> openSearchActivity());
         if (etSearch != null) {
             etSearch.setFocusable(false);
             etSearch.setOnClickListener(v -> openSearchActivity());
@@ -83,13 +99,8 @@ public class HomeFragment extends BaseFragment {
         View.OnClickListener openProfileListener = v -> {
             androidx.navigation.Navigation.findNavController(v).navigate(R.id.fragment_profile);
         };
-
-        if (ivAvatar != null) {
-            ivAvatar.setOnClickListener(openProfileListener);
-        }
-        if (tvStudentName != null) {
-            tvStudentName.setOnClickListener(openProfileListener);
-        }
+        if (ivAvatar != null) ivAvatar.setOnClickListener(openProfileListener);
+        if (tvStudentName != null) tvStudentName.setOnClickListener(openProfileListener);
     }
 
     @Override
@@ -103,9 +114,7 @@ public class HomeFragment extends BaseFragment {
             if (resource != null && resource.data != null) {
                 int unreadCount = 0;
                 for (com.app.learning.data.model.NotificationModel notif : resource.data) {
-                    if (!notif.isRead()) {
-                        unreadCount++;
-                    }
+                    if (!notif.isRead()) unreadCount++;
                 }
                 if (unreadCount > 0) {
                     tvNotificationBadge.setVisibility(View.VISIBLE);
@@ -116,7 +125,6 @@ public class HomeFragment extends BaseFragment {
             }
         });
         
-        // Trigger load
         notificationViewModel.loadNotifications();
 
         viewModel.getBanners().observe(getViewLifecycleOwner(), banners -> {
@@ -130,7 +138,17 @@ public class HomeFragment extends BaseFragment {
 
         viewModel.getCategories().observe(getViewLifecycleOwner(), categories -> {
             if (categories != null) {
-                CategoryChipAdapter categoryAdapter = new CategoryChipAdapter(categories);
+                CategoryChipAdapter categoryAdapter = new CategoryChipAdapter(categories, category -> {
+                    View target = sectionIt;
+                    if (category.getName().contains("Thiết kế")) target = sectionDesign;
+                    else if (category.getName().contains("Ngoại ngữ")) target = sectionLanguage;
+                    else if (category.getName().contains("Kinh doanh") || category.getName().contains("Marketing")) target = sectionBiz;
+
+                    if (target != null && nestedScrollView != null) {
+                        final View finalTarget = target;
+                        nestedScrollView.post(() -> nestedScrollView.smoothScrollTo(0, finalTarget.getTop()));
+                    }
+                });
                 rvCategories.setAdapter(categoryAdapter);
             }
         });
@@ -149,10 +167,27 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        viewModel.getPopularCourses().observe(getViewLifecycleOwner(), courses -> {
-            if (courses != null) {
-                CourseAdapter popularAdapter = new CourseAdapter(courses);
-                rvPopularCourses.setAdapter(popularAdapter);
+        viewModel.getItCourses().observe(getViewLifecycleOwner(), courses -> {
+            if (courses != null && rvItCourses != null) {
+                rvItCourses.setAdapter(new CourseAdapter(courses));
+            }
+        });
+
+        viewModel.getBizCourses().observe(getViewLifecycleOwner(), courses -> {
+            if (courses != null && rvBizCourses != null) {
+                rvBizCourses.setAdapter(new CourseAdapter(courses));
+            }
+        });
+
+        viewModel.getDesignCourses().observe(getViewLifecycleOwner(), courses -> {
+            if (courses != null && rvDesignCourses != null) {
+                rvDesignCourses.setAdapter(new CourseAdapter(courses));
+            }
+        });
+
+        viewModel.getLanguageCourses().observe(getViewLifecycleOwner(), courses -> {
+            if (courses != null && rvLanguageCourses != null) {
+                rvLanguageCourses.setAdapter(new CourseAdapter(courses));
             }
         });
     }

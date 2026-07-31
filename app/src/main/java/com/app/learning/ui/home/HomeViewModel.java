@@ -27,6 +27,7 @@ public class HomeViewModel extends BaseViewModel {
         loadFeaturedCourses();
         loadContinueLearning();
         loadPopularCourses();
+        loadCategoryCourses();
     }
 
     public LiveData<List<Banner>> getBanners() {
@@ -205,6 +206,54 @@ public class HomeViewModel extends BaseViewModel {
                 List<Course> combined = new ArrayList<>(resource.data);
                 combined.addAll(popularCourses.getValue() != null ? popularCourses.getValue() : new ArrayList<>());
                 popularCourses.setValue(combined);
+            }
+        });
+    }
+
+    private final MutableLiveData<List<Course>> itCourses = new MutableLiveData<>();
+    private final MutableLiveData<List<Course>> bizCourses = new MutableLiveData<>();
+    private final MutableLiveData<List<Course>> designCourses = new MutableLiveData<>();
+    private final MutableLiveData<List<Course>> languageCourses = new MutableLiveData<>();
+
+    public LiveData<List<Course>> getItCourses() { return itCourses; }
+    public LiveData<List<Course>> getBizCourses() { return bizCourses; }
+    public LiveData<List<Course>> getDesignCourses() { return designCourses; }
+    public LiveData<List<Course>> getLanguageCourses() { return languageCourses; }
+
+    public void loadCategoryCourses() {
+        // IT Courses
+        java.util.Map<String, String> options1 = new java.util.HashMap<>();
+        options1.put("category_id", "eq.1");
+        courseRepository.searchCourses(options1).observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null) {
+                itCourses.setValue(resource.data);
+            }
+        });
+
+        // Biz Courses
+        java.util.Map<String, String> options2 = new java.util.HashMap<>();
+        options2.put("category_id", "eq.2");
+        courseRepository.searchCourses(options2).observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null) {
+                bizCourses.setValue(resource.data);
+            }
+        });
+
+        // Design Courses
+        java.util.Map<String, String> options3 = new java.util.HashMap<>();
+        options3.put("category_id", "eq.3");
+        courseRepository.searchCourses(options3).observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null) {
+                designCourses.setValue(resource.data);
+            }
+        });
+
+        // Language Courses
+        java.util.Map<String, String> options4 = new java.util.HashMap<>();
+        options4.put("category_id", "eq.4");
+        courseRepository.searchCourses(options4).observeForever(resource -> {
+            if (resource != null && resource.isSuccess() && resource.data != null) {
+                languageCourses.setValue(resource.data);
             }
         });
     }

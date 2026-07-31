@@ -239,11 +239,13 @@ public class CreateCourseActivity extends AppCompatActivity {
         com.app.learning.data.repository.CourseRepository.addCreatedCourse(course);
 
         repository.createCourse(course).observe(this, resource -> {
-            Toast.makeText(this, "Đã tạo và tải lên khóa học thành công!", Toast.LENGTH_SHORT).show();
-            
-            // Go to manage lessons
+            Toast.makeText(this, "Đã tạo khóa học thành công!", Toast.LENGTH_SHORT).show();
+
+            // Navigate to ManageLessons, clearing this activity from backstack
             Intent intent = new Intent(this, ManageLessonsActivity.class);
             intent.putExtra("COURSE_ID", course.getId());
+            intent.putExtra("COURSE_TITLE", course.getTitle());
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
         });

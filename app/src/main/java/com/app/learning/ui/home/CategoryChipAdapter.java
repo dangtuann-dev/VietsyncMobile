@@ -16,10 +16,20 @@ import java.util.List;
 
 public class CategoryChipAdapter extends RecyclerView.Adapter<CategoryChipAdapter.CategoryViewHolder> {
 
+    public interface OnCategoryClickListener {
+        void onCategoryClick(Category category);
+    }
+
     private final List<Category> categories;
+    private final OnCategoryClickListener listener;
+
+    public CategoryChipAdapter(List<Category> categories, OnCategoryClickListener listener) {
+        this.categories = categories;
+        this.listener = listener;
+    }
 
     public CategoryChipAdapter(List<Category> categories) {
-        this.categories = categories;
+        this(categories, null);
     }
 
     @NonNull
@@ -37,6 +47,10 @@ public class CategoryChipAdapter extends RecyclerView.Adapter<CategoryChipAdapte
         holder.ivIcon.setImageResource(category.getIconResId());
         holder.ivIcon.setImageTintList(ColorStateList.valueOf(Color.parseColor(category.getColorHex())));
         holder.llContainer.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor(category.getColorLightHex())));
+
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) listener.onCategoryClick(category);
+        });
     }
 
     @Override

@@ -20,6 +20,14 @@ public class Category implements Serializable {
         this.colorLightHex = colorLightHex;
     }
 
+    public Category(Long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.iconResId = 0;
+        this.colorHex = "#3B82F6";
+        this.colorLightHex = "#EFF6FF";
+    }
+
 
     public Long getId() {
         return id;

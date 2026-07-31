@@ -46,6 +46,10 @@ public class CourseRepository extends BaseRepository {
         }
     }
 
+    public static List<Course> getCreatedCourses() {
+        return createdCourses;
+    }
+
     public LiveData<Resource<List<Course>>> searchCourses(Map<String, String> options) {
         MutableLiveData<Resource<List<Course>>> resultLiveData = new MutableLiveData<>();
         Call<List<Course>> call = courseApi.searchCourses(options);

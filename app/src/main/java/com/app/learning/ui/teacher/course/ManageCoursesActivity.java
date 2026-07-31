@@ -86,20 +86,33 @@ public class ManageCoursesActivity extends AppCompatActivity implements ManageCo
             if (resource.isLoading()) return;
             
             progressBar.setVisibility(View.GONE);
+
+            List<Course> courses = new ArrayList<>();
             if (resource.isSuccess() && resource.data != null) {
-                List<Course> courses = resource.data;
-                txtCourseCount.setText(courses.size() + " khóa học");
-                
-                if (courses.isEmpty()) {
-                    layoutEmptyState.setVisibility(View.VISIBLE);
-                    recyclerViewCourses.setVisibility(View.GONE);
-                } else {
-                    layoutEmptyState.setVisibility(View.GONE);
-                    recyclerViewCourses.setVisibility(View.VISIBLE);
-                    adapter.setCourses(courses);
+                courses.addAll(resource.data);
+            }
+
+            // Also include locally-created courses (from the static registry)
+            for (Course c : com.app.learning.data.repository.CourseRepository.getCreatedCourses()) {
+                boolean found = false;
+                for (Course existing : courses) {
+                    if (existing.getId() != null && existing.getId().equals(c.getId())) {
+                        found = true;
+                        break;
+                    }
                 }
+                if (!found) courses.add(c);
+            }
+
+            txtCourseCount.setText(courses.size() + " khóa học");
+
+            if (courses.isEmpty()) {
+                layoutEmptyState.setVisibility(View.VISIBLE);
+                recyclerViewCourses.setVisibility(View.GONE);
             } else {
-                Toast.makeText(this, "Lỗi khi tải danh sách khóa học", Toast.LENGTH_SHORT).show();
+                layoutEmptyState.setVisibility(View.GONE);
+                recyclerViewCourses.setVisibility(View.VISIBLE);
+                adapter.setCourses(courses);
             }
         });
     }

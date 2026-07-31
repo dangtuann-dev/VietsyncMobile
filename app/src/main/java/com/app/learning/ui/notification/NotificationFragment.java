@@ -125,14 +125,13 @@ public class NotificationFragment extends Fragment {
                     notification.setRead(true);
                     adapter.notifyDataSetChanged();
                 }
-                if (notification.getActionUrl() != null && !notification.getActionUrl().isEmpty()) {
-                    try {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(notification.getActionUrl()));
-                        startActivity(browserIntent);
-                    } catch (Exception e) {
-                        Toast.makeText(getContext(), "Không thể mở liên kết", Toast.LENGTH_SHORT).show();
-                    }
+                Intent intent = new Intent(requireActivity(), com.app.learning.ui.course.CourseDetailActivity.class);
+                String courseId = "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380001";
+                if (notification.getTitle() != null && notification.getTitle().contains("UI/UX")) {
+                    courseId = "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380002";
                 }
+                intent.putExtra("course_id", courseId);
+                startActivity(intent);
             }
 
             @Override
