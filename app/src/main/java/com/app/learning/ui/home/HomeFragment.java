@@ -79,6 +79,17 @@ public class HomeFragment extends BaseFragment {
                 androidx.navigation.Navigation.findNavController(v).navigate(R.id.fragment_notification);
             });
         }
+
+        View.OnClickListener openProfileListener = v -> {
+            androidx.navigation.Navigation.findNavController(v).navigate(R.id.fragment_profile);
+        };
+
+        if (ivAvatar != null) {
+            ivAvatar.setOnClickListener(openProfileListener);
+        }
+        if (tvStudentName != null) {
+            tvStudentName.setOnClickListener(openProfileListener);
+        }
     }
 
     @Override
