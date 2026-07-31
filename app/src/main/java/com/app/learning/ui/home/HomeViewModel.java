@@ -73,7 +73,7 @@ public class HomeViewModel extends BaseViewModel {
         c1.setLevel("Nâng cao");
         c1.setDuration(45);
         c1.setRating(4.9);
-        c1.setPrice(499000);
+        c1.setPrice(0);
         c1.setThumbnail("https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=400");
         list.add(c1);
 
@@ -83,7 +83,7 @@ public class HomeViewModel extends BaseViewModel {
         c2.setLevel("Mới bắt đầu");
         c2.setDuration(24);
         c2.setRating(4.6);
-        c2.setPrice(299000);
+        c2.setPrice(0);
         c2.setThumbnail("https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=400");
         list.add(c2);
 
@@ -129,7 +129,7 @@ public class HomeViewModel extends BaseViewModel {
         c1.setLevel("Trung cấp");
         c1.setDuration(52);
         c1.setRating(4.7);
-        c1.setPrice(399000);
+        c1.setPrice(0);
         c1.setThumbnail("https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400");
         list.add(c1);
 
@@ -149,7 +149,7 @@ public class HomeViewModel extends BaseViewModel {
         c3.setLevel("Nâng cao");
         c3.setDuration(60);
         c3.setRating(4.9);
-        c3.setPrice(599000);
+        c3.setPrice(0);
         c3.setThumbnail("https://images.unsplash.com/photo-1527474305487-b87b222841cc?w=400");
         list.add(c3);
 

@@ -147,4 +147,27 @@ public class UserPreference {
     public void setAppLanguage(String language) {
         preferences.edit().putString("key_app_language", language).apply();
     }
+
+    public java.util.Set<String> getWishlistSet() {
+        return new java.util.HashSet<>(preferences.getStringSet("key_wishlist_ids", new java.util.HashSet<>()));
+    }
+
+    public boolean isWishlisted(String courseId) {
+        if (courseId == null) return false;
+        return getWishlistSet().contains(courseId);
+    }
+
+    public void addWishlistId(String courseId) {
+        if (courseId == null) return;
+        java.util.Set<String> set = getWishlistSet();
+        set.add(courseId);
+        preferences.edit().putStringSet("key_wishlist_ids", set).apply();
+    }
+
+    public void removeWishlistId(String courseId) {
+        if (courseId == null) return;
+        java.util.Set<String> set = getWishlistSet();
+        set.remove(courseId);
+        preferences.edit().putStringSet("key_wishlist_ids", set).apply();
+    }
 }

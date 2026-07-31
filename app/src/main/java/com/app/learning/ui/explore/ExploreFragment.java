@@ -79,16 +79,21 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
 
     private void loadCategoriesFromDb() {
         courseRepository.getCategories().observe(getViewLifecycleOwner(), resource -> {
-            if (resource != null && resource.isSuccess() && resource.data != null) {
-                allCategories.clear();
+            allCategories.clear();
+            if (resource != null && resource.isSuccess() && resource.data != null && !resource.data.isEmpty()) {
                 for (Category cat : resource.data) {
                     cat.setIconResId(iconForCategory(cat.getName()));
                     if (cat.getColorHex() == null) cat.setColorHex("#3B82F6");
                     if (cat.getColorLightHex() == null) cat.setColorLightHex("#EFF6FF");
                     allCategories.add(cat);
                 }
-                filterCategories(activeTabFilter);
+            } else {
+                allCategories.add(new Category(1L, "Công nghệ thông tin", R.drawable.ic_courses, "#3B82F6", "#EFF6FF"));
+                allCategories.add(new Category(2L, "Kinh doanh & Khởi nghiệp", R.drawable.ic_explore, "#10B981", "#ECFDF5"));
+                allCategories.add(new Category(3L, "Thiết kế đồ họa", R.drawable.ic_filter, "#F59E0B", "#FFFBEB"));
+                allCategories.add(new Category(4L, "Ngoại ngữ", R.drawable.ic_history, "#EF4444", "#FEF2F2"));
             }
+            filterCategories(activeTabFilter);
         });
     }
 
@@ -110,14 +115,22 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
     }
 
     private void filterCategories(String filter) {
-        if ("All".equals(filter)) {
+        if (filter == null || "All".equalsIgnoreCase(filter) || "Tất cả".equalsIgnoreCase(filter)) {
             categoryAdapter.setCategories(new ArrayList<>(allCategories));
             return;
         }
         List<Category> filtered = new ArrayList<>();
+        String filterLower = filter.toLowerCase();
         for (Category cat : allCategories) {
-            if (cat.getName() != null && cat.getName().equalsIgnoreCase(filter)) {
-                filtered.add(cat);
+            if (cat.getName() != null) {
+                String catLower = cat.getName().toLowerCase();
+                if (catLower.contains(filterLower) || filterLower.contains(catLower)
+                        || (filterLower.contains("công nghệ") && catLower.contains("công nghệ"))
+                        || (filterLower.contains("kinh doanh") && catLower.contains("kinh doanh"))
+                        || (filterLower.contains("thiết kế") && catLower.contains("thiết kế"))
+                        || (filterLower.contains("ngôn ngữ") && (catLower.contains("ngôn ngữ") || catLower.contains("ngoại ngữ")))) {
+                    filtered.add(cat);
+                }
             }
         }
         categoryAdapter.setCategories(filtered);

@@ -1,0 +1,243 @@
+P0: BÁO CÁO PHÂN TÍCH VÀ ĐÁNH GIÁ DỰ ÁN VIETSYNCMOBILE
+P1: Báo cáo chi tiết kỹ thuật dành cho dự án VietsyncMobile - Hệ thống quản lý học tập trực tuyến (LMS) tích hợp Backend-as-a-Service (BaaS) Supabase trên hệ điều hành Android.
+P2: ________________________________________________________________________________
+P3: 1. Tổng quan dự án
+P4: Tên dự án:
+P5: VietsyncMobile
+P6: Mục tiêu:
+P7: Cung cấp ứng dụng di động LMS (Learning Management System) tối ưu giúp kết nối giảng viên (Instructors) và học viên (Students), hỗ trợ học tập trực tuyến, theo dõi tiến trình học, thực hiện các bài trắc nghiệm và cấp chứng chỉ số.
+P8: Đối tượng người dùng:
+P9: Học viên (Student):
+P10: Tìm kiếm khóa học, theo dõi bài học (video), làm bài kiểm tra trắc nghiệm, quản lý danh sách yêu thích (wishlist), tải bài học để học offline và nhận chứng chỉ hoàn thành khóa học.
+P11: Giảng viên (Teacher/Instructor):
+P12: Theo dõi số lượng học viên, doanh thu, quản lý danh sách khóa học cá nhân và tạo khóa học mới.
+P13: Quản trị viên (Admin):
+P14: Quản trị hệ thống, cấp quyền và cấu hình hệ thống chung.
+P15: ________________________________________________________________________________
+P16: 2. Tech Stack & Phiên bản thư viện (Dependencies)
+P17: Ứng dụng được phát triển trên nền tảng Android Native sử dụng ngôn ngữ Java kết hợp với các thư viện hiện đại để tối ưu hóa hiệu năng, bảo mật và trải nghiệm người dùng:
+P18: ________________________________________________________________________________
+P19: 3. Kiến trúc hệ thống & Luồng dữ liệu (Architecture & Data Flow)
+P20: 3.1. Kiến trúc MVVM (Model-View-ViewModel)
+P21: Dự án áp dụng mô hình MVVM chuẩn hóa giúp phân tách rõ ràng vai trò giữa giao diện người dùng và logic xử lý dữ liệu:
+P24: 1. View (Activity / Fragment)
+P25: Vai trò: Chịu trách nhiệm hiển thị giao diện và nhận tương tác từ người dùng.
+P26: Cơ chế: Đăng ký lắng nghe (observe) sự thay đổi trạng thái từ các LiveData trong ViewModel để cập nhật UI.
+P27: Nguyên tắc: Tuyệt đối không trực tiếp xử lý logic nghiệp vụ hay biến đổi dữ liệu.
+P28: 2. ViewModel
+P29: Vai trò: Nơi tập trung toàn bộ logic nghiệp vụ (business logic) và quản lý trạng thái của UI.
+P30: Cơ chế: Sử dụng Transformations.switchMap để tự động kích hoạt các truy vấn từ Repository mỗi khi các biến kích hoạt (trigger variables) thay đổi. Điều này giúp giữ cho UI luôn đồng bộ với dữ liệu mới nhất.
+P31: 3. Repository
+P32: Vai trò: Kế thừa từ BaseRepository, đóng vai trò là nguồn dữ liệu duy nhất (Single Source of Truth), điều phối và đồng bộ dữ liệu giữa Remote API và Local Database (Room DB).
+P33: Quản lý bất đồng bộ: Sử dụng AppExecutors để đẩy các tác vụ nặng (truy vấn mạng, đọc/ghi đĩa) xuống background thread thông qua networkIO và diskIO, sau đó trả kết quả an toàn về UI thread bằng mainThread.
+P34: 4. Resource Wrapper (Resource<T>)
+P35: Vai trò: Lớp đóng gói dữ liệu trả về từ Repository, giúp View dễ dàng nhận biết và phản hồi theo từng trạng thái của tiến trình.
+P36: Các trạng thái cốt lõi:
+P37: LOADING: Đang tải dữ liệu (hiển thị progress bar).
+P38: SUCCESS: Lấy dữ liệu thành công (kèm theo dữ liệu trả về kiểu T).
+P39: ERROR: Xảy ra lỗi (kèm theo thông tin chi tiết về lỗi được phân tích qua lớp ApiError).
+P40: ________________________________________________________________________________
+P41: 3.2. Luồng xác thực (Authentication Flow)
+P43: Tự động làm mới Token (Auto Token Refresh)
+P44: Ứng dụng triển khai một dịch vụ chạy ngầm mang tên TokenRefreshService. Dịch vụ này:
+1.  Sử dụng ScheduledExecutorService để chạy định kỳ mỗi 5 phút.
+2.  Kiểm tra thời gian hết hạn (expiryTime) của JWT token hiện tại được lưu trong SessionManager.
+3.  Nếu thời gian còn hiệu lực dưới 10 phút, nó sẽ thực hiện gọi đồng bộ AuthRepository.refreshTokenSync() để gửi yêu cầu làm mới lên endpoint /auth/v1/token?grant_type=refresh_token.
+4.  Khi có token mới, SessionManager ghi đè token cũ để đảm bảo các yêu cầu tiếp theo không bị lỗi 401 Unauthorized.
+P45: Quy trình Khôi phục mật khẩu (Password Recovery Flow)
+P46: 1.Yêu cầu quên mật khẩu:
+P47: Người dùng gửi yêu cầu quên mật khẩu trong ForgotPasswordActivity thông qua email.
+P48: 2.Gọi API hệ thống:
+P49: Hệ thống gọi API recoverPassword(email).
+P50: 3.Supabase gửi email xác thực:
+P51: Supabase gửi email chứa liên kết đặt lại mật khẩu với Deep Link cấu hình dạng vietsync://reset-password.
+P52: 4.Nhận diện Deep Link:
+P53: Khi người dùng click vào link trong email, Android OS nhận diện Scheme vietsync và mở ứng dụng, truyền mã Access Token tạm thời nằm trong URL Fragment vào Activity.
+P54: 5.Hoàn tất cập nhật mật khẩu:
+P55: Người dùng nhập mật khẩu mới và ứng dụng gửi yêu cầu PATCH mật khẩu mới kèm Bearer Token tạm thời đó lên /auth/v1/user để hoàn tất cập nhật.
+P56: ________________________________________________________________________________
+P57: 4. Chi tiết cấu trúc Cơ sở dữ liệu (Database Schema)
+P58: 4.1. Remote Database (Supabase PostgreSQL Schema)
+P59: Cơ sở dữ liệu được tổ chức chặt chẽ trên PostgreSQL của Supabase, áp dụng RLS (Row Level Security) để bảo mật tài nguyên:
+P60: Bảng users (Lưu thông tin hồ sơ người dùng)
+P62: Bảng categories (Lưu danh mục học tập)
+P64: Bảng courses (Danh sách khóa học)
+P66: Bảng lessons (Bài học trong khóa học)
+P68: Bảng enrollments (Đăng ký học tập)
+P70: Bảng quizzes & quiz_attempts (Trắc nghiệm bài học)
+P71: quizzes: lưu thông tin bài kiểm tra thuộc bài học (lesson_id), điểm sàn vượt qua (passing_score).
+P72: quiz_attempts: lưu lịch sử làm bài của học viên (user_id), điểm số đạt được (score), trạng thái đỗ/trượt (passed).
+P73: Bảng certificates (Chứng chỉ hoàn thành)
+P75: Bảng user_settings (Cấu hình ứng dụng)
+P77: Các Database Triggers quan trọng:
+P78: on_auth_user_created: Đính kèm vào bảng auth.users của hệ thống Supabase. Khi người dùng mới xác thực thành công, Trigger này tự động chèn thông tin (id, email, full_name, role) sang bảng public users để có thể quản lý và hiển thị công khai.
+P79: update_enrolled_count: Đính kèm vào bảng enrollments. Khi có học viên đăng ký mới (INSERT), nó tự động tăng giá trị cột enrolled_count của khóa học tương ứng trong bảng courses.
+P80: check_course_completion: Đính kèm vào bảng enrollments. Khi progress_percent được cập nhật lên 100 (UPDATE), trigger tự động chèn một bản ghi cấp chứng nhận mới vào bảng certificates.
+P81: ________________________________________________________________________________
+P82: 4.2. Local Database (Room Database Schema)
+P83: Room DB được cấu hình để lưu trữ dữ liệu ngoại tuyến gọn nhẹ, hỗ trợ tìm kiếm nhanh:
+P84: Bảng search_history
+P86: Room DAO (SearchHistoryDao)
+P87: insert (SearchHistory): Thêm từ khóa, giải quyết xung đột bằng cách ghi đè (OnConflictStrategy.REPLACE).
+P88: getHistoryLimit (int limit): Trả về danh sách LiveData chứa tối đa N từ khóa tìm kiếm gần nhất xếp theo thời gian giảm dần.
+P89: delete (SearchHistory): Xóa một từ khóa cụ thể.
+P90: clearAll (): Xóa sạch toàn bộ lịch sử tìm kiếm.
+P91: ________________________________________________________________________________
+P92: 5. API Integration Details
+P93: Tất cả các REST API calls đều được định nghĩa thông qua các Interface Retrofit 2 tương ứng với phân vùng của Supabase:
+P94: 5.1. Các Interface API chính
+P95: AuthApi (Endpoint /auth/v1/)
+P96: signUp(SignUpRequest) -> POST signup: Tạo tài khoản mới kèm metadata.
+P97: signIn(SignInRequest) -> POST token?grant_type=password: Đăng nhập lấy JWT access_token.
+P98: refreshToken(RefreshTokenRequest) -> POST token?grant_type=refresh_token: Refresh access_token.
+P99: logout(String bearerToken) -> POST logout: Đăng xuất và vô hiệu hóa token hiện tại.
+P100: getUser(String bearerToken) -> GET user: Lấy thông tin user hiện tại từ token.
+P101: recoverPassword(RecoverRequest) -> POST recover: Gửi email khôi phục mật khẩu.
+P102: updateUser(String bearerToken, UpdateUserRequest) -> PUT user: Cập nhật mật khẩu mới.
+P103: UserApi (Endpoint /rest/v1/)
+P104: getUser(String idFilter, String select) -> GET users: Lấy thông tin chi tiết hồ sơ người dùng.
+P105: updateUser(String idFilter, Map<String, Object> fields, String preferHeader) -> PATCH users: Cập nhật tên, bio hoặc ảnh đại diện.
+P106: getUserEnrollments(String idFilter, String select) -> GET enrollments: Danh sách ghi danh của học viên.
+P107: getUserCertificates(String idFilter, String select) -> GET certificates: Danh sách chứng chỉ đã cấp.
+P108: uploadAvatar(String filename, RequestBody fileBody, String upsertHeader) -> POST /storage/v1/object/avatars/: Tải ảnh đại diện lên Storage bucket.
+P109: getUserSettings(String idFilter) -> GET user_settings: Lấy cấu hình ứng dụng của người dùng.
+P110: upsertUserSettings(Map<String, Object> body, String preferHeader) -> POST user_settings: Cập nhật hoặc chèn mới cấu hình (Upsert).
+P111: CourseApi (Endpoint /rest/v1/)
+P112: searchCourses(Map<String, String> queryOptions) -> GET courses: Tìm kiếm khóa học kèm các điều kiện lọc và phân trang.
+P113: getCategories(String select) -> GET categories: Lấy danh sách các danh mục học tập.
+P114: WishlistApi (Endpoint /rest/v1/)
+P115: Quản lý danh sách yêu thích của người dùng thông qua các phương thức GET, POST và DELETE đến bảng wishlists.
+P116: 5.2. Cơ chế Xác thực tự động qua Retrofit (AuthInterceptor)
+P117: Để giảm thiểu việc chèn thủ công Header vào từng API Call, dự án cài đặt AuthInterceptor vào OkHttpClient:
+P118: Mọi API Call đều tự động nhận các Headers bảo mật giúp giao tiếp thành công với PostgreSQL REST API phía sau lớp bảo vệ RLS.
+P119: ________________________________________________________________________________
+P120: 6. Phân quyền người dùng & Điều hướng (Role-based Navigation)
+P121: Hệ thống phân quyền được kiểm soát chặt chẽ thông qua lớp RoleManager hỗ trợ 3 vai trò: STUDENT, TEACHER, và ADMIN.
+P122: Tùy biến điểm khởi chạy trong MainActivity:
+P123: Điều hướng vai trò người dùng tại MainActivity
+P124: Khi ứng dụng khởi động thành công từ màn hình Splash, MainActivity kiểm tra vai trò hiện tại của người dùng bằng cách gọi RoleManager.getInstance(this).getCurrentRole().
+P125: Nếu vai trò là TEACHER (Giảng viên): Khởi tạo điểm bắt đầu (StartDestination) của đồ thị chuyển trang NavGraph là R.id.fragment_teacher_dashboard (Bảng điều khiển cho giáo viên).
+P126: Nếu vai trò là STUDENT hoặc ADMIN: Điểm bắt đầu là R.id.fragment_home (Trang chủ của học viên).
+P127: Annotation Phân quyền @RequireRole
+P128: Ứng dụng thiết kế Annotation @RequireRole(RoleManager.Role.TEACHER) dùng để chú thích quyền hạn truy cập của các Fragment (ví dụ áp dụng trực tiếp trên TeacherDashboardFragment.java).
+P129: ________________________________________________________________________________
+P130: 7. Các điểm sáng kỹ thuật & Trải nghiệm UX (Premium Features)
+P131: Ứng dụng được cài đặt các thuật toán và UI Components cao cấp mang lại trải nghiệm chuyên nghiệp:
+P132: Cơ chế Debounce tìm kiếm (Instant Search)
+P133: Trong SearchViewModel, để ngăn chặn việc gửi hàng chục HTTP request liên tục lên Supabase khi người dùng gõ phím, ứng dụng sử dụng Handler trì hoãn 300ms trước khi chạy query thật. Mọi ký tự nhập thêm trong khoảng thời gian này sẽ hủy (cancel) lịch hẹn cũ và tạo lịch hẹn mới. Khi người dùng nhấn nút Search (Submit), ứng dụng sẽ bỏ qua debounce và gửi request ngay lập tức.
+P134: Trải nghiệm Swipe to Dismiss (Vuốt để xóa)
+P135: Trong màn hình Danh sách yêu thích (WishlistFragment), người dùng có thể vuốt một mục khóa học sang trái để xóa nó. Logic này được xử lý bằng ItemTouchHelper.SimpleCallback kết hợp tự vẽ nền màu đỏ động (ColorDrawable màu đỏ từ R.color.error) đè lên Canvas (onChildDraw) tạo cảm giác xóa mượt mà, phản hồi tốt.
+P136: Skeleton Loading (Giao diện Khung xương tải trang)
+P137: Khi danh sách khóa học đang tải, ứng dụng không hiển thị vòng xoay ProgressBar nhàm chán. Thay vào đó, DanhSachKhoaHocFragment tạm thời hiển thị KhungTaiAdapter gồm 6 phần tử giả lập cấu trúc lưới hoặc danh sách của khóa học thật với hiệu ứng mờ nhạt (shimmer) giúp tăng trải nghiệm phản hồi.
+P138: Bảo mật lưu trữ
+P139: Sử dụng EncryptedSharedPreferences (sử dụng Keystore mã hóa cấp độ phần cứng Android) để lưu trữ tokens xác thực và mật khẩu phiên làm việc, chống việc bị dịch ngược hoặc root máy để đọc trộm token.
+P140: Cuộn tự động Banner quảng cáo
+P141: ViewPager2 trên trang chủ tự động dịch chuyển Banner sau mỗi 3 giây nhờ Handler và Runnable tự động lặp vòng.
+P142: ________________________________________________________________________________
+P143: 8. Hạn chế kỹ thuật hiện tại & Hướng phát triển (Known Limitations & TODOs)
+P144: Bên cạnh các phần khung kiến trúc và logic dữ liệu vững chắc đã hoàn thành, mã nguồn dự án hiện đang có một số hạn chế kỹ thuật (Known Limitations) cần lưu ý và tiếp tục phát triển:
+P145: Dữ liệu Trang chủ (HomeFragment) vẫn là Mock Cứng
+P146: Mặc dù UI trang chủ rất phong phú nhưng toàn bộ dữ liệu danh mục (Categories), các khóa học nổi bật (FeaturedCourses), khóa học đang học tiếp (ContinueLearning) và các khóa học phổ biến (PopularCourses) hiện vẫn được tạo bằng dữ liệu cứng (Mock) trong HomeViewModel.java thay vì gọi API/Repository để lấy dữ liệu thực tế từ Supabase.
+P147: Dashboard của Giảng viên (TeacherDashboardFragment) chưa kết nối API
+P148: Các chỉ số hiển thị như "Tổng số học viên (1,452)", "Tổng số khóa học (18)", "Doanh thu (256Mđ)" và danh sách đăng ký học tập gần đây (RecentEnrollment) hiện tại đều viết cứng trong code Java chứ chưa liên kết với các bảng dữ liệu Supabase tương ứng.
+P149: Một số Fragment chính mới chỉ có Layout XML rỗng (Logic Java rỗng)
+P150: Các màn hình cốt lõi dưới đây hiện tại mới chỉ chứa khung layout giao diện XML, lớp Java chưa được hiện thực hóa logic tương tác, kết nối API hoặc xử lý sự kiện:
+P151: LessonDetailFragment.java (Chi tiết bài giảng & phát video học).
+P152: MyLearningFragment.java (Danh sách khóa học học viên đang tham gia).
+P153: MyCoursesFragment.java (Danh sách khóa học do giảng viên tự quản lý).
+P154: CreateCourseFragment.java (Form cho giảng viên điền để tạo khóa học mới).
+P155: Annotation @RequireRole chưa được kiểm tra tự động tại Runtime
+P156: Mặc dù annotation @RequireRole đã được khai báo trên TeacherDashboardFragment, hiện tại mã nguồn chưa có cơ chế kiểm tra tự động trước khi chuyển trang (ví dụ: Custom NavController hoặc Navigator Interceptor) để chặn truy cập trái phép ở cấp hệ thống. Cơ chế bảo vệ hiện vẫn đang phụ thuộc vào việc điều hướng tĩnh thủ công ở MainActivity.
+
+--- Table 0 ---
+Thành phần | Công nghệ / Thư viện | Phiên bản | Ghi chú
+Core & Ngôn ngữ | Java 11 / Android SDK 34 | - | Môi trường phát triển chính
+UI Framework | XML Layouts & Jetpack Navigation | - | Quản lý Fragment, Bottom Nav và Drawer Navigation
+Networking | Retrofit 2 & OkHttp 3 | 2.11.0 / 4.12.0 | Giao tiếp với Supabase qua REST API
+JSON Parser | Gson | 2.10.1 | Deserialize / Serialize dữ liệu API
+Local Database | Room Database | 2.6.1 | Lưu lịch sử tìm kiếm cục bộ (search_history)
+Bảo mật Session | EncryptedSharedPreferences | 1.1.0-alpha06 | Lưu trữ JWT Tokens và thông tin phiên an toàn
+BaaS / Backend | Supabase (Postgrest, GoTrue, Storage) | - | Cơ sở dữ liệu Postgres, xác thực người dùng, lưu trữ ảnh
+Tải ảnh đại diện | Glide | 4.16.0 | Caching và hiển thị hình ảnh từ URL
+Hiệu ứng đồ họa | Lottie | 6.4.0 | Hiển thị các hoạt ảnh vector động chuyên nghiệp
+Làm mới dữ liệu | SwipeRefreshLayout | 1.2.0-alpha01 | Kéo để tải lại danh sách
+UI Component | CircleImageView | 3.1.0 | Bo tròn ảnh đại diện của người dùng
+
+--- Table 1 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+id | uuid | Primary Key, liên kết trực tiếp với bảng auth.users của Supabase
+email | text | Không trùng lặp (Unique)
+full_name | text | Họ và tên người dùng
+role | text | Giá trị: student, teacher, admin. Mặc định: student
+bio | text | Giới thiệu bản thân
+avatar_url | text | Đường dẫn công khai ảnh đại diện lưu trên Supabase Storage
+created_at | timestamp with time zone | Mặc định: now()
+
+--- Table 2 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+id | bigint | Primary Key, tự động tăng
+name | text | Tên danh mục, ví dụ: Lập trình, Thiết kế...
+icon_name | text | Tên icon để ánh xạ hiển thị trên Android
+color_hex | text | Màu sắc chủ đạo định dạng HEX
+color_light_hex | text | Màu nền nhạt HEX
+created_at | timestamp with time zone | Thời gian tạo
+
+--- Table 3 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+id | uuid | Primary Key, mặc định: gen_random_uuid()
+title | text | Tiêu đề khóa học
+description | text | Mô tả chi tiết khóa học
+thumbnail | text | URL ảnh nền khóa học
+instructor_id | uuid | Khóa ngoại liên kết bảng users.id
+category_id | bigint | Khóa ngoại liên kết bảng categories.id
+price | numeric | Mặc định: 0.0 (Khóa học miễn phí)
+level | text | Cấp độ khóa học: Mới bắt đầu, Trung cấp, Nâng cao...
+duration | integer | Tổng thời lượng khóa học bằng giờ
+rating | numeric | Điểm đánh giá trung bình từ học viên
+enrolled_count | integer | Số lượng học viên đã đăng ký, mặc định: 0
+created_at | timestamp with time zone | Thời gian tạo
+
+--- Table 4 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+id | uuid | Primary Key
+course_id | uuid | Khóa ngoại liên kết bảng courses.id, tự động xóa khi khóa học bị xóa (ON DELETE CASCADE)
+title | text | Tiêu đề bài học
+description | text | Nội dung/mô tả bài học
+video_url | text | Đường dẫn video bài giảng
+duration | integer | Thời lượng tính bằng phút
+sort_order | integer | Thứ tự hiển thị bài học trong khóa
+created_at | timestamp with time zone | Thời gian tạo
+
+--- Table 5 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+id | uuid | Primary Key
+user_id | uuid | Khóa ngoại liên kết bảng users.id
+course_id | uuid | Khóa ngoại liên kết bảng courses.id
+progress_percent | integer | Tiến trình học từ 0 đến 100, mặc định: 0
+enrolled_at | timestamp with time zone | Thời gian đăng ký học
+completed_at | timestamp with time zone | Mốc thời gian khi hoàn thành 100% tiến độ
+
+--- Table 6 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+id | uuid | Primary Key
+user_id | uuid | Khóa ngoại users.id
+course_id | uuid | Khóa ngoại courses.id
+issued_at | timestamp with time zone | Thời gian cấp chứng chỉ
+certificate_url | text | Đường dẫn file chứng chỉ
+
+--- Table 7 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+user_id | uuid | Primary Key, khóa ngoại users.id
+dark_mode | boolean | Trạng thái giao diện tối
+notifications_enabled | boolean | Nhận thông báo
+language | text | Ngôn ngữ ứng dụng: vi, en
+quiet_hours_start & quiet_hours_end | text | Khung giờ tắt thông báo
+updated_at | timestamp with time zone | Thời gian cập nhật
+
+--- Table 8 ---
+Tên trường | Kiểu dữ liệu | Mô tả
+query | text | Primary Key - Từ khóa tìm kiếm của người dùng
+timestamp | long | Thời gian tìm kiếm, dùng để sắp xếp kết quả mới nhất lên đầu
+
+--- Table 9 ---
+public Response intercept(Chain chain) throws IOException {     Request original = chain.request();     Request.Builder builder = original.newBuilder()             .header("apikey", BuildConfig.SUPABASE_ANON_KEY); // Luôn gửi API Key của Supabase      String token = SessionManager.getInstance(context).getAccessToken();     if (token != null && !token.isEmpty()) {         builder.header("Authorization", "Bearer " + token); // Đính kèm JWT token nếu đã đăng nhập     } else {         builder.header("Authorization", "Bearer " + BuildConfig.SUPABASE_ANON_KEY);     }     return chain.proceed(builder.build()); }
