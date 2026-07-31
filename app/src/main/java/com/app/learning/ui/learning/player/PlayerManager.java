@@ -67,10 +67,10 @@ public class PlayerManager {
                 @Override
                 public void onPlayerError(androidx.media3.common.PlaybackException error) {
                     android.util.Log.e("PlayerManager", "Playback Error: " + error.getMessage(), error);
-                    String fallbackUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+                    String fallbackUri = "android.resource://" + applicationContext.getPackageName() + "/" + com.example.vietsyncmobile.R.raw.sample_lesson;
                     if (player != null) {
                         try {
-                            player.setMediaItem(MediaItem.fromUri(Uri.parse(fallbackUrl)));
+                            player.setMediaItem(MediaItem.fromUri(Uri.parse(fallbackUri)));
                             player.prepare();
                             player.play();
                         } catch (Exception ignored) {}
@@ -96,9 +96,10 @@ public class PlayerManager {
         this.currentLessonId = lessonId;
         if (player == null) initPlayer();
 
+        String rawUriStr = "android.resource://" + applicationContext.getPackageName() + "/" + com.example.vietsyncmobile.R.raw.sample_lesson;
         String activeUrl = (mediaUrl != null && !mediaUrl.isEmpty())
                 ? mediaUrl
-                : "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
+                : rawUriStr;
 
         MediaItem mediaItem = MediaItem.fromUri(Uri.parse(activeUrl));
         player.setMediaItem(mediaItem);
