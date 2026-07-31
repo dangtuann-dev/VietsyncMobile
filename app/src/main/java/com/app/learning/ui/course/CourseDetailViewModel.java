@@ -148,7 +148,7 @@ public class CourseDetailViewModel extends BaseViewModel {
         l1.setCourseId(courseId);
         l1.setTitle("Bài 1: Giới thiệu " + prefix + " & Môi trường thực hành");
         l1.setContent("Tổng quan về nội dung học, cài đặt các công cụ cần thiết và hoàn thiện bài lab đầu tiên.");
-        l1.setVideoUrl("https://www.w3schools.com/html/mov_bbb.mp4");
+        l1.setVideoUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4");
         l1.setOrderIndex(1);
         l1.setDuration(15);
         l1.setType("video");
@@ -160,7 +160,7 @@ public class CourseDetailViewModel extends BaseViewModel {
         l2.setCourseId(courseId);
         l2.setTitle("Bài 2: Kiến thức nền tảng & Cấu trúc cốt lõi");
         l2.setContent("Nắm vững các khái niệm căn bản, cú pháp và quy chuẩn lập trình/thiết kế tiêu chuẩn.");
-        l2.setVideoUrl("https://www.w3schools.com/html/movie.mp4");
+        l2.setVideoUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4");
         l2.setOrderIndex(2);
         l2.setDuration(25);
         l2.setType("video");
@@ -171,7 +171,7 @@ public class CourseDetailViewModel extends BaseViewModel {
         l3.setCourseId(courseId);
         l3.setTitle("Bài 3: Thực hành dự án thực tế phần 1");
         l3.setContent("Áp dụng kiến thức xây dựng các module chính và xử lý tình huống thực tế.");
-        l3.setVideoUrl("https://www.w3schools.com/html/mov_bbb.mp4");
+        l3.setVideoUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4");
         l3.setOrderIndex(3);
         l3.setDuration(30);
         l3.setType("video");
@@ -182,7 +182,7 @@ public class CourseDetailViewModel extends BaseViewModel {
         l4.setCourseId(courseId);
         l4.setTitle("Bài 4: Kỹ thuật nâng cao & Tối ưu hiệu năng");
         l4.setContent("Mở rộng kỹ năng với các thư viện tiên tiến, tối ưu hóa tốc độ và quy trình hoàn thiện.");
-        l4.setVideoUrl("https://www.w3schools.com/html/movie.mp4");
+        l4.setVideoUrl("https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoybacks.mp4");
         l4.setOrderIndex(4);
         l4.setDuration(35);
         l4.setType("video");

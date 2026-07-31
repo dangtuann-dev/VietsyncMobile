@@ -83,7 +83,7 @@ public class LessonPlayerActivity extends AppCompatActivity {
         if (lessonId == null) lessonId = "d0eebc99-9c0b-4ef8-bb6d-6bb9bd380011";
         if (courseId == null) courseId = "c0eebc99-9c0b-4ef8-bb6d-6bb9bd380001";
         if (lessonTitle == null) lessonTitle = "Bài 1: Giới thiệu khóa học";
-        if (videoUrl == null) videoUrl = "https://www.w3schools.com/html/mov_bbb.mp4";
+        if (videoUrl == null) videoUrl = "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4";
 
         toolbar.setTitle(lessonTitle);
 
