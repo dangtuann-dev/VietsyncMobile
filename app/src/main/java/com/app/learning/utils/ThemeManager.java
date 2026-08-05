@@ -1,24 +1,19 @@
 package com.app.learning.utils;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class ThemeManager {
-
-    private static final String PREF_NAME = "app_theme_prefs";
-    private static final String KEY_THEME_MODE = "theme_mode";
 
     public static final int THEME_LIGHT = AppCompatDelegate.MODE_NIGHT_NO;
     public static final int THEME_DARK = AppCompatDelegate.MODE_NIGHT_YES;
     public static final int THEME_SYSTEM = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
 
     private static ThemeManager instance;
-    private SharedPreferences prefs;
+    private final Context context;
 
     private ThemeManager(Context context) {
-        prefs = context.getApplicationContext().getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
+        this.context = context.getApplicationContext();
     }
 
     public static synchronized ThemeManager getInstance(Context context) {
@@ -29,12 +24,15 @@ public class ThemeManager {
     }
 
     public void setThemeMode(int mode) {
-        prefs.edit().putInt(KEY_THEME_MODE, mode).apply();
+        UserPreference userPref = UserPreference.getInstance(context);
+        boolean isDark = (mode == THEME_DARK);
+        userPref.setDarkModeEnabled(isDark);
         AppCompatDelegate.setDefaultNightMode(mode);
     }
 
     public int getThemeMode() {
-        return prefs.getInt(KEY_THEME_MODE, THEME_SYSTEM);
+        boolean isDark = UserPreference.getInstance(context).isDarkModeEnabled();
+        return isDark ? THEME_DARK : THEME_LIGHT;
     }
 
     public void applyTheme() {

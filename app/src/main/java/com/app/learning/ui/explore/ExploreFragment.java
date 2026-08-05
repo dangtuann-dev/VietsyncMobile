@@ -49,6 +49,15 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (courseRepository != null) {
+            loadCategoriesFromDb();
+            loadCourseCountsFromDb();
+        }
+    }
+
     private void setupTabLayout() {
         tabLayout.addTab(tabLayout.newTab().setText("Tất cả"));
         tabLayout.addTab(tabLayout.newTab().setText("Công nghệ"));
@@ -122,11 +131,11 @@ public class ExploreFragment extends Fragment implements CategoryGridAdapter.OnC
                 }
             }
 
-            // Ensure non-zero accurate course counts for each category card matching available courses
-            counts.put(1L, 2); // Công nghệ thông tin (2 courses)
-            counts.put(2L, 1); // Kinh doanh & Khởi nghiệp (1 course)
-            counts.put(3L, 1); // Thiết kế đồ họa (1 course)
-            counts.put(4L, 1); // Ngoại ngữ (1 course)
+            // Đảm bảo mỗi danh mục có ít nhất số liệu từ danh sách khóa học thực tế
+            if (!counts.containsKey(1L)) counts.put(1L, 2);
+            if (!counts.containsKey(2L)) counts.put(2L, 1);
+            if (!counts.containsKey(3L)) counts.put(3L, 1);
+            if (!counts.containsKey(4L)) counts.put(4L, 1);
 
             categoryAdapter.setCourseCounts(counts);
         });

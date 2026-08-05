@@ -89,6 +89,26 @@ public class MyLearningViewModel extends BaseViewModel {
         c3.setRating(4.90);
         c3.setPrice(0);
 
+        com.app.learning.data.model.Course c4 = new com.app.learning.data.model.Course();
+        c4.setId("c0eebc99-9c0b-4ef8-bb6d-6bb9bd380004");
+        c4.setTitle("Tiếng Anh giao tiếp công sở & CNTT");
+        c4.setDescription("Nâng cao khả năng giao tiếp tiếng Anh chuyên ngành công nghệ thông tin và môi trường doanh nghiệp.");
+        c4.setThumbnail("https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400");
+        c4.setLevel("beginner");
+        c4.setDuration(800);
+        c4.setRating(4.75);
+        c4.setPrice(0);
+
+        com.app.learning.data.model.Course c5 = new com.app.learning.data.model.Course();
+        c5.setId("c0eebc99-9c0b-4ef8-bb6d-6bb9bd380005");
+        c5.setTitle("Khởi nghiệp Thực chiến & Quản trị Kinh doanh");
+        c5.setDescription("Kiến thức quản trị kinh doanh toàn diện, xây dựng mô hình kinh doanh và chiến lược phát triển.");
+        c5.setThumbnail("https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=400");
+        c5.setLevel("intermediate");
+        c5.setDuration(1100);
+        c5.setRating(4.80);
+        c5.setPrice(0);
+
         java.util.Set<String> removedSavedIds = (context != null)
                 ? com.app.learning.utils.UserPreference.getInstance(context).getRemovedSavedSet()
                 : new java.util.HashSet<>();
@@ -106,9 +126,17 @@ public class MyLearningViewModel extends BaseViewModel {
             list.add(e1);
         } else if ("saved".equalsIgnoreCase(status)) {
             java.util.Map<String, com.app.learning.data.model.Course> knownCourses = new java.util.HashMap<>();
+            List<com.app.learning.data.model.Course> createdList = CourseRepository.getCreatedCourses();
+            for (com.app.learning.data.model.Course created : createdList) {
+                if (created != null && created.getId() != null) {
+                    knownCourses.put(created.getId(), created);
+                }
+            }
             knownCourses.put(c1.getId(), c1);
             knownCourses.put(c2.getId(), c2);
             knownCourses.put(c3.getId(), c3);
+            knownCourses.put(c4.getId(), c4);
+            knownCourses.put(c5.getId(), c5);
 
             com.app.learning.utils.UserPreference userPref = (context != null) ? com.app.learning.utils.UserPreference.getInstance(context) : null;
             

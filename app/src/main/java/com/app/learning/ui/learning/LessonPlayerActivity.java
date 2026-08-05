@@ -40,6 +40,7 @@ public class LessonPlayerActivity extends AppCompatActivity {
     public static final String EXTRA_COURSE_ID = "extra_course_id";
     public static final String EXTRA_LESSON_TITLE = "extra_lesson_title";
     public static final String EXTRA_VIDEO_URL = "extra_video_url";
+    public static final String EXTRA_COURSE_TITLE = "extra_course_title";
 
     private MaterialToolbar toolbar;
     private PlayerView playerView;
@@ -56,6 +57,7 @@ public class LessonPlayerActivity extends AppCompatActivity {
     private String courseId;
     private String lessonTitle;
     private String videoUrl;
+    private int currentLessonIndex = 0;
 
     private boolean isMuted = false;
 
@@ -155,12 +157,18 @@ public class LessonPlayerActivity extends AppCompatActivity {
     }
 
     private void setupViewPager() {
+        // Tính chỉ số bài học dựa trên vị trí hiện tại trong danh sách
+        final int lessonIdx = currentLessonIndex;
+        final String currentCourseId = courseId;
+        final String currentLessonTitle = lessonTitle;
+
         viewPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull
             @Override
             public Fragment createFragment(int position) {
                 if (position == 0) {
-                    return LessonContentFragment.newInstance(lessonTitle, "<p>Bài học này hướng dẫn các khái niệm cơ bản về lập trình Android với Java và MVVM Architecture.</p><pre><code>// Dynamic code block\nString app = \"VietsyncMobile\";</code></pre>");
+                    String content = LessonContentProvider.getContent(currentCourseId, lessonIdx, currentLessonTitle);
+                    return LessonContentFragment.newInstance(currentLessonTitle, content);
                 } else if (position == 1) {
                     return LessonNotesFragment.newInstance(courseId, lessonId, lessonTitle);
                 } else {
@@ -204,7 +212,6 @@ public class LessonPlayerActivity extends AppCompatActivity {
     }
 
     private final java.util.List<LessonItem> lessonList = new java.util.ArrayList<>();
-    private int currentLessonIndex = 0;
 
     private void initLessonList() {
         lessonList.clear();
@@ -226,6 +233,11 @@ public class LessonPlayerActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    /** Trả về chỉ số bài học hiện tại (dùng để lấy nội dung từ LessonContentProvider). */
+    private int getCurrentLessonIndexFromList() {
+        return currentLessonIndex;
     }
 
     private void navigateLesson(boolean next) {

@@ -161,7 +161,19 @@ public class UserPreference {
         if (courseId == null) return;
         java.util.Set<String> set = getWishlistSet();
         set.add(courseId);
-        preferences.edit().putStringSet("key_wishlist_ids", set).apply();
+        java.util.Set<String> removedSet = getRemovedSavedSet();
+        removedSet.remove(courseId);
+        preferences.edit()
+                .putStringSet("key_wishlist_ids", set)
+                .putStringSet("key_removed_saved_ids", removedSet)
+                .apply();
+    }
+
+    public void removeRemovedSavedId(String courseId) {
+        if (courseId == null) return;
+        java.util.Set<String> set = getRemovedSavedSet();
+        set.remove(courseId);
+        preferences.edit().putStringSet("key_removed_saved_ids", set).apply();
     }
 
     public void saveWishlistCourse(com.app.learning.data.model.Course course) {

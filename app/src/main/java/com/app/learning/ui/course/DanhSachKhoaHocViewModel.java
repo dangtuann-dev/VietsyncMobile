@@ -151,9 +151,15 @@ public class DanhSachKhoaHocViewModel extends ViewModel {
         c5.setRating(4.80);
         c5.setPrice(0);
 
+        List<Course> allPool = new ArrayList<>(CourseRepository.getCreatedCourses());
+        allPool.add(c1);
+        allPool.add(c2);
+        allPool.add(c3);
+        allPool.add(c4);
+        allPool.add(c5);
+
         if (categoryId == null || categoryId.trim().isEmpty() || "0".equals(categoryId)) {
-            list.add(c1); list.add(c2); list.add(c3); list.add(c4); list.add(c5);
-            return list;
+            return allPool;
         }
 
         long catIdLong;
@@ -168,15 +174,14 @@ public class DanhSachKhoaHocViewModel extends ViewModel {
             else catIdLong = 1L;
         }
 
-        for (Course c : new Course[]{c1, c2, c3, c4, c5}) {
+        for (Course c : allPool) {
             if (c.getCategoryId() != null && c.getCategoryId() == catIdLong) {
                 list.add(c);
             }
         }
 
         if (list.isEmpty()) {
-            list.add(c1);
-            list.add(c2);
+            list.addAll(allPool);
         }
         return list;
     }

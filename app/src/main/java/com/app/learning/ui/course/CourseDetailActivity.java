@@ -313,8 +313,7 @@ public class CourseDetailActivity extends BaseActivity {
                 } else {
                     userPreference.addWishlistId(courseId);
                 }
-                java.util.Set<String> removed = userPreference.getRemovedSavedSet();
-                removed.remove(courseId);
+                userPreference.removeRemovedSavedId(courseId);
             }
             if (userId != null) wishlistViewModel.addToWishlist(courseId);
             isWishlisted = true;

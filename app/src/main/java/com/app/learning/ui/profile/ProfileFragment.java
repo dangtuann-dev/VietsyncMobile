@@ -118,6 +118,17 @@ public class ProfileFragment extends Fragment {
         observeViewModel();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel != null) {
+            User localUser = viewModel.getLocalProfile();
+            if (localUser != null) {
+                viewModel.loadUserProfile(localUser.getId());
+            }
+        }
+    }
+
     private void observeViewModel() {
 
         viewModel.getProfileData().observe(getViewLifecycleOwner(), resource -> {
